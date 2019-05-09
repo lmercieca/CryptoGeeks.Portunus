@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGeeks.Portunus.Android", "CryptoGeeks.Portunus\CryptoGeeks.Portunus.Android\CryptoGeeks.Portunus.Android.csproj", "{775757B0-7D12-4103-9D8A-95A31CA01A37}"
 EndProject
@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGeeks.Portunus.iOS", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGeeks.Portunus.UWP", "CryptoGeeks.Portunus\CryptoGeeks.Portunus.UWP\CryptoGeeks.Portunus.UWP.csproj", "{B857B096-2843-4C42-A921-6AB817DFE9AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGeeks.Portunus", "CryptoGeeks.Portunus\CryptoGeeks.Portunus\CryptoGeeks.Portunus.csproj", "{953F7A47-7DEC-4C97-B82A-CF84BEC56B00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoGeeks.Portunus", "CryptoGeeks.Portunus\CryptoGeeks.Portunus\CryptoGeeks.Portunus.csproj", "{953F7A47-7DEC-4C97-B82A-CF84BEC56B00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoGeeks.Common", "CryptoGeeks.Common\CryptoGeeks.Common.csproj", "{7DF2FCC0-130F-4288-B645-2DAFB1726128}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -327,6 +329,54 @@ Global
 		{953F7A47-7DEC-4C97-B82A-CF84BEC56B00}.Release|x86.ActiveCfg = Release|Any CPU
 		{953F7A47-7DEC-4C97-B82A-CF84BEC56B00}.Release|x86.Build.0 = Release|Any CPU
 		{953F7A47-7DEC-4C97-B82A-CF84BEC56B00}.Release|x86.Deploy.0 = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|ARM.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|ARM.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|x64.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|x64.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|x86.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Ad-Hoc|x86.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|ARM.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|ARM.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|x64.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|x64.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|x86.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.AppStore|x86.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|x64.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Debug|x86.Build.0 = Debug|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|ARM.Build.0 = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|iPhone.Build.0 = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|x64.ActiveCfg = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|x64.Build.0 = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DF2FCC0-130F-4288-B645-2DAFB1726128}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
