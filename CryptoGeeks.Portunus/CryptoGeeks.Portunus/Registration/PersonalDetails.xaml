@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:CryptoGeeks.Portunus"
-             x:Class="CryptoGeeks.Portunus.MainPage">
-
-    <StackLayout>
+             x:Class="CryptoGeeks.Portunus.Registration.PersonalDetails"
+             Title="{Binding AppTitle}"
+             BackgroundColor="{StaticResource navy}">
+    <ContentPage.Content>
         <StackLayout>
             <Label Text="Step 1"
                 VerticalOptions="CenterAndExpand" 
@@ -31,6 +31,5 @@
 
 
         </StackLayout>
-    </StackLayout>
-
+    </ContentPage.Content>
 </ContentPage>
