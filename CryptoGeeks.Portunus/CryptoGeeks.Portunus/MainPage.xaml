@@ -2,31 +2,50 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CryptoGeeks.Portunus"
-             x:Class="CryptoGeeks.Portunus.MainPage">
+             x:Class="CryptoGeeks.Portunus.MainPage" BackgroundColor="{StaticResource navy}">
 
-    <StackLayout>
-        <StackLayout>
+    <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
+        <FlexLayout Direction="Row"
+                AlignItems="Center"
+                JustifyContent="SpaceEvenly">
+
+            <Label Text="."
+               FontSize="Large" Style="{StaticResource Step1}" />
+
+            <Label Text="."
+               FontSize="Large" Style="{StaticResource Step1Disabled}" />
+
+            <Label Text="."
+               FontSize="Large" Style="{StaticResource Step1Disabled}" />
+        </FlexLayout>
+
+        
+        <StackLayout Padding="20,0,20,20">
+
+          
             <Label Text="Step 1"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"  Style="{StaticResource Step1}"/>
+
 
             <Label Text="Enter your personal details"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"  Style="{StaticResource Step1Minor}"/>
 
 
             <Label Text="Your personal details are required for verification of your identity"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" Style="{StaticResource Step1_Title}"/>
 
 
-            <Label Text="Last Name"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"  Style="{StaticResource SignInText}"/>
+           
+
+            <Label Text="Last Name"       
+                   HorizontalOptions="Start"  Style="{StaticResource SecurityQuestionText}"/>
 
             <Entry 
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                  ReturnType="Next" IsSpellCheckEnabled="False" TextColor="White" 
+                HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/> 
 
 
 

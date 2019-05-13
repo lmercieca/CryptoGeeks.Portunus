@@ -16,65 +16,120 @@
             <Color x:Key="white_three">#FFFFFFFF</Color>
             <Color x:Key="white_two">#FFEEECE9</Color>
 
+      
+            <Style x:Key="Step1" TargetType="Label">
+                <Setter Property="FontFamily" Value="Europa#700" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="#FFFFFFFF" />
+            </Style>
+
+            <Style x:Key="Step1Minor" TargetType="Label">
+                <Setter Property="FontFamily" Value="Europa#700" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="TextColor" Value="#FFFFFFFF" />
+            </Style>
+
+            
+            <Style x:Key="Step1Disabled" TargetType="Label">
+                <Setter Property="FontFamily" Value="Europa#700" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="red" />
+            </Style> 
+            
+            <Style x:Key="Step1_Title" TargetType="Label">
+                <Setter Property="FontFamily" Value="Europa" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="TextColor" Value="#FFFFFFFF" />
+            </Style>
+
             <Style x:Key="AddKeyText" TargetType="Label">
                 <Setter Property="FontFamily" Value="Europa#700" />
                 <Setter Property="FontSize" Value="30" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
             </Style>
             <Style x:Key="CodeConfirmation" TargetType="Label">
                 <Setter Property="FontFamily" Value="SF Pro Text#500" />
                 <Setter Property="FontSize" Value="12" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="CodeInputNumber" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#300" />
                 <Setter Property="FontSize" Value="25" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="CodeResend" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#700" />
                 <Setter Property="FontSize" Value="17" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="DarkPeachText" TargetType="Label">
                 <Setter Property="FontFamily"  Value="Rift Soft-Demi#400" />
                 <Setter Property="FontSize"  Value="8" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="DashboardSignIn" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#700" />
                 <Setter Property="FontSize" Value="18" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="DashboardSignup" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#700" />
                 <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="Enter4DigitCodeText" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#400" />
                 <Setter Property="FontSize"  Value="22" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="EnterPhone" TargetType="Label">
                 <Setter Property="FontFamily" Value="SF Pro Text#400" />
                 <Setter Property="FontSize" Value="17" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="FingerUnlock" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#700" />
                 <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="GrayButtonText" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#700" />
                 <Setter Property="FontSize" Value="17" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="SecurityQuestionText" TargetType="Label">
-                <Setter Property="FontFamily" Value="SF Pro Text#400" />
-                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontFamily" Value="Europa" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="SecurityQuestionTitle" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#400" />
                 <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="SignInText"  TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#400" />
                 <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
             <Style x:Key="TextStyle" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#700" />
                 <Setter Property="FontSize" Value="48" />
+                <Setter Property="TextColor" Value="#FFF4F2F0" />
+
             </Style>
         </ResourceDictionary>
     </Application.Resources>
