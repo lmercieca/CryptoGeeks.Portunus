@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AppCenter.Crashes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,31 @@ namespace CryptoGeeks.Portunus
     {
         public MainPage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception exception)
+            {
+                Crashes.TrackError(exception);
+            }
+
+
+        }
+
+        protected override void OnAppearing()
+        {
+            try
+            {
+                base.OnAppearing();
+
+                List<string> countries = new List<string>() { "Malta", "Gozo" };
+                Country.ItemsSource = countries;
+            }
+            catch (Exception exception)
+            {
+                Crashes.TrackError(exception);
+            }
         }
     }
 }

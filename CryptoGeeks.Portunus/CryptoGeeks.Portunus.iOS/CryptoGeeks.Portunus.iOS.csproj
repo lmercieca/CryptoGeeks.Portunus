@@ -148,6 +148,15 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AppCenter.Analytics">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.Multilingual">
+      <Version>1.1.6-beta</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
@@ -156,5 +165,14 @@
       <Project>{07427CAF-9A56-4B15-BDB6-EBCD0BE6DD1B}</Project>
       <Name>CryptoGeeks.Portunus</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ProgressBar3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ProgressBar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ProgressBar2.png" />
   </ItemGroup>
 </Project>

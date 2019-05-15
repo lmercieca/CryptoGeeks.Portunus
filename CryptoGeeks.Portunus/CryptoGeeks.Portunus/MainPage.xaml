@@ -2,54 +2,89 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CryptoGeeks.Portunus"
-             x:Class="CryptoGeeks.Portunus.MainPage" BackgroundColor="{StaticResource navy}">
+             x:Class="CryptoGeeks.Portunus.MainPage" 
+             xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
+             BackgroundColor="{StaticResource navy}"
+             Title="{i18n:Translate Mainpage_Title}">
+    <ScrollView VerticalOptions="FillAndExpand">
+        <StackLayout Orientation="Vertical"  Padding="10">
+            <StackLayout HorizontalOptions="CenterAndExpand"  Orientation="Horizontal" >
 
-    <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
-        <FlexLayout Direction="Row"
-                AlignItems="Center"
-                JustifyContent="SpaceEvenly">
 
-            <Label Text="."
-               FontSize="Large" Style="{StaticResource Step1}" />
+                <Image Aspect="AspectFit" Source="ProgressBar1.png"></Image>
 
-            <Label Text="."
-               FontSize="Large" Style="{StaticResource Step1Disabled}" />
+            </StackLayout>
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical" Padding="0,0,0,20" >
 
-            <Label Text="."
-               FontSize="Large" Style="{StaticResource Step1Disabled}" />
-        </FlexLayout>
-
-        
-        <StackLayout Padding="20,0,20,20">
-
-          
-            <Label Text="Step 1"
+                <Label Text="Step 1"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"  Style="{StaticResource Step1}"/>
 
 
-            <Label Text="Enter your personal details"
+                <Label Text="Enter your personal details"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"  Style="{StaticResource Step1Minor}"/>
 
 
-            <Label Text="Your personal details are required for verification of your identity"
+                <Label Text="Your personal details are required for verification of your identity"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" Style="{StaticResource Step1_Title}"/>
 
+            </StackLayout>
 
-           
+            <AbsoluteLayout  VerticalOptions="FillAndExpand">
 
-            <Label Text="Last Name"       
-                   HorizontalOptions="Start"  Style="{StaticResource SecurityQuestionText}"/>
+                <Label Text="{i18n:Translate Mainpage_Lastname}"  AbsoluteLayout.LayoutBounds="3,0,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"   Style="{StaticResource SecurityQuestionText}"/>
 
-            <Entry 
+                <Entry  
+                  ReturnType="Next"  AbsoluteLayout.LayoutBounds="0,25,1,40"  HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   IsSpellCheckEnabled="False" TextColor="White"    FlexLayout.Grow="1" 
+                 Style="{StaticResource SecurityQuestionText}"/>
+
+
+                <Label Text="First Name"  AbsoluteLayout.LayoutBounds="3,70,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"       
+                  Style="{StaticResource SecurityQuestionText}"/>
+
+                <Entry   AbsoluteLayout.LayoutBounds="0,95,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
                   ReturnType="Next" IsSpellCheckEnabled="False" TextColor="White" 
-                HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/> 
+                HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/>
 
 
+                <Label Text="Date of Birth"  AbsoluteLayout.LayoutBounds="3,140,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"       
+                    Style="{StaticResource SecurityQuestionText}"/>
 
+                <DatePicker MinimumDate="01/01/1930"   AbsoluteLayout.LayoutBounds="0,165,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
+                  TextColor="White"  Format="dd/MMM/yyyy" 
+                HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"
+             />
+                
+                
+                <Label Text="Email"        AbsoluteLayout.LayoutBounds="3,210,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional" 
+                   Style="{StaticResource SecurityQuestionText}"/>
+
+                <Entry  AbsoluteLayout.LayoutBounds="0,235,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
+                  ReturnType="Next" IsSpellCheckEnabled="False" IsTextPredictionEnabled="false"  TextColor="White"  Keyboard="Email"
+                HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/>
+
+                <Label Text="Country"  AbsoluteLayout.LayoutBounds="3,280,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"       
+                  Style="{StaticResource SecurityQuestionText}"/>
+
+                <Picker x:Name="Country"  Title="Country" AbsoluteLayout.LayoutBounds="0,305,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
+                   TextColor="White"  ItemsSource="{Binding countries}"
+                HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/>
+
+                <Label Text="Phone"        AbsoluteLayout.LayoutBounds="3,350,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional" 
+                  Style="{StaticResource SecurityQuestionText}"/>
+
+                <StackLayout  HorizontalOptions="FillAndExpand"  Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,375,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"    >
+                    <Picker  
+               TextColor="White" 
+                HorizontalOptions="Start"  Style="{StaticResource SecurityQuestionText}"/>
+
+                    <Entry  
+                  ReturnType="Next" IsSpellCheckEnabled="False" TextColor="White" 
+                HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/>
+                </StackLayout>
+            </AbsoluteLayout>
         </StackLayout>
-    </StackLayout>
-
+    </ScrollView>
 </ContentPage>

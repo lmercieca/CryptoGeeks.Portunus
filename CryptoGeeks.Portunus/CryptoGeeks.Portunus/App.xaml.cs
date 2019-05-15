@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Plugin.Multilingual;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CryptoGeeks.Portunus
@@ -12,11 +16,31 @@ namespace CryptoGeeks.Portunus
             InitializeComponent();
 
             MainPage = new MainPage();
+
+            try
+            {
+                PortunusResources.Culture = CrossMultilingual.Current.DeviceCultureInfo;
+            }
+            catch (Exception exception)
+            {
+                Crashes.TrackError(exception);
+            }
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+
+            try
+            {
+                AppCenter.Start("android=d736b270-a39e-48b4-a624-e2c2f29755be;" +
+                "uwp=8f8d0010-e66b-4b71-9807-0f284d303e4d;" +
+                "ios=861852a1-5d74-4e18-88f5-73b81c097318", 
+                typeof(Analytics), typeof(Crashes));
+            }
+            catch (Exception exception)
+            {
+                Crashes.TrackError(exception);
+            }
         }
 
         protected override void OnSleep()
