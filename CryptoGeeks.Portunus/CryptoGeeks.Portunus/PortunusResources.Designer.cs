@@ -61,20 +61,83 @@ namespace CryptoGeeks.Portunus {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lastname (T).
+        ///   Looks up a localized string similar to Country.
         /// </summary>
-        internal static string Mainpage_Lastname {
+        internal static string Register_Country {
             get {
-                return ResourceManager.GetString("Mainpage_Lastname", resourceCulture);
+                return ResourceManager.GetString("Register_Country", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mainpage (T).
+        ///   Looks up a localized string similar to Date of birth.
         /// </summary>
-        internal static string Mainpage_Title {
+        internal static string Register_DOB {
             get {
-                return ResourceManager.GetString("Mainpage_Title", resourceCulture);
+                return ResourceManager.GetString("Register_DOB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        internal static string Register_Email {
+            get {
+                return ResourceManager.GetString("Register_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        internal static string Register_Firstname {
+            get {
+                return ResourceManager.GetString("Register_Firstname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        internal static string Register_Lastname {
+            get {
+                return ResourceManager.GetString("Register_Lastname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        internal static string Register_Phone {
+            get {
+                return ResourceManager.GetString("Register_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 1.
+        /// </summary>
+        internal static string Register_Step {
+            get {
+                return ResourceManager.GetString("Register_Step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your personal details are required for verification of your identity.
+        /// </summary>
+        internal static string Register_Subtitle {
+            get {
+                return ResourceManager.GetString("Register_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your personal details.
+        /// </summary>
+        internal static string Register_Title {
+            get {
+                return ResourceManager.GetString("Register_Title", resourceCulture);
             }
         }
     }

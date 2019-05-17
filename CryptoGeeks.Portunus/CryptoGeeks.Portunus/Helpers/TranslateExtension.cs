@@ -11,7 +11,7 @@ namespace CryptoGeeks.Portunus.Helpers
     [ContentProperty("Text")]
     public class TranslateExtension : IMarkupExtension
     {
-        const string ResourceId = "CryptoGeeks.Portunus.Helpers.PortunusResources";
+        const string ResourceId = "CryptoGeeks.Portunus.PortunusResources";
 
         static readonly Lazy<ResourceManager> resmgr = new Lazy<ResourceManager>(() => new ResourceManager(ResourceId, typeof(TranslateExtension).GetTypeInfo().Assembly));
 

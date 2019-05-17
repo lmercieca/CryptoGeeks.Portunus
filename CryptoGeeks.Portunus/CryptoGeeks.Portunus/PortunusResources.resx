@@ -117,10 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Mainpage_Lastname" xml:space="preserve">
-    <value>Lastname (T)</value>
+  <data name="Register_Country" xml:space="preserve">
+    <value>Country</value>
   </data>
-  <data name="Mainpage_Title" xml:space="preserve">
-    <value>Mainpage (T)</value>
+  <data name="Register_DOB" xml:space="preserve">
+    <value>Date of birth</value>
+  </data>
+  <data name="Register_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Register_Firstname" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Register_Lastname" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Register_Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Register_Step" xml:space="preserve">
+    <value>Step 1</value>
+  </data>
+  <data name="Register_Subtitle" xml:space="preserve">
+    <value>Your personal details are required for verification of your identity</value>
+  </data>
+  <data name="Register_Title" xml:space="preserve">
+    <value>Enter your personal details</value>
   </data>
 </root>

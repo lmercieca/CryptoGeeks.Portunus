@@ -1,4 +1,5 @@
-﻿using Microsoft.AppCenter.Crashes;
+﻿using CryptoGeeks.Portunus.Api;
+using Microsoft.AppCenter.Crashes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +31,9 @@ namespace CryptoGeeks.Portunus
             {
                 base.OnAppearing();
 
-                List<string> countries = new List<string>() { "Malta", "Gozo" };
-                Country.ItemsSource = countries;
+                Countries countriesApi = new Countries();
+
+                Country.ItemsSource = countriesApi.RefreshDataAsync().Result;                
             }
             catch (Exception exception)
             {
