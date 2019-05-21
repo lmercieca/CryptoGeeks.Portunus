@@ -20,7 +20,7 @@ namespace CryptoGeeks.API.Controllers
         private PortunusEntities db = new PortunusEntities();
 
         // GET: api/Countries
-        public IQueryable<CountryView> GetCountries()
+        public IQueryable<CountryView> GetCountries() 
         {
             return (from c in db.Countries select new CountryView { Name = c.Name, CallingCode = c.CallingCode });
         }
