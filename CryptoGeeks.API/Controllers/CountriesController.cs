@@ -22,7 +22,7 @@ namespace CryptoGeeks.API.Controllers
         // GET: api/Countries
         public IQueryable<CountryView> GetCountries() 
         {
-            return (from c in db.Countries select new CountryView { Name = c.Name, CallingCode = c.CallingCode });
+            return (from c in db.Countries select new CountryView { Name = c.Name, CallingCode = c.CallingCode }).AsNoTracking();
         }
 
         // GET: api/Countries/5
