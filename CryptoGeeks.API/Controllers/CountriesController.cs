@@ -17,7 +17,7 @@ namespace CryptoGeeks.API.Controllers
 {
     public class CountriesController : ApiController
     {
-        private PortunusEntities db = new PortunusEntities();
+        private PortunusEntitiesConnString db = new PortunusEntitiesConnString();
 
         // GET: api/Countries
         public IQueryable<CountryView> GetCountries() 
@@ -29,6 +29,7 @@ namespace CryptoGeeks.API.Controllers
         [ResponseType(typeof(Country))]
         public async Task<IHttpActionResult> GetCountry(int id)
         {
+
             Country country = await db.Countries.FindAsync(id);
             if (country == null)
             {

@@ -7,10 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+using System.Diagnostics;
+using System.Threading;
+
 namespace CryptoGeeks.Portunus
 {
     public partial class MainPage : ContentPage
     {
+
         public MainPage()
         {
             try
@@ -33,7 +37,10 @@ namespace CryptoGeeks.Portunus
 
                 Countries countriesApi = new Countries();
 
-                Country.ItemsSource = countriesApi.RefreshDataAsync().Result;                
+                var apiResult = countriesApi.RefreshDataAsync().Result;
+
+                Country.ItemsSource = apiResult;
+                CountryCode.ItemsSource = apiResult;
             }
             catch (Exception exception)
             {
