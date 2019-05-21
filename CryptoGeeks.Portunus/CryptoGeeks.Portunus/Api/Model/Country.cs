@@ -11,4 +11,10 @@ namespace CryptoGeeks.Portunus.Api.Model
         public string Iso2 { get; set; }
         public string CallingCode { get; set; }
     }
+
+    public class CountryView
+    {
+        public string Name { get; set; }
+        public string CallingCode { get; set; }
+    }
 }

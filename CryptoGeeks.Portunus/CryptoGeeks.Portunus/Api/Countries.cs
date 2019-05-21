@@ -13,7 +13,7 @@ namespace CryptoGeeks.Portunus.Api
     {
         HttpClient _client;
 
-        public async Task<List<Country>> RefreshDataAsync()
+        public async Task<List<CountryView>> RefreshDataAsync()
         {
 
             var uri = new Uri(string.Format(Constants.CountryURL, string.Empty));
@@ -21,12 +21,12 @@ namespace CryptoGeeks.Portunus.Api
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var Items = JsonConvert.DeserializeObject<List<Country>>(content);
+                var Items = JsonConvert.DeserializeObject<List<CountryView>>(content);
 
                 return Items;
             }
 
-            return new List<Country>();
+            return new List<CountryView>();
         }
     }
 }

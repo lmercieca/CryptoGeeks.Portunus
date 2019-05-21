@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CryptoGeeks.API;
+using CryptoGeeks.API.Models;
 using CryptoGeeks.DataLayer;
 
 namespace CryptoGeeks.API.Controllers
@@ -19,9 +20,9 @@ namespace CryptoGeeks.API.Controllers
         private PortunusEntities db = new PortunusEntities();
 
         // GET: api/Countries
-        public IQueryable<Country> GetCountries()
+        public IQueryable<CountryView> GetCountries()
         {
-            return db.Countries;
+            return (from c in db.Countries select new CountryView { Name = c.Name, CallingCode = c.CallingCode });
         }
 
         // GET: api/Countries/5
