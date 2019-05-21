@@ -11,7 +11,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CryptoGeeks.API;
 using CryptoGeeks.API.Models;
-using CryptoGeeks.DataLayer;
 
 namespace CryptoGeeks.API.Controllers
 {

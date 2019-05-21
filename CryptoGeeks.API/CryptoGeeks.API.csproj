@@ -171,6 +171,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CountryView.cs" />
     <Compile Include="PortunusModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
