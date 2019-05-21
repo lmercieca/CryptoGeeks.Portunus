@@ -10,24 +10,24 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CryptoGeeks.API;
-using CryptoGeeks.DataLayer;
 
 namespace CryptoGeeks.API.Controllers
 {
     public class CountriesController : ApiController
     {
-        private PortunusEntities db = new PortunusEntities();
+        private PortunusEntitiesConnString db = new PortunusEntitiesConnString();
 
         // GET: api/Countries
         public IQueryable<Country> GetCountries()
         {
-            return db.Countries;
+            return db.Countries.AsNoTracking();
         }
 
         // GET: api/Countries/5
         [ResponseType(typeof(Country))]
         public async Task<IHttpActionResult> GetCountry(int id)
         {
+
             Country country = await db.Countries.FindAsync(id);
             if (country == null)
             {

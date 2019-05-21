@@ -10,13 +10,12 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CryptoGeeks.API;
-using CryptoGeeks.DataLayer;
 
 namespace CryptoGeeks.API.Controllers
 {
     public class UsersController : ApiController
     {
-        private PortunusEntities db = new PortunusEntities();
+        private PortunusEntitiesConnString db = new PortunusEntitiesConnString();
 
         // GET: api/Users
         public IQueryable<User> GetUsers()
