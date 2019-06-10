@@ -5,141 +5,63 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <Color x:Key="AddKeyIcon">#FFF9AC19</Color>
-            <Color x:Key="beige_0">#0F6ECEC</Color>
-            <Color x:Key="dark_peach">#FFD97D54</Color>
-            <Color x:Key="greyish_brown">#FF3C3C3C</Color>
-            <Color x:Key="navy">#FF011E3B</Color>
-            <Color x:Key="silver">#FFC3CBCE</Color>
-            <Color x:Key="warm_grey">#FF707070</Color>
-            <Color x:Key="white">#FFF4F2F0</Color>
-            <Color x:Key="white_three">#FFFFFFFF</Color>
-            <Color x:Key="white_two">#FFEEECE9</Color>
+        <Color x:Key="HighlightBackground">#F9AC19</Color>
+        <Color x:Key="NormalBackground">#011E3B</Color>
+        <Color x:Key="NormalFontColor">White</Color>
+
+        <Color x:Key="ButtonTextColor">#0054A3</Color>
+        <Color x:Key="ButtonBackColor">White</Color>
+        <Color x:Key="OrangeText">#FCA809</Color>
+        <Color x:Key="BlueText">#011E3B</Color>
 
 
-            <Style x:Key="ActiveStep" TargetType="Label">
-                <Setter Property="FontFamily" Value="Europa#700" />
-                <Setter Property="FontSize" Value="60" />
-                <Setter Property="TextColor" Value="White" />
-            </Style>
 
-            <Style x:Key="DisabledStep" TargetType="Label">
-                <Setter Property="FontFamily" Value="Europa#700" />
-                <Setter Property="FontSize" Value="60" />
-                <Setter Property="TextColor" Value="Gray" />
-            </Style>
+        <Style x:Key="SubTitleText" TargetType="Label">
+            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
+        </Style>
+
+        <Style x:Key="SubTitleTextMinor" TargetType="Label">
+            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
+        </Style>
+
+        <Style x:Key="NormalText" TargetType="Label">
+            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
+        </Style>
+
+        <Style x:Key="NormalTextOrange" TargetType="Label">
+            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextColor" Value="{StaticResource OrangeText}" />
+        </Style>
+
+        <Style x:Key="NormalBlueOrange" TargetType="Label">
+            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextColor" Value="{StaticResource BlueText}" />
+        </Style>
+
+        <Style x:Key="NormalButton" TargetType="Button">
+            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackColor}" />
+        </Style>
 
 
-            <Style x:Key="Step1" TargetType="Label">
-                <Setter Property="FontFamily" Value="Europa#700" />
-                <Setter Property="FontSize" Value="25" />
-                <Setter Property="TextColor" Value="White" />
-            </Style>
-            
-            <Style x:Key="Step1Minor" TargetType="Label">
-                <Setter Property="FontFamily" Value="Europa#700" />
-                <Setter Property="FontSize" Value="20" />
-                <Setter Property="TextColor" Value="#FFFFFFFF" />
-            </Style>
+        <Style x:Key="OrangeButton" TargetType="Button">
+            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextColor" Value="{StaticResource BlueText}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource OrangeText}" />
+        </Style>
 
-            
-    
-            
-            <Style x:Key="Step1_Title" TargetType="Label">
-                <Setter Property="FontFamily" Value="Europa" />
-                <Setter Property="FontSize" Value="15" />
-                <Setter Property="TextColor" Value="#FFFFFFFF" />
-            </Style>
+    </ResourceDictionary>
 
-            <Style x:Key="AddKeyText" TargetType="Label">
-                <Setter Property="FontFamily" Value="Europa#700" />
-                <Setter Property="FontSize" Value="30" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-            </Style>
-            <Style x:Key="CodeConfirmation" TargetType="Label">
-                <Setter Property="FontFamily" Value="SF Pro Text#500" />
-                <Setter Property="FontSize" Value="12" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="CodeInputNumber" TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#300" />
-                <Setter Property="FontSize" Value="25" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="CodeResend" TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#700" />
-                <Setter Property="FontSize" Value="17" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="DarkPeachText" TargetType="Label">
-                <Setter Property="FontFamily"  Value="Rift Soft-Demi#400" />
-                <Setter Property="FontSize"  Value="8" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="DashboardSignIn" TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#700" />
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="DashboardSignup" TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#700" />
-                <Setter Property="FontSize" Value="20" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="Enter4DigitCodeText" TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-                <Setter Property="FontSize"  Value="22" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="EnterPhone" TargetType="Label">
-                <Setter Property="FontFamily" Value="SF Pro Text#400" />
-                <Setter Property="FontSize" Value="17" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="FingerUnlock" TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#700" />
-                <Setter Property="FontSize" Value="20" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="GrayButtonText" TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#700" />
-                <Setter Property="FontSize" Value="17" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="SecurityQuestionText" TargetType="Label">
-                <Setter Property="FontFamily" Value="Europa" />
-                <Setter Property="FontSize" Value="15" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="SecurityQuestionTitle" TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-                <Setter Property="FontSize" Value="25" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="SignInText"  TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-                <Setter Property="FontSize" Value="20" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-            <Style x:Key="TextStyle" TargetType="Label">
-                <Setter Property="FontFamily" Value="Nimbus Sans#700" />
-                <Setter Property="FontSize" Value="48" />
-                <Setter Property="TextColor" Value="#FFF4F2F0" />
-
-            </Style>
-        </ResourceDictionary>
     </Application.Resources>
 </Application>

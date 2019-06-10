@@ -157,12 +157,6 @@
     <PackageReference Include="Plugin.Multilingual">
       <Version>1.1.6-beta</Version>
     </PackageReference>
-    <PackageReference Include="Prism.Autofac.Forms">
-      <Version>7.1.0.431</Version>
-    </PackageReference>
-    <PackageReference Include="Prism.Core">
-      <Version>7.2.0.1233-pre</Version>
-    </PackageReference>
     <PackageReference Include="Telerik.UI.for.Xamarin">
       <Version>2019.2.513.1</Version>
     </PackageReference>
@@ -186,5 +180,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ProgressBar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\LogoSmall.png" />
   </ItemGroup>
 </Project>
