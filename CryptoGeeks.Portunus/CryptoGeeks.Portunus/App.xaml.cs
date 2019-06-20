@@ -5,6 +5,7 @@ using Xamarin.Forms.Xaml;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using CryptoGeeks.Portunus.Views.Registration;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CryptoGeeks.Portunus
@@ -15,8 +16,8 @@ namespace CryptoGeeks.Portunus
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
-
+            //MainPage = new MainPage();
+            MainPage = new Register(); 
             try
             {
                 PortunusResources.Culture = CrossMultilingual.Current.DeviceCultureInfo;

@@ -29,8 +29,6 @@
     <Folder Include="Reset Passcode\" />
     <Folder Include="Add key\" />
     <Folder Include="Recovery\" />
-    <Folder Include="Views\Dashboard\" />
-    <Folder Include="Views\AddKey\" />
     <Folder Include="Views\Recovery\" />
   </ItemGroup>
 
@@ -64,6 +62,18 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="SignIn\SignInWaitingScreen.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AddContact\AddContact.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AddKey\AddKey.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Dashboard\Dashboard.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Dashboard\Panel.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Registration\Register.xaml">

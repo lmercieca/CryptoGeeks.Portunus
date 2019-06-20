@@ -184,4 +184,22 @@
   <ItemGroup>
     <BundleResource Include="Resources\LogoSmall.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\fullname logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\AddContact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\AddKey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\RecoverKey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\RecoveringKey.png" />
+  </ItemGroup>
 </Project>
