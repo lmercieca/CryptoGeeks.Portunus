@@ -7,14 +7,19 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CryptoGeeks.Portunus.Views.AddKey
+namespace CryptoGeeks.Portunus.Views.Dashboard
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AddKey : ContentPage
+	public partial class Loading : ContentPage
 	{
-		public AddKey ()
+		public Loading ()
 		{
 			InitializeComponent ();
+
 		}
+
+        // Load contacts
+        // Load Keys
+
 	}
 }

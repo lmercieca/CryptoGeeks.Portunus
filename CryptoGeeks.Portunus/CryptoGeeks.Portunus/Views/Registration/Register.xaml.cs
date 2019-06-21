@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoGeeks.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,13 @@ namespace CryptoGeeks.Portunus.Views.Registration
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Register : ContentPage
 	{
-		public Register ()
+   
+        public Register ()
 		{
 			InitializeComponent ();
-		}
+
+        
+
+        }
 	}
 }

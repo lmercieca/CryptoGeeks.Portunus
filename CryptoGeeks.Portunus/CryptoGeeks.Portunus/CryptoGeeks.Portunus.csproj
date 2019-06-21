@@ -67,10 +67,10 @@
     <EmbeddedResource Update="Views\AddContact\AddContact.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\AddKey\AddKey.xaml">
+    <EmbeddedResource Update="Views\AddKey\AddEntry.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Dashboard\Dashboard.xaml">
+    <EmbeddedResource Update="Views\Dashboard\Loading.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Dashboard\Panel.xaml">

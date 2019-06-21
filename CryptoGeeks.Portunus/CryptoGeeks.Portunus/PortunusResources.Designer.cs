@@ -70,6 +70,15 @@ namespace CryptoGeeks.Portunus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a new key.
+        /// </summary>
+        internal static string AddKey_Title {
+            get {
+                return ResourceManager.GetString("AddKey_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dashboard.
         /// </summary>
         internal static string Dashboard_Title {
