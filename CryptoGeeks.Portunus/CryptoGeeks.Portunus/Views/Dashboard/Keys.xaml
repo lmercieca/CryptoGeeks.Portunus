@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CryptoGeeks.Portunus.Views.Dashboard.Keys"  
+             xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
+             BackgroundColor="{StaticResource NormalBackground}"
+             Title="{i18n:Translate AddContact_Title}"
+             NavigationPage.HasNavigationBar="False">
+
+
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout  HorizontalOptions="Center" VerticalOptions="Fill" >
+                <Image HorizontalOptions="Center"
+   VerticalOptions="Start" Margin="0,10,0,20" Source="LogoSmall.png" />
+
+
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical"  >
+                    <SearchBar Placeholder="Search..." BackgroundColor="White"  TextColor="{StaticResource BlueText}"  TextChanged="SearchBar_OnTextChanged"></SearchBar>
+
+                    <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
+                    <ListView x:Name="KeysListView"   IsPullToRefreshEnabled="True"  SelectionMode="Single"   ItemSelected="KeysListView_ItemSelected"  ItemsSource="{Binding Keys}"   VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="10,10,10,10">
+                                        <Label Text="{Binding DisplayName}"  Style="{StaticResource NormalText}" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.Footer>
+
+
+
+
+                            <StackLayout HorizontalOptions="Center"   Orientation="Horizontal" Padding="10,10,10,10">
+                                <Button x:Name="btnExport"  Grid.Column="0" Grid.Row="1"  Text="Export" Style="{StaticResource NormalButton}" Clicked="BtnExport_Clicked"></Button>
+                                <Button x:Name="btnAdd"  Grid.Column="1" Grid.Row="1"  Text="Add New" Style="{StaticResource OrangeButton}" Clicked="BtnAdd_Clicked"></Button>
+                            </StackLayout>
+                        </ListView.Footer>
+
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

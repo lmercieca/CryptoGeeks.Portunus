@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Threading;
 using System.IO;
+using Xamarin.Forms.MultiSelectListView;
 
 namespace CryptoGeeks.Portunus.Api
 {
@@ -52,7 +53,7 @@ namespace CryptoGeeks.Portunus.Api
         }
 
 
-        public async Task<ObservableCollection<CountryViewModel>> DeserializeOptimizedFromStreamCallAsync(CancellationToken cancellationToken)
+        public async Task<MultiSelectObservableCollection<CountryViewModel>> DeserializeOptimizedFromStreamCallAsync(CancellationToken cancellationToken)
         {
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Get, Constants.CountryURL))
@@ -61,7 +62,7 @@ namespace CryptoGeeks.Portunus.Api
                 var stream = await response.Content.ReadAsStreamAsync();
 
                 if (response.IsSuccessStatusCode)
-                    return DeserializeJsonFromStream<ObservableCollection<CountryViewModel>>(stream);
+                    return DeserializeJsonFromStream<MultiSelectObservableCollection<CountryViewModel>>(stream);
 
                 var content = await StreamToStringAsync(stream);
                 throw new ApiException
@@ -73,7 +74,7 @@ namespace CryptoGeeks.Portunus.Api
         }
 
 
-        public async Task<ObservableCollection<CountryViewModel>> RefreshDataAsync()
+        public async Task<MultiSelectObservableCollection<CountryViewModel>> RefreshDataAsync()
         {
             HttpClient _client = new HttpClient();
 
@@ -88,12 +89,12 @@ namespace CryptoGeeks.Portunus.Api
 
                 var query = from x in result select new CountryViewModel(x);
 
-                var Items = new ObservableCollection<CountryViewModel>(query.ToList());
+                var Items = new MultiSelectObservableCollection<CountryViewModel>(query.ToList());
 
                 return Items;
             }
 
-            return new ObservableCollection<CountryViewModel>();
+            return new MultiSelectObservableCollection<CountryViewModel>();
         }
     }
 }

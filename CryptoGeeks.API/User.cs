@@ -15,6 +15,6 @@ namespace CryptoGeeks.API
     public partial class User
     {
         public int Id { get; set; }
-        public string Identification { get; set; }
+        public string DisplayName { get; set; }
     }
 }

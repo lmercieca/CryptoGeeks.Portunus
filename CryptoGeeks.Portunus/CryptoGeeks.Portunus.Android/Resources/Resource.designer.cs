@@ -17897,43 +17897,46 @@ namespace CryptoGeeks.Portunus.Droid
 		{
 			
 			// aapt resource value: 0x7f0e006d
-			public const int abc_background_cache_hint_selector_material_dark = 2131624045;
+			public const int ListViewSelected = 2131624045;
 			
 			// aapt resource value: 0x7f0e006e
-			public const int abc_background_cache_hint_selector_material_light = 2131624046;
+			public const int abc_background_cache_hint_selector_material_dark = 2131624046;
 			
 			// aapt resource value: 0x7f0e006f
-			public const int abc_btn_colored_borderless_text_material = 2131624047;
+			public const int abc_background_cache_hint_selector_material_light = 2131624047;
 			
 			// aapt resource value: 0x7f0e0070
-			public const int abc_btn_colored_text_material = 2131624048;
+			public const int abc_btn_colored_borderless_text_material = 2131624048;
 			
 			// aapt resource value: 0x7f0e0071
-			public const int abc_color_highlight_material = 2131624049;
+			public const int abc_btn_colored_text_material = 2131624049;
 			
 			// aapt resource value: 0x7f0e0072
-			public const int abc_hint_foreground_material_dark = 2131624050;
+			public const int abc_color_highlight_material = 2131624050;
 			
 			// aapt resource value: 0x7f0e0073
-			public const int abc_hint_foreground_material_light = 2131624051;
+			public const int abc_hint_foreground_material_dark = 2131624051;
+			
+			// aapt resource value: 0x7f0e0074
+			public const int abc_hint_foreground_material_light = 2131624052;
 			
 			// aapt resource value: 0x7f0e0004
 			public const int abc_input_method_navigation_guard = 2131623940;
 			
-			// aapt resource value: 0x7f0e0074
-			public const int abc_primary_text_disable_only_material_dark = 2131624052;
-			
 			// aapt resource value: 0x7f0e0075
-			public const int abc_primary_text_disable_only_material_light = 2131624053;
+			public const int abc_primary_text_disable_only_material_dark = 2131624053;
 			
 			// aapt resource value: 0x7f0e0076
-			public const int abc_primary_text_material_dark = 2131624054;
+			public const int abc_primary_text_disable_only_material_light = 2131624054;
 			
 			// aapt resource value: 0x7f0e0077
-			public const int abc_primary_text_material_light = 2131624055;
+			public const int abc_primary_text_material_dark = 2131624055;
 			
 			// aapt resource value: 0x7f0e0078
-			public const int abc_search_url_text = 2131624056;
+			public const int abc_primary_text_material_light = 2131624056;
+			
+			// aapt resource value: 0x7f0e0079
+			public const int abc_search_url_text = 2131624057;
 			
 			// aapt resource value: 0x7f0e0005
 			public const int abc_search_url_text_normal = 2131623941;
@@ -17944,29 +17947,29 @@ namespace CryptoGeeks.Portunus.Droid
 			// aapt resource value: 0x7f0e0007
 			public const int abc_search_url_text_selected = 2131623943;
 			
-			// aapt resource value: 0x7f0e0079
-			public const int abc_secondary_text_material_dark = 2131624057;
-			
 			// aapt resource value: 0x7f0e007a
-			public const int abc_secondary_text_material_light = 2131624058;
+			public const int abc_secondary_text_material_dark = 2131624058;
 			
 			// aapt resource value: 0x7f0e007b
-			public const int abc_tint_btn_checkable = 2131624059;
+			public const int abc_secondary_text_material_light = 2131624059;
 			
 			// aapt resource value: 0x7f0e007c
-			public const int abc_tint_default = 2131624060;
+			public const int abc_tint_btn_checkable = 2131624060;
 			
 			// aapt resource value: 0x7f0e007d
-			public const int abc_tint_edittext = 2131624061;
+			public const int abc_tint_default = 2131624061;
 			
 			// aapt resource value: 0x7f0e007e
-			public const int abc_tint_seek_thumb = 2131624062;
+			public const int abc_tint_edittext = 2131624062;
 			
 			// aapt resource value: 0x7f0e007f
-			public const int abc_tint_spinner = 2131624063;
+			public const int abc_tint_seek_thumb = 2131624063;
 			
 			// aapt resource value: 0x7f0e0080
-			public const int abc_tint_switch_track = 2131624064;
+			public const int abc_tint_spinner = 2131624064;
+			
+			// aapt resource value: 0x7f0e0081
+			public const int abc_tint_switch_track = 2131624065;
 			
 			// aapt resource value: 0x7f0e0008
 			public const int accent_material_dark = 2131623944;
@@ -18052,8 +18055,8 @@ namespace CryptoGeeks.Portunus.Droid
 			// aapt resource value: 0x7f0e0040
 			public const int design_bottom_navigation_shadow_color = 2131624000;
 			
-			// aapt resource value: 0x7f0e0081
-			public const int design_error = 2131624065;
+			// aapt resource value: 0x7f0e0082
+			public const int design_error = 2131624066;
 			
 			// aapt resource value: 0x7f0e0041
 			public const int design_fab_shadow_end_color = 2131624001;
@@ -18079,8 +18082,8 @@ namespace CryptoGeeks.Portunus.Droid
 			// aapt resource value: 0x7f0e0048
 			public const int design_snackbar_background_color = 2131624008;
 			
-			// aapt resource value: 0x7f0e0082
-			public const int design_tint_password_toggle = 2131624066;
+			// aapt resource value: 0x7f0e0083
+			public const int design_tint_password_toggle = 2131624067;
 			
 			// aapt resource value: 0x7f0e0016
 			public const int dim_foreground_disabled_material_dark = 2131623958;
@@ -18265,11 +18268,11 @@ namespace CryptoGeeks.Portunus.Droid
 			// aapt resource value: 0x7f0e003a
 			public const int switch_thumb_disabled_material_light = 2131623994;
 			
-			// aapt resource value: 0x7f0e0083
-			public const int switch_thumb_material_dark = 2131624067;
-			
 			// aapt resource value: 0x7f0e0084
-			public const int switch_thumb_material_light = 2131624068;
+			public const int switch_thumb_material_dark = 2131624068;
+			
+			// aapt resource value: 0x7f0e0085
+			public const int switch_thumb_material_light = 2131624069;
 			
 			// aapt resource value: 0x7f0e003b
 			public const int switch_thumb_normal_material_dark = 2131623995;
@@ -19119,26 +19122,26 @@ namespace CryptoGeeks.Portunus.Droid
 			// aapt resource value: 0x7f020059
 			public const int avd_hide_password = 2130837593;
 			
-			// aapt resource value: 0x7f020156
-			public const int avd_hide_password_1 = 2130837846;
-			
 			// aapt resource value: 0x7f020157
-			public const int avd_hide_password_2 = 2130837847;
+			public const int avd_hide_password_1 = 2130837847;
 			
 			// aapt resource value: 0x7f020158
-			public const int avd_hide_password_3 = 2130837848;
+			public const int avd_hide_password_2 = 2130837848;
+			
+			// aapt resource value: 0x7f020159
+			public const int avd_hide_password_3 = 2130837849;
 			
 			// aapt resource value: 0x7f02005a
 			public const int avd_show_password = 2130837594;
 			
-			// aapt resource value: 0x7f020159
-			public const int avd_show_password_1 = 2130837849;
-			
 			// aapt resource value: 0x7f02015a
-			public const int avd_show_password_2 = 2130837850;
+			public const int avd_show_password_1 = 2130837850;
 			
 			// aapt resource value: 0x7f02015b
-			public const int avd_show_password_3 = 2130837851;
+			public const int avd_show_password_2 = 2130837851;
+			
+			// aapt resource value: 0x7f02015c
+			public const int avd_show_password_3 = 2130837852;
 			
 			// aapt resource value: 0x7f02005b
 			public const int data_form_invalid_background = 2130837595;
@@ -19833,11 +19836,11 @@ namespace CryptoGeeks.Portunus.Droid
 			// aapt resource value: 0x7f020141
 			public const int notification_icon_background = 2130837825;
 			
-			// aapt resource value: 0x7f020154
-			public const int notification_template_icon_bg = 2130837844;
-			
 			// aapt resource value: 0x7f020155
-			public const int notification_template_icon_low_bg = 2130837845;
+			public const int notification_template_icon_bg = 2130837845;
+			
+			// aapt resource value: 0x7f020156
+			public const int notification_template_icon_low_bg = 2130837846;
 			
 			// aapt resource value: 0x7f020142
 			public const int notification_tile_bg = 2130837826;
@@ -19864,34 +19867,37 @@ namespace CryptoGeeks.Portunus.Droid
 			public const int RecoverKey = 2130837833;
 			
 			// aapt resource value: 0x7f02014a
-			public const int selectable_item_background = 2130837834;
+			public const int select = 2130837834;
 			
 			// aapt resource value: 0x7f02014b
-			public const int shade_bottom = 2130837835;
+			public const int selectable_item_background = 2130837835;
 			
 			// aapt resource value: 0x7f02014c
-			public const int shade_corner = 2130837836;
+			public const int shade_bottom = 2130837836;
 			
 			// aapt resource value: 0x7f02014d
-			public const int shade_right = 2130837837;
+			public const int shade_corner = 2130837837;
 			
 			// aapt resource value: 0x7f02014e
-			public const int tab_view_popup_background = 2130837838;
+			public const int shade_right = 2130837838;
 			
 			// aapt resource value: 0x7f02014f
-			public const int TelerikChatAuthor = 2130837839;
+			public const int tab_view_popup_background = 2130837839;
 			
 			// aapt resource value: 0x7f020150
-			public const int TelerikSendMessage = 2130837840;
+			public const int TelerikChatAuthor = 2130837840;
 			
 			// aapt resource value: 0x7f020151
-			public const int TelerikTypingAuthors = 2130837841;
+			public const int TelerikSendMessage = 2130837841;
 			
 			// aapt resource value: 0x7f020152
-			public const int tooltip_frame_dark = 2130837842;
+			public const int TelerikTypingAuthors = 2130837842;
 			
 			// aapt resource value: 0x7f020153
-			public const int tooltip_frame_light = 2130837843;
+			public const int tooltip_frame_dark = 2130837843;
+			
+			// aapt resource value: 0x7f020154
+			public const int tooltip_frame_light = 2130837844;
 			
 			static Drawable()
 			{
@@ -22209,6 +22215,9 @@ namespace CryptoGeeks.Portunus.Droid
 			
 			// aapt resource value: 0x7f0d0198
 			public const int CustomToggleButtonEditorThemeBlue = 2131558808;
+			
+			// aapt resource value: 0x7f0d01b2
+			public const int ListViewStyle_Light = 2131558834;
 			
 			// aapt resource value: 0x7f0d01af
 			public const int MainTheme = 2131558831;

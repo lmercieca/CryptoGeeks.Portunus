@@ -1,4 +1,5 @@
 ﻿using CryptoGeeks.Portunus.Api.Model;
+using CryptoGeeks.Portunus.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,12 +7,6 @@ using System.Text;
 
 namespace CryptoGeeks.Portunus.Api.Model
 {
-
-    public class Contact
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
 
     public class ContactViewModel : INotifyPropertyChanged
     {
@@ -23,22 +18,15 @@ namespace CryptoGeeks.Portunus.Api.Model
             get { return contact; }
         }
 
-        public string Name
-        {
-            get { return contact.Name; }
-            set
-            {
-                contact.Name = value;
-                NotifyPropertyChanged("Name");
-            }
-        }
-
-      
 
         public ContactViewModel(Contact contact)
         {
             this.contact = contact;
         }
+
+        public bool Selected { get; set; }
+
+        public string DisplayName { get { return this.contact.DisplayName; } }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

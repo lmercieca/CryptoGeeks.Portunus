@@ -1,4 +1,7 @@
 ﻿using CryptoGeeks.Common;
+using CryptoGeeks.Portunus.Api;
+using CryptoGeeks.Portunus.Helpers;
+using CryptoGeeks.Portunus.Views.Dashboard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +16,9 @@ namespace CryptoGeeks.Portunus.Views.Registration
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Register : ContentPage
 	{
-   
+        SecureStorage secureStorage = new SecureStorage();
+        ContactService cs = new ContactService();
+
         public Register ()
 		{
 			InitializeComponent ();
@@ -21,5 +26,46 @@ namespace CryptoGeeks.Portunus.Views.Registration
         
 
         }
-	}
+        private async Task<bool> DisplayNameExists(string displayName)
+        {
+            bool result = false;
+            result = await cs.DisplayNameExists(displayName);
+
+
+            return result;
+
+        }
+
+        private async void BtnAgree_Clicked(object sender, EventArgs e)
+        {
+            if (!cbAgreement.IsToggled)
+                await DisplayAlert("Registration validation error", "Please accept the terms and conditions before proceeding", "OK");
+            else
+            {
+                if (DisplayName.Text.Trim().Length == 0)
+                {
+                    await DisplayAlert("Registration validation error", "Display name cannot be left empty", "OK");
+                }
+                else
+                {
+                    if (await DisplayNameExists(DisplayName.Text))
+                    {
+                        await DisplayAlert("Registration validation error", "Display name already exists", "OK");
+                    }
+                    else
+                    {
+                        await cs.AddDisplayName(DisplayName.Text);
+
+                        secureStorage.StoreInSecureStorage(Constants.DisplayName, DisplayName.Text);
+
+
+                        await Navigation.PushModalAsync(new NavigationPage(new Keys()), true);
+                    }
+                }
+            }
+
+
+
+        }
+    }
 }

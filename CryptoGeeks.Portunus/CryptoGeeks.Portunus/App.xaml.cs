@@ -8,6 +8,12 @@ using Microsoft.AppCenter.Crashes;
 using CryptoGeeks.Portunus.Views.Registration;
 using CryptoGeeks.Portunus.Views.Dashboard;
 using CryptoGeeks.Common;
+using CryptoGeeks.Portunus.Views.AddContact;
+using CryptoGeeks.Portunus.Helpers;
+using CryptoGeeks.Portunus.Api;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
+using SecureStorage = CryptoGeeks.Common.SecureStorage;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CryptoGeeks.Portunus
@@ -20,8 +26,9 @@ namespace CryptoGeeks.Portunus
         {
             InitializeComponent();
 
-            //MainPage = new MainPage();
-            
+
+            ExperimentalFeatures.Enable(ExperimentalFeatures.EmailAttachments);
+
             try
             {
                 PortunusResources.Culture = CrossMultilingual.Current.DeviceCultureInfo;
@@ -31,12 +38,14 @@ namespace CryptoGeeks.Portunus
                 Crashes.TrackError(exception);
             }
 
-            string displayName = secureStorage.GetFromSecureStorage("displayname");
+
+            string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
 
             if (!string.IsNullOrEmpty(displayName))
-                MainPage = new Panel();
+                MainPage = new NavigationPage(new Keys());
             else
-                MainPage = new Register();
+
+                MainPage = new NavigationPage(new Register());
 
         }
 
@@ -55,6 +64,7 @@ namespace CryptoGeeks.Portunus
                 Crashes.TrackError(exception);
             }
         }
+
 
         protected override void OnSleep()
         {

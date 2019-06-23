@@ -4,23 +4,56 @@
              x:Class="CryptoGeeks.Portunus.Views.AddContact.AddContact"             
              xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
              BackgroundColor="{StaticResource NormalBackground}"
-             Title="{i18n:Translate AddContact_Title}">
-    
-    <ContentPage.Content>
-        <StackLayout>
-            <SearchBar Placeholder="Search..." TextChanged="SearchBar_OnTextChanged"></SearchBar>
+             Title="{i18n:Translate AddContact_Title}"
+                    xmlns:lv="clr-namespace:Xamarin.Forms.MultiSelectListView;assembly=Xamarin.Forms.MultiSelectListView" >
 
-               <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
-                <ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True"  ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">                 
+
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical" >
+            <SearchBar Placeholder="Search..." BackgroundColor="White"  TextColor="{StaticResource BlueText}" TextChanged="SearchBar_OnTextChanged"></SearchBar>
+
+            <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
+            <ListView x:Name="ContactsListView"  lv:MultiSelect.Enable="true" IsPullToRefreshEnabled="True"   ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Padding="5,0,5,0" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                                <Label Text="{Binding DisplayName}" VerticalTextAlignment="Center" FontSize="Small" />
-                            </StackLayout>
-                        </ViewCell>
+                        <lv:SelectableCell x:Name="SelectableCell">
+
+                            <lv:SelectableCell.CheckView>
+                                <Image Source="select.png"></Image>
+                            </lv:SelectableCell.CheckView>
+
+                            <lv:SelectableCell.DataView>
+
+                                <Label Text="{Binding DisplayName}"  Style="{StaticResource NormalText}" />
+
+                            </lv:SelectableCell.DataView>
+                        </lv:SelectableCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
+                <ListView.Footer>
+
+
+
+
+                    <StackLayout HorizontalOptions="Center"   Orientation="Horizontal" Padding="10,10,10,10">
+
+                        <Grid VerticalOptions="Center"  >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+
+                        <Button x:Name="btnCancel" Grid.Column="0" Grid.Row="0"  Text="Cancel" Style="{StaticResource NormalButton}" ></Button>
+                        <Button x:Name="btnDone"  Grid.Column="0" Grid.Row="1"  Text="Done" Style="{StaticResource OrangeButton}" IsVisible="{Binding Loaded}"></Button>
+                    </StackLayout>
+                </ListView.Footer>
+
             </ListView>
         </StackLayout>
     </ContentPage.Content>
