@@ -7,6 +7,8 @@ namespace CryptoGeeks.Portunus.Models
     public class Key
     {
 
+        public string Identifier { get; set; }
+
         public string DisplayName { get; set; }
 
         private List<Fragment> fragments = new List<Fragment>();

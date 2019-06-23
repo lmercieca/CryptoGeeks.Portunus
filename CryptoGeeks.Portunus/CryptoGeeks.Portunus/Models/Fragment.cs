@@ -9,5 +9,6 @@ namespace CryptoGeeks.Portunus.Models
         public Key Parent { get; set; }
         public Contact Owner { get; set; }
         public string Data { get; set; }
+        public string Identifier { get; set; }
     }
 }

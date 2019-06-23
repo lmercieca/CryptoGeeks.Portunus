@@ -20,6 +20,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Plugin.Multilingual" Version="1.1.6-beta" />
+    <PackageReference Include="rda.SocketsForPCL" Version="2.0.2" />
     <PackageReference Include="Refit" Version="4.7.9" />
     <PackageReference Include="Telerik.UI.for.Xamarin" Version="2019.2.513.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
@@ -32,6 +33,10 @@
     <Folder Include="Add key\" />
     <Folder Include="Recovery\" />
     <Folder Include="Views\Recovery\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CryptoGeeks.SecretSplitter\SecretSplitter.csproj" />
   </ItemGroup>
 
   <ItemGroup>
