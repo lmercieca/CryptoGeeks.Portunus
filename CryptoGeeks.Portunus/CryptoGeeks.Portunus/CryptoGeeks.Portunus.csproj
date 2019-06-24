@@ -35,7 +35,6 @@
     <Folder Include="Reset Passcode\" />
     <Folder Include="Add key\" />
     <Folder Include="Recovery\" />
-    <Folder Include="Views\Recovery\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +49,9 @@
     </Compile>
     <Compile Update="SignIn\PasscodeLogin.xaml.cs">
       <DependentUpon>PasscodeLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Recovery\Recover.xaml.cs">
+      <DependentUpon>Recover.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -90,6 +92,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ExportImport\Export.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Recovery\Recovered.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Registration\Register.xaml">

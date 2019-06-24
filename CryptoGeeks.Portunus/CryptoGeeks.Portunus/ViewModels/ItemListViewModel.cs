@@ -1,5 +1,7 @@
-﻿using CryptoGeeks.Portunus.Api;
+﻿using CryptoGeeks.Common;
+using CryptoGeeks.Portunus.Api;
 using CryptoGeeks.Portunus.Api.Model;
+using CryptoGeeks.Portunus.Helpers;
 using CryptoGeeks.Portunus.Models;
 using System;
 using System.Collections.Generic;
@@ -60,25 +62,14 @@ namespace CryptoGeeks.Portunus.ViewModels
 
         public async Task<string> RefreshKeys()
         {
-            Contact contact = new Contact() { DisplayName = "Loading.." };
 
+            KeyService keyService = new KeyService();
 
-            Fragment fragment1 = new Fragment() { Data = "Fragment 1", Owner = contact };
-            Fragment fragment2 = new Fragment() { Data = "Fragment 2", Owner = contact };
-            Fragment fragment3 = new Fragment() { Data = "Fragment 1", Owner = contact };
+            SecureStorage secStorage = new SecureStorage();
 
-            Key key = new Key()
-            {
-                CreatedDate = DateTime.Now,
-                Fragments = new List<Fragment>() { fragment1, fragment2, fragment3 },
-                RequiredFragments = 2,
-                DisplayName = "Added"
+            var res = await keyService.RefreshDataAsync(secStorage.GetFromSecureStorage(Constants.DisplayName));
 
-            };
-
-            //Just for tesing
-            this.Keys.Add(key);
-
+            this.Keys = res;
 
             return await Task.FromResult("");
         }

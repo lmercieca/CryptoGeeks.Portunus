@@ -50,7 +50,46 @@ namespace CryptoGeeks.Portunus.Api
         }
 
 
-       
+        public async Task<ObservableCollection<Key>> RefreshDataAsync(string displayName)
+        {
+
+            using (HttpClientHandler ClientHandler = new HttpClientHandler())
+            {
+                ClientHandler.AllowAutoRedirect = true;
+                ClientHandler.UseDefaultCredentials = true;
+
+
+                using (HttpClient Client = new HttpClient(ClientHandler))
+                {
+
+                    var builder = new UriBuilder(Constants.GetKeyURL);
+                    var query = HttpUtility.ParseQueryString(builder.Query);
+                    query["displayname"] = displayName;
+                    builder.Query = query.ToString();
+                    string url = builder.ToString();
+
+
+                    using (HttpResponseMessage ResponseMessage = await Client.GetAsync(url))
+                    {
+                        using (HttpContent Content = ResponseMessage.Content)
+                        {
+                            string result = await Content.ReadAsStringAsync();
+
+                            List<ApiKey> results = JsonConvert.DeserializeObject<List<ApiKey>>(result);
+
+                            var keys = from x in results select new Key(x);
+
+                            var Items = new ObservableCollection<Key>(keys.ToList());
+
+                            return Items;
+                        }
+                    }
+                }
+            }
+
+            return new ObservableCollection<Key>();
+        }
+
 
         public async Task<bool> AddKey(ApiKey key)
         {

@@ -36,5 +36,10 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         {
             await Navigation.PopModalAsync(true);
         }
+
+        private async void BtnRecover_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new Recover(key)), true);
+        }
     }
 }

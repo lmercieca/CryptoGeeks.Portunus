@@ -22,6 +22,7 @@ namespace CryptoGeeks.Portunus.Helpers
         public static string AddDisplayNameURL = BaseUrl + "/users/AddDisplayName";
 
         public static string AddKeyURL = BaseUrl + "/keys/PostKey";
+        public static string GetKeyURL = BaseUrl + "/keys/GetKeysForUser";
 
 
 

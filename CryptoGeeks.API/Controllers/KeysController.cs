@@ -23,6 +23,8 @@ namespace CryptoGeeks.API.Controllers
             return db.Keys;
         }
 
+
+        [Route("api/Keys/GetKeysForUser")]
         public IQueryable<Key> GetKeysForUser(string DisplayName)
         {
             return db.Keys.Where(x => x.Owner.ToLower().Trim() == DisplayName.ToLower().Trim());
