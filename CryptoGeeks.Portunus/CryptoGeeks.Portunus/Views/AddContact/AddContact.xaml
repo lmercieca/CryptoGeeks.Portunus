@@ -4,7 +4,7 @@
              x:Class="CryptoGeeks.Portunus.Views.AddContact.AddContact"             
              xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
              BackgroundColor="{StaticResource NormalBackground}"
-             Title="{i18n:Translate AddContact_Title}"
+             Title="Add a new contact"
                     xmlns:lv="clr-namespace:Xamarin.Forms.MultiSelectListView;assembly=Xamarin.Forms.MultiSelectListView" >
 
 

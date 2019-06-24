@@ -4,8 +4,7 @@
              x:Class="CryptoGeeks.Portunus.Views.Dashboard.Recover"  
              xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
              BackgroundColor="{StaticResource NormalBackground}"
-             Title="{i18n:Translate AddContact_Title}"
-             NavigationPage.HasNavigationBar="False"
+             Title="Key recovered"
                     xmlns:lv="clr-namespace:Xamarin.Forms.MultiSelectListView;assembly=Xamarin.Forms.MultiSelectListView" >
 
 
@@ -19,19 +18,24 @@
 
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical" >
 
+                    <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Please wait while the peers you selected send their fragment back." Style="{StaticResource SubTitleTextMinor}"></Label>
+
+
+                    
                     <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
                     <ListView x:Name="ContactsListView"  lv:MultiSelect.Enable="true" IsPullToRefreshEnabled="True"    VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <lv:SelectableCell x:Name="SelectableCell">
 
+                                    
                                     <lv:SelectableCell.CheckView>
                                         <Image Source="select.png"></Image>
                                     </lv:SelectableCell.CheckView>
 
-                                    <lv:SelectableCell.DataView>
+                                    <lv:SelectableCell.DataView >
 
-                                        <Label Text="{Binding Owner.DisplayName}"  Style="{StaticResource NormalText}" />
+                                        <Label Text="{Binding Owner.DisplayName}" LineHeight="20"  Style="{StaticResource MinorNormalText}" />
 
                                     </lv:SelectableCell.DataView>
                                 </lv:SelectableCell>
@@ -56,7 +60,7 @@
                                     </Grid.ColumnDefinitions>
                                 </Grid>
 
-                                <Button x:Name="btnCancel" Grid.Column="0" Grid.Row="0"  Text="Cancel" Style="{StaticResource NormalButton}" ></Button>
+                                <Button x:Name="btnCancel" Grid.Column="0" Grid.Row="0"  Text="Cancel" Style="{StaticResource NormalButton}" Clicked="BtnCancel_Clicked" ></Button>
                                 <Button x:Name="btnStart"  Grid.Column="0" Grid.Row="1"  Text="Recover" Style="{StaticResource OrangeButton}" Clicked="BtnStart_Clicked"></Button>
                                 
                                 <Button x:Name="btnDone"  Grid.Column="0" Grid.Row="1"  Text="Done" Style="{StaticResource OrangeButton}" IsVisible="{Binding Loaded}" Clicked="BtnDone_Clicked"></Button>

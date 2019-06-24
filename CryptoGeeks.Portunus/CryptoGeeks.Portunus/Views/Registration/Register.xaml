@@ -4,7 +4,7 @@
              x:Class="CryptoGeeks.Portunus.Views.Registration.Register"
                xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
            BackgroundColor="{StaticResource NormalBackground}"
-             Title="{i18n:Translate Register_Title}"
+             Title="Register your details"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <ScrollView>
@@ -29,9 +29,7 @@
                     </Grid>
 
                     <Label Text="Display Name" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
-                    <Editor x:Name="DisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
-
-                    
+                    <Entry x:Name="DisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Entry>
 
                  
                     <StackLayout Orientation="Horizontal"  Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,20">

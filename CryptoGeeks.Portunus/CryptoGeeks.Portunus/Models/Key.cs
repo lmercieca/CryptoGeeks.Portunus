@@ -11,7 +11,7 @@ namespace CryptoGeeks.Portunus.Models
 
         public Key(ApiKey key)
         {
-            this.DisplayName = key.Owner;
+            this.DisplayName = key.Key1;
             this.RequiredFragments = key.RecoverNo.Value;
             this.Data = key.Data;
 

@@ -4,7 +4,7 @@
              x:Class="CryptoGeeks.Portunus.Views.AddKey.AddEntry"             
              xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
              BackgroundColor="{StaticResource NormalBackground}"
-             Title="{i18n:Translate AddKey_Title}"
+             Title="Add a new key"
              xmlns:lv="clr-namespace:Xamarin.Forms.MultiSelectListView;assembly=Xamarin.Forms.MultiSelectListView" 
     NavigationPage.HasNavigationBar="False">
     
@@ -18,7 +18,7 @@
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical" Padding="10,10,10,10"  >
 
 
-                    <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Add key details" Style="{StaticResource SubTitleTextMinor}"></Label>
+                    <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Enter the new key details" Style="{StaticResource SubTitleTextMinor}"></Label>
 
                     <Grid   HorizontalOptions="FillAndExpand">
                         <Grid.RowDefinitions>
@@ -31,9 +31,13 @@
                         </Grid.ColumnDefinitions>
                     </Grid>
 
+                    <Label Text="Display Name" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
+                    <Editor x:Name="txtDisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
+
                     <Label Text="Key" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
                     <Editor x:Name="txtKey" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
 
+                    
                     <Label Text="Min fragments to recover" Grid.Column="2" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
                     <Editor x:Name="txtRecoverNo" Grid.Column="2"  Keyboard="Numeric" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
 
@@ -44,7 +48,12 @@
         </ScrollView>
     </ContentPage>
     <ContentPage Title="Contacts" x:Name="Contacts">
-        <StackLayout>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical" Padding="10,10,10,10"  >
+
+
+            <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Select who will store part of the fragments." Style="{StaticResource SubTitleTextMinor}"></Label>
+
+
             <!--<SearchBar Placeholder="Search..." BackgroundColor="White"  TextColor="{StaticResource BlueText}" TextChanged="SearchBar_OnTextChanged"></SearchBar>-->
 
             <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
@@ -59,7 +68,7 @@
 
                             <lv:SelectableCell.DataView>
 
-                                <Label Text="{Binding DisplayName}"  Style="{StaticResource NormalText}" />
+                                <Label Text="{Binding DisplayName}"  Style="{StaticResource MinorNormalText}" />
 
                             </lv:SelectableCell.DataView>
                         </lv:SelectableCell>

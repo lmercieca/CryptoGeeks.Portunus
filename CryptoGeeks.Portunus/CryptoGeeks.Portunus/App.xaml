@@ -18,37 +18,45 @@
 
         <Style x:Key="SubTitleText" TargetType="Label">
             <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontSize" Value="27" />
             <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
         </Style>
 
         <Style x:Key="SubTitleTextMinor" TargetType="Label">
             <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontSize" Value="23" />
             <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
         </Style>
 
         <Style x:Key="NormalText" TargetType="Label">
             <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
         </Style>
 
-        <Style x:Key="NormalTextOrange" TargetType="Label">
+
+            <Style x:Key="MinorNormalText" TargetType="Label">
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
+            </Style>
+
+            
+            <Style x:Key="NormalTextOrange" TargetType="Label">
             <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="TextColor" Value="{StaticResource OrangeText}" />
         </Style>
 
         <Style x:Key="NormalBlueOrange" TargetType="Label">
             <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="TextColor" Value="{StaticResource BlueText}" />
         </Style>
 
         <Style x:Key="NormalButton" TargetType="Button">
             <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
             <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackColor}" />
         </Style>
@@ -56,7 +64,7 @@
 
         <Style x:Key="OrangeButton" TargetType="Button">
             <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="TextColor" Value="{StaticResource BlueText}" />
             <Setter Property="BackgroundColor" Value="{StaticResource OrangeText}" />
         </Style>

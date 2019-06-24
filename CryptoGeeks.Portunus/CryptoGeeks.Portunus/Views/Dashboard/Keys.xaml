@@ -4,8 +4,7 @@
              x:Class="CryptoGeeks.Portunus.Views.Dashboard.Keys"  
              xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
              BackgroundColor="{StaticResource NormalBackground}"
-             Title="{i18n:Translate AddContact_Title}"
-             NavigationPage.HasNavigationBar="False">
+             Title="List of all your keys">
 
 
 
@@ -17,6 +16,10 @@
 
 
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical"  >
+
+
+
+
                     <SearchBar Placeholder="Search..." BackgroundColor="White"  TextColor="{StaticResource BlueText}"  TextChanged="SearchBar_OnTextChanged"></SearchBar>
 
                     <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
@@ -25,7 +28,7 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <Grid Padding="10,10,10,10">
-                                        <Label Text="{Binding DisplayName}"  Style="{StaticResource NormalText}" />
+                                        <Label Text="{Binding DisplayName}"  Style="{StaticResource MinorNormalText}" />
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

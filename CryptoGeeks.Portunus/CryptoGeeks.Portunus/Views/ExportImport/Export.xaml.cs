@@ -49,8 +49,7 @@ namespace CryptoGeeks.Portunus.Views.ExportImport
 
             await SendEmail("Portunus - Details export", "Please find attached an export of your current keys and fragments. Store it in a secure manner, remember with great power comes great responsibility (spiderman)!");
 
-            await DisplayAlert("Export", "Email successfully sent. You might need to check your spam folder.", "OK");
-
+            
             await Navigation.PopModalAsync(true);
         }
 

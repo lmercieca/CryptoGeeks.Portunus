@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="{StaticResource NormalBackground}"
-             x:Class="CryptoGeeks.Portunus.Views.Dashboard.KeyDetails" NavigationPage.HasNavigationBar="False">
+             x:Class="CryptoGeeks.Portunus.Views.Dashboard.KeyDetails" 
+             Title="Key details">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout  HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" Padding="10,10,10,10" >
@@ -41,7 +42,7 @@
                         <StackLayout  x:Name="FragmentsListView"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  BindableLayout.ItemsSource="{Binding Fragments}" Orientation="Vertical">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Owner.DisplayName}"  Style="{StaticResource NormalText}" />
+                                <Label Text="{Binding Owner.DisplayName}"  Style="{StaticResource MinorNormalText}" />
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>

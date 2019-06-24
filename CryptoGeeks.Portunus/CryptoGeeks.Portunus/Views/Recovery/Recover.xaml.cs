@@ -65,9 +65,10 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         private async Task<bool> LoadData()
         {
-           
-         
-          
+
+
+            Thread.Sleep(TimeSpan.FromSeconds(RandomNumber(3, 5)));
+
 
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -78,7 +79,6 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                     if (f != null)
                         f.IsSelected = true;
                 }
-                Thread.Sleep(TimeSpan.FromSeconds(RandomNumber(3, 5)));
 
 
                 Console.WriteLine("Entered main thread at " + DateTime.Now.ToString("hh:mm:ss"));
@@ -158,6 +158,10 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         }
 
+        private async void BtnCancel_Clicked(object sender, EventArgs e)
+        {
 
+            await Navigation.PushModalAsync(new NavigationPage(new Keys()), true);
+        }
     }
 }

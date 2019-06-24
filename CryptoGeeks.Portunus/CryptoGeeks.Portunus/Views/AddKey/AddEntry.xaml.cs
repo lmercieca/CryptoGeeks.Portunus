@@ -99,6 +99,7 @@ namespace CryptoGeeks.Portunus.Views.AddKey
             {
                 Owner = displayName,
                 RecoverNo = int.Parse(txtRecoverNo.Text),
+                Key1 = txtDisplayName.Text,
                 Data = txtKey.Text,
                 Split = itemListViewModel.Contacts.Where(x => x.IsSelected).Count(),
                 Fragments = new List<ApiFragment>()
