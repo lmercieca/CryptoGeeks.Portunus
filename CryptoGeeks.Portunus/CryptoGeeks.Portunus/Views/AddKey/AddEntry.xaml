@@ -32,14 +32,10 @@
                     </Grid>
 
                     <Label Text="Key" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
-                    <Editor x:Name="Key" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
-
-                    <Label Text="Split key into" Grid.Column="1" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
-                    <Editor x:Name="Split" Grid.Column="1" Keyboard="Numeric"  Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
+                    <Editor x:Name="txtKey" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
 
                     <Label Text="Min fragments to recover" Grid.Column="2" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
-                    <Editor x:Name="RecoverNo" Grid.Column="2"  Keyboard="Numeric" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
-
+                    <Editor x:Name="txtRecoverNo" Grid.Column="2"  Keyboard="Numeric" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
 
                     <Button x:Name="btnNext" Text="Next" Style="{StaticResource OrangeButton}" Clicked="BtnNext_Clicked"></Button>
 
@@ -49,7 +45,7 @@
     </ContentPage>
     <ContentPage Title="Contacts" x:Name="Contacts">
         <StackLayout>
-            <SearchBar Placeholder="Search..." BackgroundColor="White"  TextColor="{StaticResource BlueText}" TextChanged="SearchBar_OnTextChanged"></SearchBar>
+            <!--<SearchBar Placeholder="Search..." BackgroundColor="White"  TextColor="{StaticResource BlueText}" TextChanged="SearchBar_OnTextChanged"></SearchBar>-->
 
             <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
             <ListView x:Name="ContactsListView"  lv:MultiSelect.Enable="true" IsPullToRefreshEnabled="True"   ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
@@ -89,7 +85,7 @@
                         </Grid>
 
                         <Button x:Name="btnCancel" Grid.Column="0" Grid.Row="0"  Text="Cancel" Style="{StaticResource NormalButton}" ></Button>
-                        <Button x:Name="btnDone"  Grid.Column="0" Grid.Row="1"  Text="Done" Style="{StaticResource OrangeButton}" IsVisible="{Binding Loaded}"></Button>
+                        <Button x:Name="btnDone"  Grid.Column="0" Grid.Row="1"  Text="Done" Style="{StaticResource OrangeButton}" IsVisible="{Binding Loaded}" Clicked="BtnDone_Clicked"></Button>
                     </StackLayout>
                 </ListView.Footer>
 

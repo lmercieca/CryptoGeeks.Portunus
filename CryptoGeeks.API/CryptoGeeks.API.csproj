@@ -160,13 +160,21 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
+    <Compile Include="Controllers\FragmentsController.cs" />
+    <Compile Include="Controllers\KeysController.cs" />
     <Compile Include="Controllers\SecurityQuestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Fragment.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Key.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CountryView.cs" />
     <Compile Include="PortunusModel.Context.cs">

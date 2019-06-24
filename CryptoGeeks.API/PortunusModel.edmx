@@ -14,6 +14,28 @@
           <Property Name="Iso2" Type="nchar" MaxLength="2" />
           <Property Name="CallingCode" Type="nvarchar" MaxLength="3" />
         </EntityType>
+        <EntityType Name="Fragment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyFk" Type="int" Nullable="false" />
+          <Property Name="FragmentHolder" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SentToHolder" Type="bit" Nullable="false" />
+          <Property Name="SentToOwner" Type="bit" Nullable="false" />
+          <Property Name="Data" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Key">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Owner" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Key" Type="varchar" MaxLength="50" />
+          <Property Name="Split" Type="int" Nullable="false" />
+          <Property Name="RecoverNo" Type="int" />
+          <Property Name="Data" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="SecurityQuestion">
           <Key>
             <PropertyRef Name="Id" />
@@ -28,10 +50,28 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DisplayName" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Fragment_Key">
+          <End Role="Key" Type="Self.Key" Multiplicity="1" />
+          <End Role="Fragment" Type="Self.Fragment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Key">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fragment">
+              <PropertyRef Name="KeyFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PortunusModelStoreContainer">
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fragment" EntityType="Self.Fragment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Key" EntityType="Self.Key" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecurityQuestion" EntityType="Self.SecurityQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Fragment_Key" Association="Self.FK_Fragment_Key">
+            <End Role="Key" EntitySet="Key" />
+            <End Role="Fragment" EntitySet="Fragment" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -57,6 +97,12 @@
           <EntitySet Name="Countries" EntityType="Self.Country" />
           <EntitySet Name="SecurityQuestions" EntityType="Self.SecurityQuestion" />
           <EntitySet Name="Users" EntityType="PortunusModel.User" />
+          <EntitySet Name="Fragments" EntityType="PortunusModel.Fragment" />
+          <EntitySet Name="Keys" EntityType="PortunusModel.Key" />
+          <AssociationSet Name="FK_Fragment_Key" Association="PortunusModel.FK_Fragment_Key">
+            <End Role="Key" EntitySet="Keys" />
+            <End Role="Fragment" EntitySet="Fragments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -65,6 +111,42 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Fragment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyFk" Type="Int32" Nullable="false" />
+          <Property Name="FragmentHolder" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SentToHolder" Type="Boolean" Nullable="false" />
+          <Property Name="SentToOwner" Type="Boolean" Nullable="false" />
+          <Property Name="Data" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Key" Relationship="PortunusModel.FK_Fragment_Key" FromRole="Fragment" ToRole="Key" />
+        </EntityType>
+        <EntityType Name="Key">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Owner" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Key1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Split" Type="Int32" Nullable="false" />
+          <Property Name="RecoverNo" Type="Int32" />
+          <NavigationProperty Name="Fragments" Relationship="PortunusModel.FK_Fragment_Key" FromRole="Key" ToRole="Fragment" />
+          <Property Name="Data" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Fragment_Key">
+          <End Type="PortunusModel.Key" Role="Key" Multiplicity="1" />
+          <End Type="PortunusModel.Fragment" Role="Fragment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Key">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fragment">
+              <PropertyRef Name="KeyFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -93,6 +175,30 @@
             <EntityTypeMapping TypeName="PortunusModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fragments">
+            <EntityTypeMapping TypeName="PortunusModel.Fragment">
+              <MappingFragment StoreEntitySet="Fragment">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="SentToOwner" ColumnName="SentToOwner" />
+                <ScalarProperty Name="SentToHolder" ColumnName="SentToHolder" />
+                <ScalarProperty Name="FragmentHolder" ColumnName="FragmentHolder" />
+                <ScalarProperty Name="KeyFk" ColumnName="KeyFk" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keys">
+            <EntityTypeMapping TypeName="PortunusModel.Key">
+              <MappingFragment StoreEntitySet="Key">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="RecoverNo" ColumnName="RecoverNo" />
+                <ScalarProperty Name="Split" ColumnName="Split" />
+                <ScalarProperty Name="Key1" ColumnName="Key" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

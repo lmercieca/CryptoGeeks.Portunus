@@ -28,5 +28,7 @@ namespace CryptoGeeks.API
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<SecurityQuestion> SecurityQuestions { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Fragment> Fragments { get; set; }
+        public virtual DbSet<Key> Keys { get; set; }
     }
 }

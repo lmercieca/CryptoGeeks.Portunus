@@ -11,6 +11,7 @@ namespace CryptoGeeks.Portunus.Helpers
         public static string OtherUsersFragmentsList = "otherPeopleFragmentsList";
         public static string KeysList = "keys";
         public static int DefaultServerPort = 11000;
+        public static string Password = "salt";
 
         public static string ServerIP = "40.114.212.129";
 
@@ -20,6 +21,9 @@ namespace CryptoGeeks.Portunus.Helpers
         public static string GetUserByNameURL = BaseUrl + "/users/GetUserByName";
         public static string AddDisplayNameURL = BaseUrl + "/users/AddDisplayName";
 
-        
+        public static string AddKeyURL = BaseUrl + "/keys/PostKey";
+
+
+
     }
 }

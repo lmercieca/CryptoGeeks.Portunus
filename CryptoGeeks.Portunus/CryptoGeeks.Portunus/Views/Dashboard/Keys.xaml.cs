@@ -1,6 +1,7 @@
 ﻿using CryptoGeeks.Portunus.Models;
 using CryptoGeeks.Portunus.ViewModels;
 using CryptoGeeks.Portunus.Views.AddKey;
+using CryptoGeeks.Portunus.Views.ExportImport;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -141,8 +142,8 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         private async void BtnExport_Clicked(object sender, EventArgs e)
         {
-            FileWriter("This is a test");
-            await SendEmail("Test", "This is a test");
+            await Navigation.PushModalAsync(new NavigationPage(new Export()), true);
+
         }
 
         public void FileWriter(string data) // Code to generate a text file
