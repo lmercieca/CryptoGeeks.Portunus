@@ -3,5 +3,5 @@
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="27" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
-	<application android:label="CryptoGeeks.Portunus.Android"></application>
+	<application android:label="CryptoGeeks.Portunus.Android" android:icon="@drawable/LogoSmall"></application>
 </manifest>

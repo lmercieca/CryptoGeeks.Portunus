@@ -4,6 +4,7 @@ using CryptoGeeks.Portunus.Views.AddKey;
 using CryptoGeeks.Portunus.Views.ExportImport;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,18 @@ using Xamarin.Forms.Xaml;
 namespace CryptoGeeks.Portunus.Views.Dashboard
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Keys : ContentPage
+    public partial class Keys : ContentPage, INotifyPropertyChanged
     {
         ItemListViewModel itemListViewModel;
+
+        private bool _refreshing;
+        public bool IsRefreshing
+        {
+            get { return _refreshing; }
+            set { this._refreshing = value; OnPropertyChanged("IsRefreshing"); }
+        }
+
+
 
         public Keys()
         {
@@ -29,6 +39,19 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                 itemListViewModel = new ItemListViewModel();
                 BindingContext = itemListViewModel;
                 this.Appearing += KeyList_Appearing;
+
+                
+
+                //KeysListView.RefreshCommand = new Command(async () => {
+                //    //Do your stuff.    
+                //    await LoadData();
+                //    KeysListView.IsRefreshing = false;
+                //    KeysListView.EndRefresh();
+                //});
+
+                KeysListView.IsRefreshing = false;
+
+
             }
             catch (Exception ex)
             {
@@ -40,11 +63,11 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         {
             try
             {
-
                 base.OnAppearing();
-                itemListViewModel = new ItemListViewModel();
 
                 await LoadData();
+                KeysListView.IsRefreshing = false;
+
             }
             catch (Exception ex)
             {
@@ -54,9 +77,12 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         private async Task<string> LoadData()
         {
+
+            this.IsRefreshing = true;
+
+
             try
             {
-
                 await itemListViewModel.RefreshKeys();
 
 
@@ -67,17 +93,26 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                     KeysListView.ItemsSource = null;
                     KeysListView.ItemsSource = itemListViewModel.Keys;
                     KeysListView.EndRefresh();
-
+                    KeysListView.IsRefreshing = false;
 
                 });
 
 
+
+                KeysListView.EndRefresh();
+                KeysListView.IsRefreshing = false;
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+
+            IsRefreshing = false;
+
+            this.IsRefreshing = false;
+            KeysListView.IsRefreshing = false;
+
 
             return await Task.FromResult("");
         }
@@ -117,7 +152,6 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             try
             {
 
-                KeysListView.BeginRefresh();
 
                 if (string.IsNullOrWhiteSpace(e.NewTextValue))
                 {
@@ -132,7 +166,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
                 }
 
-                KeysListView.EndRefresh();
+
             }
             catch (Exception ex)
             {
@@ -189,6 +223,11 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
                 // Some other exception occurred  
             }
+        }
+
+        private async void BtnRefresh_Clicked(object sender, EventArgs e)
+        {
+            await LoadData();
         }
     }
 }

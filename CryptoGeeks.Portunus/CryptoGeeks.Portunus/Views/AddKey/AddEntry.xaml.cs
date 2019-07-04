@@ -84,7 +84,9 @@ namespace CryptoGeeks.Portunus.Views.AddKey
 
         private async void BtnDone_Clicked(object sender, EventArgs e)
        {
-            if (itemListViewModel.Contacts.Where(x => x.IsSelected).Count() < int.Parse(txtRecoverNo.Text))
+            try
+            {
+                if (itemListViewModel.Contacts.Where(x => x.IsSelected).Count() < int.Parse(txtRecoverNo.Text))
             {
                 await DisplayAlert("Add key", "You need to have more contacts than the minimum number of pieces to recover the message.", "OK");
 
@@ -129,6 +131,12 @@ namespace CryptoGeeks.Portunus.Views.AddKey
 
             await DisplayAlert("Add key", "Key successfully added.", "OK");
             await Navigation.PopModalAsync(true);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Add key error", ex.Message, "OK");
+
+            }
         }
     }
 }

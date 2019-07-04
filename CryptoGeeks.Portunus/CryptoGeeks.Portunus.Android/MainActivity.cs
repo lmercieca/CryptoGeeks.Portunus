@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace CryptoGeeks.Portunus.Droid
 {
-    [Activity(Label = "CryptoGeeks.Portunus", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "CryptoGeeks.Portunus", Icon = "@drawable/LogoSmall", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
