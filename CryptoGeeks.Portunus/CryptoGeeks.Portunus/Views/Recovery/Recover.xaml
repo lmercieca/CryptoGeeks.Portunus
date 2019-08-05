@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CryptoGeeks.Portunus.Views.Dashboard.Recover"  
              xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
+             xmlns:local="clr-namespace:CryptoGeeks.Portunus"
+             xmlns:Controls="clr-namespace:CryptoGeeks.Portunus.Controls"        
+			 
              BackgroundColor="{StaticResource NormalBackground}"
              Title="Key recovered"
                     xmlns:lv="clr-namespace:Xamarin.Forms.MultiSelectListView;assembly=Xamarin.Forms.MultiSelectListView" >

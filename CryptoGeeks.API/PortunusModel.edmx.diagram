@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="08c64e04e76c4c608e9a32e92689fa0a" Name="Diagram1">
-        <EntityTypeShape EntityType="PortunusModel.Country" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortunusModel.SecurityQuestion" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortunusModel.User" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="PortunusModel.Fragment" Width="1.5" PointX="5.625" PointY="4" />
-        <EntityTypeShape EntityType="PortunusModel.Key" Width="1.5" PointX="3.375" PointY="4" />
+        <EntityTypeShape EntityType="PortunusModel.Country" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="PortunusModel.Fragment" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="PortunusModel.Key" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="PortunusModel.SecurityQuestion" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="PortunusModel.User" Width="1.5" PointX="4.75" PointY="4.75" />
         <AssociationConnector Association="PortunusModel.FK_Fragment_Key" />
       </Diagram>
     </edmx:Diagrams>

@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -34,8 +35,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             try
             {
                 InitializeComponent();
-
-
+                
                 itemListViewModel = new ItemListViewModel();
                 BindingContext = itemListViewModel;
                 this.Appearing += KeyList_Appearing;

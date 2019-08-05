@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PortunusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Country">
+        <EntityType Name="Countries">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -14,7 +14,7 @@
           <Property Name="Iso2" Type="nchar" MaxLength="2" />
           <Property Name="CallingCode" Type="nvarchar" MaxLength="3" />
         </EntityType>
-        <EntityType Name="Fragment">
+        <EntityType Name="Fragments">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -25,25 +25,25 @@
           <Property Name="SentToOwner" Type="bit" Nullable="false" />
           <Property Name="Data" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="Key">
+        <EntityType Name="Keys">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Owner" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Key" Type="varchar" MaxLength="50" />
+          <Property Name="Key1" Type="varchar" MaxLength="50" />
           <Property Name="Split" Type="int" Nullable="false" />
           <Property Name="RecoverNo" Type="int" />
           <Property Name="Data" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="SecurityQuestion">
+        <EntityType Name="SecurityQuestions">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -51,32 +51,43 @@
           <Property Name="DisplayName" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <Association Name="FK_Fragment_Key">
-          <End Role="Key" Type="Self.Key" Multiplicity="1" />
-          <End Role="Fragment" Type="Self.Fragment" Multiplicity="*" />
+          <End Role="Keys" Type="Self.Keys" Multiplicity="1" />
+          <End Role="Fragments" Type="Self.Fragments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Key">
+            <Principal Role="Keys">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Fragment">
+            <Dependent Role="Fragments">
               <PropertyRef Name="KeyFk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PortunusModelStoreContainer">
-          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Fragment" EntityType="Self.Fragment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Key" EntityType="Self.Key" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SecurityQuestion" EntityType="Self.SecurityQuestion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fragments" EntityType="Self.Fragments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecurityQuestions" EntityType="Self.SecurityQuestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Fragment_Key" Association="Self.FK_Fragment_Key">
-            <End Role="Key" EntitySet="Key" />
-            <End Role="Fragment" EntitySet="Fragment" />
+            <End Role="Keys" EntitySet="Keys" />
+            <End Role="Fragments" EntitySet="Fragments" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PortunusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PortunusEntitiesConnString" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Countries" EntityType="PortunusModel.Country" />
+          <EntitySet Name="Fragments" EntityType="PortunusModel.Fragment" />
+          <EntitySet Name="Keys" EntityType="PortunusModel.Key" />
+          <EntitySet Name="SecurityQuestions" EntityType="PortunusModel.SecurityQuestion" />
+          <EntitySet Name="Users" EntityType="PortunusModel.User" />
+          <AssociationSet Name="FK_Fragment_Key" Association="PortunusModel.FK_Fragment_Key">
+            <End Role="Key" EntitySet="Keys" />
+            <End Role="Fragment" EntitySet="Fragments" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="Id" />
@@ -85,31 +96,6 @@
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Iso2" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
           <Property Name="CallingCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="SecurityQuestion">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityContainer Name="PortunusEntitiesConnString" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Countries" EntityType="Self.Country" />
-          <EntitySet Name="SecurityQuestions" EntityType="Self.SecurityQuestion" />
-          <EntitySet Name="Users" EntityType="PortunusModel.User" />
-          <EntitySet Name="Fragments" EntityType="PortunusModel.Fragment" />
-          <EntitySet Name="Keys" EntityType="PortunusModel.Key" />
-          <AssociationSet Name="FK_Fragment_Key" Association="PortunusModel.FK_Fragment_Key">
-            <End Role="Key" EntitySet="Keys" />
-            <End Role="Fragment" EntitySet="Fragments" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Fragment">
           <Key>
@@ -132,8 +118,22 @@
           <Property Name="Key1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Split" Type="Int32" Nullable="false" />
           <Property Name="RecoverNo" Type="Int32" />
-          <NavigationProperty Name="Fragments" Relationship="PortunusModel.FK_Fragment_Key" FromRole="Key" ToRole="Fragment" />
           <Property Name="Data" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fragments" Relationship="PortunusModel.FK_Fragment_Key" FromRole="Key" ToRole="Fragment" />
+        </EntityType>
+        <EntityType Name="SecurityQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Fragment_Key">
           <End Type="PortunusModel.Key" Role="Key" Multiplicity="1" />
@@ -155,33 +155,17 @@
         <EntityContainerMapping StorageEntityContainer="PortunusModelStoreContainer" CdmEntityContainer="PortunusEntitiesConnString">
           <EntitySetMapping Name="Countries">
             <EntityTypeMapping TypeName="PortunusModel.Country">
-              <MappingFragment StoreEntitySet="Country">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Iso2" ColumnName="Iso2" />
+              <MappingFragment StoreEntitySet="Countries">
                 <ScalarProperty Name="CallingCode" ColumnName="CallingCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SecurityQuestions">
-            <EntityTypeMapping TypeName="PortunusModel.SecurityQuestion">
-              <MappingFragment StoreEntitySet="SecurityQuestion">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Question" ColumnName="Question" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="PortunusModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Iso2" ColumnName="Iso2" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Fragments">
             <EntityTypeMapping TypeName="PortunusModel.Fragment">
-              <MappingFragment StoreEntitySet="Fragment">
+              <MappingFragment StoreEntitySet="Fragments">
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="SentToOwner" ColumnName="SentToOwner" />
                 <ScalarProperty Name="SentToHolder" ColumnName="SentToHolder" />
@@ -193,12 +177,28 @@
           </EntitySetMapping>
           <EntitySetMapping Name="Keys">
             <EntityTypeMapping TypeName="PortunusModel.Key">
-              <MappingFragment StoreEntitySet="Key">
+              <MappingFragment StoreEntitySet="Keys">
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="RecoverNo" ColumnName="RecoverNo" />
                 <ScalarProperty Name="Split" ColumnName="Split" />
-                <ScalarProperty Name="Key1" ColumnName="Key" />
+                <ScalarProperty Name="Key1" ColumnName="Key1" />
                 <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityQuestions">
+            <EntityTypeMapping TypeName="PortunusModel.SecurityQuestion">
+              <MappingFragment StoreEntitySet="SecurityQuestions">
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PortunusModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

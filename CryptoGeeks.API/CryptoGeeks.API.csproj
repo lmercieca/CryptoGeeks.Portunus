@@ -233,6 +233,7 @@
       <DependentUpon>PortunusModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CryptoGeeksAPI20190517114141 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Portunus - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\PortunusApi - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@ namespace CryptoGeeks.Portunus.Helpers
 
         public static string ServerIP = "40.114.212.129";
 
-        public static string BaseUrl = "https://portunusapi.azurewebsites.net/api";
+        public static string BaseUrl = "https://portunus.azurewebsites.net/api";
         public static string CountryURL = BaseUrl +  "/countries";
         public static string ContactsURL = BaseUrl + "/users/GetUsers";
         public static string GetUserByNameURL = BaseUrl + "/users/GetUserByName";

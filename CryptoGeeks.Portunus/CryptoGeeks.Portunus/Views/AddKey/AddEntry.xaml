@@ -4,6 +4,8 @@
              x:Class="CryptoGeeks.Portunus.Views.AddKey.AddEntry"             
              xmlns:i18n="clr-namespace:CryptoGeeks.Portunus.Helpers"
              BackgroundColor="{StaticResource NormalBackground}"
+             xmlns:local="clr-namespace:CryptoGeeks.Portunus"
+             xmlns:Controls="clr-namespace:CryptoGeeks.Portunus.Controls"  
              Title="Add a new key"
              xmlns:lv="clr-namespace:Xamarin.Forms.MultiSelectListView;assembly=Xamarin.Forms.MultiSelectListView" 
     NavigationPage.HasNavigationBar="False">
@@ -32,15 +34,14 @@
                     </Grid>
 
                     <Label Text="Display Name" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
-                    <Editor x:Name="txtDisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
-
-                    <Label Text="Key" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
-                    <Editor x:Name="txtKey" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
-
+                    <Controls:PortunusEntry x:Name="txtDisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}" ></Controls:PortunusEntry>
                     
-                    <Label Text="Min fragments to recover" Grid.Column="2" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
-                    <Editor x:Name="txtRecoverNo" Grid.Column="2"  Keyboard="Numeric" Grid.Row="1" Style="{StaticResource NormalText}"></Editor>
+                    <Label Text="Key" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>                    
+                    <Controls:PortunusEntry  x:Name="txtKey" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Controls:PortunusEntry>
 
+                    <Label Text="Min fragments to recover" Grid.Column="2" Grid.Row="0" Style="{StaticResource NormalText}"></Label>                
+                    <Controls:PortunusEntry x:Name="txtRecoverNo" Grid.Column="2"  Keyboard="Numeric" Grid.Row="1" Style="{StaticResource NormalText}"></Controls:PortunusEntry>
+                                        
                     <Button x:Name="btnNext" Text="Next" Style="{StaticResource OrangeButton}" Clicked="BtnNext_Clicked"></Button>
 
                 </StackLayout>

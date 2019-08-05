@@ -38,6 +38,8 @@ namespace CryptoGeeks.Portunus.Views.Registration
 
         private async void BtnAgree_Clicked(object sender, EventArgs e)
         {
+            btnAgree.IsEnabled = false;
+
             if (!cbAgreement.IsToggled)
                 await DisplayAlert("Registration validation error", "Please accept the terms and conditions before proceeding", "OK");
             else
@@ -59,11 +61,14 @@ namespace CryptoGeeks.Portunus.Views.Registration
                         secureStorage.StoreInSecureStorage(Constants.DisplayName, DisplayName.Text);
 
 
+
+
                         await Navigation.PushModalAsync(new NavigationPage(new Keys()), true);
                     }
                 }
             }
 
+            btnAgree.IsEnabled = true;
 
 
         }

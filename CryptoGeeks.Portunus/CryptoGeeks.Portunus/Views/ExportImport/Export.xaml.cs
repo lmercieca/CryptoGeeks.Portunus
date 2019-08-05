@@ -32,25 +32,34 @@ namespace CryptoGeeks.Portunus.Views.ExportImport
 
         private async void BtnExport_Clicked(object sender, EventArgs e)
         {
-            if (txtPassword.Text.Trim().Length == 0)
+            try
             {
-                await DisplayAlert("Export", "Password cannot be left empty", "OK");
-                return;
+                if (txtPassword.Text.Trim().Length == 0)
+                {
+                    await DisplayAlert("Export", "Password cannot be left empty", "OK");
+                    return;
+                }
+
+                CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
+
+                string fragmentsJson = secureStorage.GetFromSecureStorage(Constants.OtherUsersFragmentsList);
+                string keysJson = secureStorage.GetFromSecureStorage(Constants.KeysList);
+
+                SecurityHelper securityHelper = new SecurityHelper();
+                string secureData = securityHelper.Encrypt(fragmentsJson + "~~~" + keysJson, txtPassword.Text);
+                FileWriter(secureData);
+
+                await SendEmail("Portunus - Details export", "Please find attached an export of your current keys and fragments. Store it in a secure manner, remember with great power comes great responsibility (spiderman)!");
+
+
+                await Navigation.PopModalAsync(true);
+            }
+            catch(Exception ex)
+            {
+                await DisplayAlert("Export Issue", ex.Message, "OK");
+
             }
 
-            CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
-
-            string fragmentsJson = secureStorage.GetFromSecureStorage(Constants.OtherUsersFragmentsList);
-            string keysJson = secureStorage.GetFromSecureStorage(Constants.KeysList);
-
-            SecurityHelper securityHelper = new SecurityHelper();
-            string secureData = securityHelper.Encrypt(fragmentsJson + "~~~" + keysJson, txtPassword.Text);
-            FileWriter(secureData);
-
-            await SendEmail("Portunus - Details export", "Please find attached an export of your current keys and fragments. Store it in a secure manner, remember with great power comes great responsibility (spiderman)!");
-
-            
-            await Navigation.PopModalAsync(true);
         }
 
 
@@ -75,7 +84,7 @@ namespace CryptoGeeks.Portunus.Views.ExportImport
         {
             try
             {
-                var documents = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+                var documents = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments,Environment.SpecialFolderOption.Create);
                 var filename = Path.Combine(documents, "keys.ptn");
 
 
