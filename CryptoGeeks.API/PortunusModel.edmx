@@ -36,6 +36,14 @@
           <Property Name="RecoverNo" Type="int" />
           <Property Name="Data" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Ping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Fk" Type="int" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="SecurityQuestions">
           <Key>
             <PropertyRef Name="Id" />
@@ -50,6 +58,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DisplayName" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserStatusCompact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" />
+        </EntityType>
         <Association Name="FK_Fragment_Key">
           <End Role="Keys" Type="Self.Keys" Multiplicity="1" />
           <End Role="Fragments" Type="Self.Fragments" Multiplicity="*" />
@@ -62,15 +79,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Ping_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Ping" Type="Self.Ping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ping">
+              <PropertyRef Name="User_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CleanPingsForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserFk" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="PortunusModelStoreContainer">
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fragments" EntityType="Self.Fragments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ping" EntityType="Self.Ping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecurityQuestions" EntityType="Self.SecurityQuestions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserStatusCompact" EntityType="Self.UserStatusCompact" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserStatusCompact].[Id] AS [Id], 
+    [UserStatusCompact].[Status] AS [Status]
+    FROM [dbo].[UserStatusCompact] AS [UserStatusCompact]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Fragment_Key" Association="Self.FK_Fragment_Key">
             <End Role="Keys" EntitySet="Keys" />
             <End Role="Fragments" EntitySet="Fragments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ping_Users" Association="Self.FK_Ping_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Ping" EntitySet="Ping" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -87,6 +130,15 @@
             <End Role="Key" EntitySet="Keys" />
             <End Role="Fragment" EntitySet="Fragments" />
           </AssociationSet>
+          <EntitySet Name="Pings" EntityType="PortunusModel.Ping" />
+          <AssociationSet Name="FK_Ping_Users" Association="PortunusModel.FK_Ping_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Ping" EntitySet="Pings" />
+          </AssociationSet>
+          <FunctionImport Name="CleanPingsForUser">
+          <Parameter Name="UserFk" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="UserStatusCompacts" EntityType="PortunusModel.UserStatusCompact" />
         </EntityContainer>
         <EntityType Name="Country">
           <Key>
@@ -134,6 +186,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pings" Relationship="PortunusModel.FK_Ping_Users" FromRole="User" ToRole="Ping" />
         </EntityType>
         <Association Name="FK_Fragment_Key">
           <End Type="PortunusModel.Key" Role="Key" Multiplicity="1" />
@@ -147,6 +200,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Ping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Fk" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="PortunusModel.FK_Ping_Users" FromRole="Ping" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Ping_Users">
+          <End Type="PortunusModel.User" Role="User" Multiplicity="1" />
+          <End Type="PortunusModel.Ping" Role="Ping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ping">
+              <PropertyRef Name="User_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserStatusCompact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -199,6 +280,24 @@
             <EntityTypeMapping TypeName="PortunusModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pings">
+            <EntityTypeMapping TypeName="PortunusModel.Ping">
+              <MappingFragment StoreEntitySet="Ping">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="User_Fk" ColumnName="User_Fk" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CleanPingsForUser" FunctionName="PortunusModel.Store.CleanPingsForUser" />
+          <EntitySetMapping Name="UserStatusCompacts">
+            <EntityTypeMapping TypeName="PortunusModel.UserStatusCompact">
+              <MappingFragment StoreEntitySet="UserStatusCompact">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

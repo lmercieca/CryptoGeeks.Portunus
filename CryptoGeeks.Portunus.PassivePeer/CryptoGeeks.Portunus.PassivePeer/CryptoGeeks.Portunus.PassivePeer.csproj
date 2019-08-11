@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D4B75A9E-F487-4130-867C-7493130F649B}</ProjectGuid>
+    <ProjectGuid>{B71F3F37-36CD-45F4-B88B-DBA5CD519DA2}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CryptoGeeks.Portunus.Server</RootNamespace>
-    <AssemblyName>CryptoGeeks.Portunus.Server</AssemblyName>
+    <RootNamespace>CryptoGeeks.Portunus.PassivePeer</RootNamespace>
+    <AssemblyName>CryptoGeeks.Portunus.PassivePeer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -12,18 +12,12 @@ namespace CryptoGeeks.API
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Ping
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Pings = new HashSet<Ping>();
-        }
-    
         public int Id { get; set; }
-        public string DisplayName { get; set; }
+        public int User_Fk { get; set; }
+        public System.DateTime Time { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ping> Pings { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CryptoGeeks.Portunus.Comm\CryptoGeeks.Portunus.Comm.csproj" />
     <ProjectReference Include="..\..\CryptoGeeks.SecretSplitter\SecretSplitter.csproj" />
   </ItemGroup>
 

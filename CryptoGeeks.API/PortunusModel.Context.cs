@@ -12,6 +12,8 @@ namespace CryptoGeeks.API
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PortunusEntitiesConnString : DbContext
     {
@@ -30,5 +32,16 @@ namespace CryptoGeeks.API
         public virtual DbSet<Key> Keys { get; set; }
         public virtual DbSet<SecurityQuestion> SecurityQuestions { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Ping> Pings { get; set; }
+        public virtual DbSet<UserStatusCompact> UserStatusCompacts { get; set; }
+    
+        public virtual int CleanPingsForUser(Nullable<int> userFk)
+        {
+            var userFkParameter = userFk.HasValue ?
+                new ObjectParameter("UserFk", userFk) :
+                new ObjectParameter("UserFk", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CleanPingsForUser", userFkParameter);
+        }
     }
 }

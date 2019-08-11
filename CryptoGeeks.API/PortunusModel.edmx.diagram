@@ -4,13 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="08c64e04e76c4c608e9a32e92689fa0a" Name="Diagram1">
+      <Diagram DiagramId="08c64e04e76c4c608e9a32e92689fa0a" Name="Diagram1" ZoomLevel="79">
         <EntityTypeShape EntityType="PortunusModel.Country" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="PortunusModel.Fragment" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="PortunusModel.Key" Width="1.5" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="PortunusModel.SecurityQuestion" Width="1.5" PointX="2.75" PointY="4.75" />
         <EntityTypeShape EntityType="PortunusModel.User" Width="1.5" PointX="4.75" PointY="4.75" />
         <AssociationConnector Association="PortunusModel.FK_Fragment_Key" />
+        <EntityTypeShape EntityType="PortunusModel.Ping" Width="1.5" PointX="7" PointY="4.625" />
+        <AssociationConnector Association="PortunusModel.FK_Ping_Users" />
+        <EntityTypeShape EntityType="PortunusModel.UserStatusCompact" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

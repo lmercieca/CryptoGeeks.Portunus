@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CryptoGeeks.Portunus.Server")]
+[assembly: AssemblyTitle("CryptoGeeks.Portunus.Comm")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CryptoGeeks.Portunus.Server")]
+[assembly: AssemblyProduct("CryptoGeeks.Portunus.Comm")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d4b75a9e-f487-4130-867c-7493130f649b")]
+[assembly: Guid("45686542-eb1a-42ff-8665-b8e875f7c107")]
 
 // Version information for an assembly consists of the following four values:
 //

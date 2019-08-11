@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CryptoGeeks.Portunus.Server
+namespace CryptoGeeks.Portunus.PassivePeer
 {
     class Program
     {
@@ -13,13 +13,16 @@ namespace CryptoGeeks.Portunus.Server
         {
             Workflow workflow = new Workflow();
 
-            workflow.StartListener(Helper.GetMachineIp(), 7001);
+            Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest,1, "Hello Buddy");
+
+            workflow.TransmitData(Helper.GetMachineIp(), 7001, payload);
 
 
             while (true)
             {
                 System.Threading.Thread.Sleep(100);
             }
+
         }
     }
 }

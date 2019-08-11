@@ -162,6 +162,7 @@
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\FragmentsController.cs" />
     <Compile Include="Controllers\KeysController.cs" />
+    <Compile Include="Controllers\PingsController.cs" />
     <Compile Include="Controllers\SecurityQuestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Country.cs">
@@ -177,6 +178,9 @@
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CountryView.cs" />
+    <Compile Include="Ping.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PortunusModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -197,6 +201,9 @@
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserStatusCompact.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
