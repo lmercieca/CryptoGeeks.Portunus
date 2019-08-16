@@ -14,6 +14,8 @@
         <EntityTypeShape EntityType="PortunusModel.Ping" Width="1.5" PointX="7" PointY="4.625" />
         <AssociationConnector Association="PortunusModel.FK_Ping_Users" />
         <EntityTypeShape EntityType="PortunusModel.UserStatusCompact" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PortunusModel.Setting" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PortunusModel.UserStatu" Width="1.5" PointX="0.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

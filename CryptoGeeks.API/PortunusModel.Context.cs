@@ -34,6 +34,8 @@ namespace CryptoGeeks.API
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Ping> Pings { get; set; }
         public virtual DbSet<UserStatusCompact> UserStatusCompacts { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
+        public virtual DbSet<UserStatu> UserStatus { get; set; }
     
         public virtual int CleanPingsForUser(Nullable<int> userFk)
         {

@@ -16,5 +16,6 @@ namespace CryptoGeeks.API
     {
         public int Id { get; set; }
         public Nullable<short> Status { get; set; }
+        public string SourceIp { get; set; }
     }
 }

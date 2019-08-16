@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-PCL" Version="1.0.1" />
+    <PackageReference Include="Matcha.BackgroundService" Version="1.0.5478" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.0.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
@@ -50,6 +51,9 @@
     </Compile>
     <Compile Update="SignIn\PasscodeLogin.xaml.cs">
       <DependentUpon>PasscodeLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Conversation\Conversation.xaml.cs">
+      <DependentUpon>Conversation.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Recovery\Recover.xaml.cs">
       <DependentUpon>Recover.xaml</DependentUpon>

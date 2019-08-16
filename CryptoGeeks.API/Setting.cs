@@ -12,13 +12,11 @@ namespace CryptoGeeks.API
     using System;
     using System.Collections.Generic;
     
-    public partial class Ping
+    public partial class Setting
     {
         public int Id { get; set; }
-        public int User_Fk { get; set; }
-        public System.DateTime Time { get; set; }
-        public string SourceIp { get; set; }
-    
-        public virtual User User { get; set; }
+        public string Name { get; set; }
+        public int Type { get; set; }
+        public string Value { get; set; }
     }
 }

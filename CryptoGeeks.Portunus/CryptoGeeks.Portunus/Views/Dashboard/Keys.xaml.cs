@@ -229,5 +229,11 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         {
             await LoadData();
         }
+
+        private async void BtnConversation_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new Conversation()), true);
+
+        }
     }
 }

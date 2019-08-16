@@ -165,6 +165,7 @@
     <Compile Include="Controllers\PingsController.cs" />
     <Compile Include="Controllers\SecurityQuestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\UserStatusCompactController.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
@@ -200,7 +201,13 @@
     <Compile Include="SecurityQuestion.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Setting.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserStatu.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserStatusCompact.cs">

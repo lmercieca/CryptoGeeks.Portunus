@@ -43,6 +43,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_Fk" Type="int" Nullable="false" />
           <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="SourceIp" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="SecurityQuestions">
           <Key>
@@ -50,6 +51,15 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -59,6 +69,19 @@
           <Property Name="DisplayName" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Portunus.dbo.UserStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DisplayName" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Time" Type="datetime" />
+          <Property Name="SourceIp" Type="varchar" MaxLength="15" />
+          <Property Name="Status" Type="smallint" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserStatusCompact">
           <Key>
@@ -66,6 +89,7 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Status" Type="smallint" />
+          <Property Name="SourceIp" Type="varchar" MaxLength="15" />
         </EntityType>
         <Association Name="FK_Fragment_Key">
           <End Role="Keys" Type="Self.Keys" Multiplicity="1" />
@@ -94,17 +118,31 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
         <Function Name="CleanPingsForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserFk" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetUserStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="smallint">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="PortunusModelStoreContainer">
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fragments" EntityType="Self.Fragments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ping" EntityType="Self.Ping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecurityQuestions" EntityType="Self.SecurityQuestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Setting" EntityType="Self.Setting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserStatus" EntityType="Self.UserStatus" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserStatus].[Id] AS [Id], 
+    [UserStatus].[DisplayName] AS [DisplayName], 
+    [UserStatus].[Time] AS [Time], 
+    [UserStatus].[SourceIp] AS [SourceIp], 
+    [UserStatus].[Status] AS [Status]
+    FROM [dbo].[UserStatus] AS [UserStatus]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="UserStatusCompact" EntityType="Self.UserStatusCompact" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [UserStatusCompact].[Id] AS [Id], 
-    [UserStatusCompact].[Status] AS [Status]
+    [UserStatusCompact].[Status] AS [Status], 
+    [UserStatusCompact].[SourceIp] AS [SourceIp]
     FROM [dbo].[UserStatusCompact] AS [UserStatusCompact]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Fragment_Key" Association="Self.FK_Fragment_Key">
@@ -139,6 +177,8 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
           <Parameter Name="UserFk" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="UserStatusCompacts" EntityType="PortunusModel.UserStatusCompact" />
+          <EntitySet Name="Settings" EntityType="PortunusModel.Setting" />
+          <EntitySet Name="UserStatus" EntityType="PortunusModel.UserStatu" />
         </EntityContainer>
         <EntityType Name="Country">
           <Key>
@@ -208,6 +248,7 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
           <Property Name="User_Fk" Type="Int32" Nullable="false" />
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="User" Relationship="PortunusModel.FK_Ping_Users" FromRole="Ping" ToRole="User" />
+          <Property Name="SourceIp" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Ping_Users">
           <End Type="PortunusModel.User" Role="User" Multiplicity="1" />
@@ -226,6 +267,27 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" />
+          <Property Name="SourceIp" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DisplayName" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="SourceIp" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Int16" />
         </EntityType>
       </Schema>
@@ -287,6 +349,7 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
           <EntitySetMapping Name="Pings">
             <EntityTypeMapping TypeName="PortunusModel.Ping">
               <MappingFragment StoreEntitySet="Ping">
+                <ScalarProperty Name="SourceIp" ColumnName="SourceIp" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="User_Fk" ColumnName="User_Fk" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -297,7 +360,29 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
           <EntitySetMapping Name="UserStatusCompacts">
             <EntityTypeMapping TypeName="PortunusModel.UserStatusCompact">
               <MappingFragment StoreEntitySet="UserStatusCompact">
+                <ScalarProperty Name="SourceIp" ColumnName="SourceIp" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="PortunusModel.Setting">
+              <MappingFragment StoreEntitySet="Setting">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserStatus">
+            <EntityTypeMapping TypeName="PortunusModel.UserStatu">
+              <MappingFragment StoreEntitySet="UserStatus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SourceIp" ColumnName="SourceIp" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

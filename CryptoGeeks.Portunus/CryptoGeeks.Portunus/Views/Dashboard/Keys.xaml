@@ -25,6 +25,22 @@
              
                     <SearchBar Placeholder="Search..." BackgroundColor="White"  TextColor="{StaticResource BlueText}"  TextChanged="SearchBar_OnTextChanged"></SearchBar>
 
+                    <Grid   HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+
+                    
                     <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
                     <ListView x:Name="KeysListView"   IsPullToRefreshEnabled="false"  SelectionMode="Single"  
                              IsRefreshing="{Binding IsRefreshing}"   ItemSelected="KeysListView_ItemSelected"  ItemsSource="{Binding Keys}"   VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
@@ -40,13 +56,14 @@
 
                         <ListView.Footer>
 
-
-
+                            
 
                             <StackLayout HorizontalOptions="Center"   Orientation="Horizontal" Padding="10,10,10,10">
-                                <Button x:Name="btnRefresh"  Grid.Column="0" Grid.Row="1"  Text="Refresh" Style="{StaticResource NormalButton}" Clicked="BtnRefresh_Clicked"></Button>
-                                <Button x:Name="btnExport"  Grid.Column="1" Grid.Row="1"  Text="Export" Style="{StaticResource NormalButton}" Clicked="BtnExport_Clicked"></Button>
-                                <Button x:Name="btnAdd"  Grid.Column="2" Grid.Row="1"  Text="Add New" Style="{StaticResource OrangeButton}" Clicked="BtnAdd_Clicked"></Button>
+                                <Button x:Name="btnConversation"  Grid.Column="0" Grid.Row="1"  Text="Conv" Style="{StaticResource OrangeButton}" Clicked="BtnConversation_Clicked"></Button>
+                                <Button x:Name="btnRefresh"  Grid.Column="0" Grid.Row="0"  Text="Refresh" Style="{StaticResource NormalButton}" Clicked="BtnRefresh_Clicked"></Button>
+                                <Button x:Name="btnExport"  Grid.Column="1" Grid.Row="0"  Text="Export" Style="{StaticResource NormalButton}" Clicked="BtnExport_Clicked"></Button>
+                                <Button x:Name="btnAdd"  Grid.Column="2" Grid.Row="0"  Text="Add New" Style="{StaticResource OrangeButton}" Clicked="BtnAdd_Clicked"></Button>
+                                
 
                             </StackLayout>
                         </ListView.Footer>

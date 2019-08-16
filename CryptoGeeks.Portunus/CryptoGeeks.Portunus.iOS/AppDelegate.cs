@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Matcha.BackgroundService.iOS;
 using UIKit;
 
 namespace CryptoGeeks.Portunus.iOS
@@ -25,9 +26,11 @@ namespace CryptoGeeks.Portunus.iOS
             global::Xamarin.Forms.Forms.Init();
 
             ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+               BackgroundAggregator.Init(this);
+
 
             LoadApplication(new App());
-
+         
             return base.FinishedLaunching(app, options);
         }
     }

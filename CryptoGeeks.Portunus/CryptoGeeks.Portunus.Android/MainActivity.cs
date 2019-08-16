@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Matcha.BackgroundService.Droid;
 
 namespace CryptoGeeks.Portunus.Droid
 {
@@ -22,7 +23,7 @@ namespace CryptoGeeks.Portunus.Droid
             LoadApplication(new App());
 
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
-
+            BackgroundAggregator.Init(this);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

@@ -15,11 +15,17 @@ namespace CryptoGeeks.Portunus.Server
 
             workflow.StartListener(Helper.GetMachineIp(), 7001);
 
+            workflow.OnNewMessage += Workflow_OnNewMessage;
 
             while (true)
             {
                 System.Threading.Thread.Sleep(100);
             }
+        }
+
+        private static void Workflow_OnNewMessage(object source, Payload payload, string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }

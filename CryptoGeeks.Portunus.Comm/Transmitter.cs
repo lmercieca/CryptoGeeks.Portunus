@@ -10,6 +10,16 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 {
     public class Transmitter
     {
+
+        public delegate void OnNewMessageHandler( object source, Payload payload, String message);
+        public event OnNewMessageHandler OnNewMessage;
+
+        public void OnNewMessageProxy(object source, Payload payload, String message)
+        {
+            if (OnNewMessage != null)
+                OnNewMessage(source, payload, message);
+        }
+
         public void Connect(String server, int port, Payload message)
         {
             try
@@ -18,8 +28,9 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 TcpClient client = new TcpClient(server, port);
                 NetworkStream stream = client.GetStream();
 
-                int bytesread = Helper.SendPayload(stream, message);                               
-                Console.WriteLine("Sent: {0}", Helper.PrintPayload(message));
+                int bytesread = Helper.SendPayload(stream, message);
+                OnNewMessageProxy(this, message, "Sent: {0} " +  Helper.PrintPayload(message));
+                
                 // Bytes Array to receive Server Response.
                 
                 
@@ -29,13 +40,13 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                     MemoryStream cleanedStream = Helper.CleanIncomingStream(memStream);
                     Payload payload = Serializer.Deserialize<Payload>(cleanedStream);
 
-                    Console.WriteLine("Received: {0}", Helper.PrintPayload(payload));
+                    OnNewMessageProxy(this, payload, "Sent: {0} " + Helper.PrintPayload(payload));                    
                     Thread.Sleep(2000);
 
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Exception: {0}", e.ToString());
+                    OnNewMessageProxy(this, null,  "Exception: " + e.ToString());                    
                     client.Close();
                 }
 
@@ -45,7 +56,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception: {0}", e);
+                OnNewMessageProxy(this, null, "Exception: " + e.ToString());
             }
             Console.Read();
         }

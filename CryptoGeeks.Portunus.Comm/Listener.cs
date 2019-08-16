@@ -15,13 +15,22 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 {
     public class Listener
     {
+        public delegate void OnNewMessageHandler(object source, Payload payload, String message);
+        public event OnNewMessageHandler OnNewMessage;
+
+        public void OnNewMessageProxy(object source, Payload payload, String message)
+        {
+            if (OnNewMessage != null)
+                OnNewMessage(source, payload, message);
+        }
+
+
         TcpListener server = null;
         public Listener(string ip, int port)
         {
             IPAddress localAddr = IPAddress.Parse(ip);
             server = new TcpListener(localAddr, port);
             server.Start();
-            StartListening();
         }
 
         public void StartListening()
@@ -30,16 +39,18 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             {
                 while (true)
                 {
-                    Console.WriteLine("Waiting for a connection...");
+                    OnNewMessageProxy(this, null, "Waiting for a connection...");
+
                     TcpClient client = server.AcceptTcpClient();
-                    Console.WriteLine("Connected!");
+                    OnNewMessageProxy(this, null, "Connected!");
+
                     Thread t = new Thread(new ParameterizedThreadStart(HandleDeivce));
                     t.Start(client);
                 }
             }
             catch (SocketException e)
             {
-                Console.WriteLine("SocketException: {0}", e);
+                OnNewMessageProxy(this, null, "SocketException: " +  e);
                 server.Stop();
             }
         }
@@ -54,7 +65,8 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 MemoryStream memStream = Helper.ReceiveStream(stream);
                 MemoryStream cleanedStream = Helper.CleanIncomingStream(memStream);
                 Payload payload = Serializer.Deserialize<Payload>(cleanedStream);
-                Console.WriteLine("Received: ", Helper.PrintPayload(payload));
+                
+                OnNewMessageProxy(this, payload, "Received: " + Helper.PrintPayload(payload));
 
                 PayloadProcessor proc = new PayloadProcessor();
                 proc.HandlePayload(ref payload);
@@ -62,17 +74,14 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 payload.PayloadData = "Ack data: " + payload.PayloadData;
                 int bytesread = Helper.SendPayload(stream, payload);
 
-                Console.WriteLine("Sent: {0}", Helper.PrintPayload(payload));
+                OnNewMessageProxy(this, payload, "Sent: " + Helper.PrintPayload(payload));
 
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception: {0}", e.ToString());
+                OnNewMessageProxy(this, null, "Exception:" +  e.ToString());                
                 client.Close();
             }
         }
-
-    
-
     }
 }

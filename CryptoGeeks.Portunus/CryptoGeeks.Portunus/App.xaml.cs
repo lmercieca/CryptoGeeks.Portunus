@@ -14,6 +14,7 @@ using CryptoGeeks.Portunus.Api;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using SecureStorage = CryptoGeeks.Common.SecureStorage;
+using Matcha.BackgroundService;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CryptoGeeks.Portunus
@@ -58,6 +59,12 @@ namespace CryptoGeeks.Portunus
                 "uwp=8f8d0010-e66b-4b71-9807-0f284d303e4d;" +
                 "ios=861852a1-5d74-4e18-88f5-73b81c097318",
                 typeof(Analytics), typeof(Crashes));
+
+                BackgroundAggregatorService.Add(() => new PingService(60));
+                BackgroundAggregatorService.Add(() => new TCPReceiveService(100));
+
+                //Start the background service
+                BackgroundAggregatorService.StartBackgroundService();
             }
             catch (Exception exception)
             {

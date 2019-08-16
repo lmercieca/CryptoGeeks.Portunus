@@ -30,10 +30,8 @@ namespace CryptoGeeks.Portunus.Views.Registration
         {
             bool result = false;
             result = await cs.DisplayNameExists(displayName);
-
-
+            
             return result;
-
         }
 
         private async void BtnAgree_Clicked(object sender, EventArgs e)
@@ -60,17 +58,12 @@ namespace CryptoGeeks.Portunus.Views.Registration
 
                         secureStorage.StoreInSecureStorage(Constants.DisplayName, DisplayName.Text);
 
-
-
-
                         await Navigation.PushModalAsync(new NavigationPage(new Keys()), true);
                     }
                 }
             }
 
             btnAgree.IsEnabled = true;
-
-
         }
     }
 }
