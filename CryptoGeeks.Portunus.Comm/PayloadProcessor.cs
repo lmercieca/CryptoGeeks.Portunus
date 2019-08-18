@@ -64,6 +64,7 @@ namespace CryptoGeeks.Portunus.Comm
 
         public async Task<bool> MarkPing(Payload payload)
         {
+            LoggerHelper.AddLog("Preparing to send Ping");
             string url = "https://portunus.azurewebsites.net/api" + @"/pings/PostPing";
 
             Ping ping = new Ping();
@@ -76,6 +77,7 @@ namespace CryptoGeeks.Portunus.Comm
                 ClientHandler.AllowAutoRedirect = true;
                 ClientHandler.UseDefaultCredentials = true;
 
+                LoggerHelper.AddLog("Preparing to send Ping");
 
                 using (HttpClient Client = new HttpClient(ClientHandler))
                 {
@@ -84,6 +86,7 @@ namespace CryptoGeeks.Portunus.Comm
                     var byteContent = new ByteArrayContent(buffer);
                     byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
+                    LoggerHelper.AddLog("Preparing to send Ping");
 
                     await Client.PostAsync(url, byteContent);
 

@@ -19,6 +19,13 @@ using Matcha.BackgroundService;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CryptoGeeks.Portunus
 {
+
+    // WHat to work on
+    // Background service firing once
+    // Test file logging - doesn't seem to work
+    // App on device is not communicating with server, use logging to see why
+    // Test 2 mobile communication
+
     public partial class App : Application
     {
         SecureStorage secureStorage = new SecureStorage();

@@ -54,9 +54,10 @@ namespace CryptoGeeks.Portunus.Views.Registration
                     }
                     else
                     {
-                        await cs.AddDisplayName(DisplayName.Text);
+                        int id = await cs.AddDisplayName(DisplayName.Text);
 
                         secureStorage.StoreInSecureStorage(Constants.DisplayName, DisplayName.Text);
+                        secureStorage.StoreInSecureStorage(Constants.UserId, id.ToString());
 
                         await Navigation.PushModalAsync(new NavigationPage(new Keys()), true);
                     }

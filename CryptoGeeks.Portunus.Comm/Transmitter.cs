@@ -30,23 +30,27 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 
                 int bytesread = Helper.SendPayload(stream, message);
                 OnNewMessageProxy(this, message, "Sent: {0} " +  Helper.PrintPayload(message));
-                
+                LoggerHelper.AddLog("Sent: {0} " + Helper.PrintPayload(message));
+
                 // Bytes Array to receive Server Response.
-                
-                
+
+
                 try
                 {
                     MemoryStream memStream = Helper.ReceiveStream(stream);
                     MemoryStream cleanedStream = Helper.CleanIncomingStream(memStream);
                     Payload payload = Serializer.Deserialize<Payload>(cleanedStream);
 
-                    OnNewMessageProxy(this, payload, "Sent: {0} " + Helper.PrintPayload(payload));                    
+                    OnNewMessageProxy(this, payload, "Sent: {0} " + Helper.PrintPayload(payload));
+                    LoggerHelper.AddLog("Sent: {0} " + Helper.PrintPayload(payload));
                     Thread.Sleep(2000);
 
                 }
                 catch (Exception e)
                 {
-                    OnNewMessageProxy(this, null,  "Exception: " + e.ToString());                    
+                    LoggerHelper.AddLog("Exception: " + e.ToString());
+                    OnNewMessageProxy(this, null,  "Exception: " + e.ToString());                  
+
                     client.Close();
                 }
 
@@ -56,9 +60,10 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             }
             catch (Exception e)
             {
-                OnNewMessageProxy(this, null, "Exception: " + e.ToString());
+                LoggerHelper.AddLog("Exception: " + e.ToString());
+                OnNewMessageProxy(this, null, "Exception: " + e.ToString());                
+
             }
-            Console.Read();
         }
     }
 }

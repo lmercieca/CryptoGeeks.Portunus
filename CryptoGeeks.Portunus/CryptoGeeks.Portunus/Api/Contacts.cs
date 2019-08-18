@@ -72,31 +72,13 @@ namespace CryptoGeeks.Portunus.Api
 
         public async Task<MultiSelectObservableCollection<ContactViewModel>> RefreshDataAsync()
         {
-            using (HttpClientHandler ClientHandler = new HttpClientHandler())
-            {
-                ClientHandler.AllowAutoRedirect = true;
-                ClientHandler.UseDefaultCredentials = true;
+            var httpClient = new HttpClient();
+            string text = await httpClient.GetStringAsync(Constants.ContactsURL).ConfigureAwait(false);
+            List<Contact> results = JsonConvert.DeserializeObject<List<Contact>>(text);
+            var query = from x in results select new ContactViewModel(x);
+            var Items = new MultiSelectObservableCollection<ContactViewModel>(query.ToList());
 
-                using (HttpClient Client = new HttpClient(ClientHandler))
-                {
-                    using (HttpResponseMessage ResponseMessage = await Client.GetAsync(Constants.ContactsURL))
-                    {
-                        using (HttpContent Content = ResponseMessage.Content)
-                        {
-                            string result = await Content.ReadAsStringAsync();
-                            List<Contact> results = JsonConvert.DeserializeObject<List<Contact>>(result);
-
-                            var query = from x in results select new ContactViewModel(x);
-
-                            var Items = new MultiSelectObservableCollection<ContactViewModel>(query.ToList());
-
-                            return Items;
-
-                        }
-                    }
-                }
-
-            }
+            return Items;
         }
 
 
@@ -133,8 +115,10 @@ namespace CryptoGeeks.Portunus.Api
             }
         }
 
-        public async Task<bool> AddDisplayName(string displayName)
+        public async Task<int> AddDisplayName(string displayName)
         {
+            int id = -1;
+
             using (HttpClientHandler ClientHandler = new HttpClientHandler())
             {
                 ClientHandler.AllowAutoRedirect = true;
@@ -153,11 +137,16 @@ namespace CryptoGeeks.Portunus.Api
 
                     using (HttpResponseMessage ResponseMessage = await Client.GetAsync(url))
                     {
-                        return true;
+                        if ( ResponseMessage.IsSuccessStatusCode)
+                        {
+                            id = int.Parse(ResponseMessage.Content.ReadAsStringAsync().Result);
+                        }
 
                     }
                 }
             }
+
+            return await Task.FromResult(id);
         }
     }
 }

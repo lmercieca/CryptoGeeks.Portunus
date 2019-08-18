@@ -1,6 +1,7 @@
 ﻿using CryptoGeeks.Portunus.Api.Model;
 using CryptoGeeks.Portunus.Comm;
 using CryptoGeeks.Portunus.CommunicationFramework;
+using CryptoGeeks.Portunus.Helpers;
 using CryptoGeeks.Portunus.Models;
 using CryptoGeeks.Portunus.ViewModels;
 using CryptoGeeks.Portunus.Views.AddKey;
@@ -8,6 +9,7 @@ using CryptoGeeks.Portunus.Views.ExportImport;
 using CryptoGeeks.Portunus.Views.Recovery;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,31 +28,37 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         Workflow workflow = new Workflow();
         public MultiSelectObservableCollection<ContactViewModel> Contacts;
 
+        Dictionary<string, int> ContactReference = new Dictionary<string, int>();
+
         public Conversation()
         {
             InitializeComponent();
 
             //workflow.OnNewMessage += Workflow_OnNewMessage;
-            //workflow.StartListener(Helper.GetMachineIp(), 7001);
+            //workflow.StartListener(Helper.GetMachineIp(), 11000);
 
             ItemListViewModel itemListViewModel = new ItemListViewModel();
             Task<string> userTask =  itemListViewModel.RefreshData();
             userTask.Wait();
+            Contacts = itemListViewModel.Contacts;
 
-            ContactsListView.BeginRefresh();
-            Contacts =  itemListViewModel.Contacts;
-            ContactsListView.EndRefresh();
+            foreach (SelectableItem<ContactViewModel> cvm in itemListViewModel.Contacts)
+            {
+                ContactsListView.Items.Add(cvm.Data.DisplayName);
+                ContactReference.Add(cvm.Data.DisplayName, cvm.Data.Id);
+            }
 
 
+            /*
             Thread t = new Thread(delegate ()
             {
                 // replace the IP with your system IP Address...
                 //Listener myserver = new Listener("192.168.***.***", 13000);
                 Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, 1, "Hello Buddy");
-                workflow.TransmitData("40.68.146.3", 7001, payload);
+                workflow.TransmitData("13.81.63.14", 11000, payload);
                 System.Threading.Thread.Sleep(1000);
 
-            });
+            });*/
         }
 
         private void Workflow_OnNewMessage(object source, Payload payload, string message)
@@ -66,14 +74,20 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             Task<List<UserStatusCompact>> userTask = proc.GetUsersConnection(canTok);
             userTask.Wait();
 
-            ContactViewModel cvm = (ContactViewModel)ContactsListView.SelectedItem;
 
-            UserStatusCompact peer = (from x in userTask.Result where x.Id == cvm.Contact.Id select x).FirstOrDefault();
+            int selectedId = ContactReference[ContactsListView.SelectedItem.ToString()];
+            UserStatusCompact peer = (from x in userTask.Result where x.Id == selectedId select x).FirstOrDefault();
 
             if (peer != null)
             {
-                Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, 1, txtMessage.Text);
-                workflow.TransmitData(peer.SourceIp, 7001, payload);
+
+                CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
+                int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
+                
+                Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, txtMessage.Text);
+                payload.FromIp = Helper.GetPublicMachineIp();
+
+                workflow.TransmitData(peer.SourceIp, 11000, payload);
 
                 Thread.Sleep(100);
             }

@@ -8,6 +8,7 @@ namespace CryptoGeeks.Portunus.Helpers
     {
 
         public const string DisplayName = "displayname";
+        public const string UserId = "userid";
         public static string OtherUsersFragmentsList = "otherPeopleFragmentsList";
         public static string KeysList = "keys";
         public static int DefaultServerPort = 11000;

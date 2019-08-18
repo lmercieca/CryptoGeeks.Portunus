@@ -29,6 +29,8 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 Listener myserver = new Listener(ip, port);
                 myserver.OnNewMessage += (object source, Payload messagePayload, string message) => { OnNewMessageProxy(source, messagePayload, message); };
                 myserver.StartListening();
+
+                LoggerHelper.AddLog("listening on " + ip + ":" + port);
             });
             t.Start();
 
@@ -44,6 +46,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 Transmitter transmitter = new Transmitter();
                 transmitter.OnNewMessage += (object source, Payload messagePayload, string message) => { OnNewMessageProxy(source, messagePayload, message); };
                 //transmitter.Connect("192.168.***.***", payload);
+                LoggerHelper.AddLog("Connecting to " + serverIp + ":" + port);
                 transmitter.Connect(serverIp, port, payload);
 
                 

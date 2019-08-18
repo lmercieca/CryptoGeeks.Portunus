@@ -27,6 +27,7 @@ namespace CryptoGeeks.Portunus.Api.Model
         public bool Selected { get; set; }
 
         public string DisplayName { get { return this.contact.DisplayName; } }
+        public int Id { get { return this.contact.Id; } }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

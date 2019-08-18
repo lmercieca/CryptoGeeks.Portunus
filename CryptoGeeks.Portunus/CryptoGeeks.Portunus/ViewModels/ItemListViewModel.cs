@@ -18,6 +18,7 @@ namespace CryptoGeeks.Portunus.ViewModels
         public MultiSelectObservableCollection<ContactViewModel> Contacts { get; set; }
         public MultiSelectObservableCollection<Fragment> Fragments { get; set; }
 
+        public List<ContactViewModel> BaseContactList { get; set; }
 
         public ItemListViewModel()
         {
@@ -53,9 +54,11 @@ namespace CryptoGeeks.Portunus.ViewModels
         public async Task<string> RefreshData()
         {
             ContactService contactService = new ContactService();
-            var res = await contactService.RefreshDataAsync();
+            var res = await contactService.RefreshDataAsync().ConfigureAwait(false);
 
             this.Contacts = res;
+
+           
 
             return await Task.FromResult("");
         }

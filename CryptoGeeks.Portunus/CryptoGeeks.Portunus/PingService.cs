@@ -1,4 +1,6 @@
-﻿using CryptoGeeks.Portunus.CommunicationFramework;
+﻿using CryptoGeeks.Common;
+using CryptoGeeks.Portunus.CommunicationFramework;
+using CryptoGeeks.Portunus.Helpers;
 using Matcha.BackgroundService;
 using Newtonsoft.Json;
 using System;
@@ -20,10 +22,15 @@ namespace CryptoGeeks.Portunus
 
         public async Task<bool> StartJob()
         {
-            Workflow workflow = new Workflow();
+            CryptoGeeks.Portunus.CommunicationFramework.Workflow workflow = new CryptoGeeks.Portunus.CommunicationFramework.Workflow();
+            
+            SecureStorage secureStorage = new SecureStorage();
+            int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
 
-            Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, 1, "Hello Buddy");
-            workflow.TransmitData("40.68.146.3", 7001, payload);
+            Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, "Hello Buddy");
+            payload.FromIp = Helper.GetPublicMachineIp();
+
+            workflow.TransmitData("13.81.63.14", 11000, payload);
 
             return await Task.FromResult(true);
         }
@@ -31,7 +38,7 @@ namespace CryptoGeeks.Portunus
 
     public class TCPReceiveService : IPeriodicTask
     {
-        Workflow workflow = new Workflow();
+        CryptoGeeks.Portunus.CommunicationFramework.Workflow workflow = new CryptoGeeks.Portunus.CommunicationFramework.Workflow();
 
 
         public TCPReceiveService(int seconds)
@@ -48,12 +55,12 @@ namespace CryptoGeeks.Portunus
             var listener = Application.Current.Properties["listener"];
             
             if (listener == null)
-                workflow = new Workflow();
+                workflow = new CryptoGeeks.Portunus.CommunicationFramework.Workflow();
             else
-                workflow = (Workflow)listener;
+                workflow = (CryptoGeeks.Portunus.CommunicationFramework.Workflow)listener;
 
             workflow.OnNewMessage += Workflow_OnNewMessage;
-            workflow.StartListener(Helper.GetMachineIp(), 7001);
+            workflow.StartListener(Helper.GetLocalMachineIp(), 11000);
 
             Application.Current.Properties["listener"] = workflow;
             return await Task.FromResult(true);

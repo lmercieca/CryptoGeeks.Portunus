@@ -13,16 +13,43 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
     public enum MessageState { Request, Response }
     public enum DataType { ContactRequest, RequestForHoldFragment, RequestForReturnFragment }
 
+
+    public class LoggerHelper
+    {
+        public static void DeleteFile(string data) 
+        {
+            var documents = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+            var filename = Path.Combine(documents, "portunus.log");
+
+            File.Delete(filename);
+        }
+
+        public static void AddLog(string data) // Code to generate a text file
+        {
+            var documents = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+            var filename = Path.Combine(documents, "portunus.log");
+
+
+            File.WriteAllText(filename, data);
+
+
+        }
+    }
+
     public class Helper
     {
-        public static string GetMachineIp()
+        public static string GetLocalMachineIp()
         {
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
                 socket.Connect("8.8.8.8", 65530);
                 IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
                 return endPoint.Address.ToString();
-            }            
+            }
+        }
+        public static string GetPublicMachineIp()
+        {
+            return new WebClient().DownloadString("http://icanhazip.com").Replace("\n", "");
         }
 
         public static MemoryStream PreparePayloadForSending(Payload message)
@@ -41,7 +68,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             {
                 msChannel.Write(new byte[] { 0 }, 0, 1);
             }
-                       
+
 
             msChannel.Position = 0;
             return msChannel;
@@ -155,7 +182,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             this.MessageSource = MessageSource.ActivePeer;
             this.MessageState = MessageState.Request;
 
-            this.FromIp = Helper.GetMachineIp();
+            this.FromIp = Helper.GetPublicMachineIp();
         }
 
         public CoreMessage(MessageType type, MessageSource source, MessageState state, int ownerUserId)
@@ -164,7 +191,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             this.MessageSource = source;
             this.MessageState = state;
 
-            this.FromIp = Helper.GetMachineIp();
+            this.FromIp = Helper.GetPublicMachineIp();
             this.OwnerUserId = ownerUserId;
         }
     }

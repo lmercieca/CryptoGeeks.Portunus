@@ -21,7 +21,7 @@
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical" Padding="10,10,10,10"  >
 
 
-                <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Enter the new key details" Style="{StaticResource SubTitleTextMinor}"></Label>
+                <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Communication Page" Style="{StaticResource SubTitleTextMinor}"></Label>
 
                 <Grid   HorizontalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
@@ -37,27 +37,14 @@
                 </Grid>
 
 
-                <ListView x:Name="ContactsListView"  lv:MultiSelect.Enable="false" Grid.Column="0" Grid.Row="0" IsPullToRefreshEnabled="False"   
-                          ItemsSource="{Binding Contacts}"  CachingStrategy="RecycleElement">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <lv:SelectableCell x:Name="SelectableCell">
-
-
-                                <lv:SelectableCell.DataView>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding DisplayName}"  Style="{StaticResource MinorNormalText}" />
-                                    </StackLayout>
-                                </lv:SelectableCell.DataView>
-                            </lv:SelectableCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <Picker x:Name="ContactsListView" Grid.Column="0" Grid.Row="0"  ItemDisplayBinding="{Binding DisplayName}" Style="{StaticResource MinorNormalText}">
+                   
+                </Picker>
 
                 <Controls:PortunusEntry  x:Name="txtMessage" Grid.Column="1" Grid.Row="0" Style="{StaticResource NormalText}"></Controls:PortunusEntry>
                 <Button x:Name="btnSend" Text="Next"  Grid.Column="2" Grid.Row="0" Style="{StaticResource OrangeButton}"  Clicked="BtnSend_Clicked"></Button>
 
-                <Editor x:Name="txtIncoming" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource NormalText}" ></Editor>
+                <Editor x:Name="txtIncoming" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource NormalText}" IsReadOnly="True" ></Editor>
 
 
             </StackLayout>

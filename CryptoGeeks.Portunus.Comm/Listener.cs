@@ -30,7 +30,9 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         {
             IPAddress localAddr = IPAddress.Parse(ip);
             server = new TcpListener(localAddr, port);
+            LoggerHelper.AddLog("Initiating on " + localAddr + ":" + port);
             server.Start();
+            LoggerHelper.AddLog("Listenening on " + localAddr + ":" + port);
         }
 
         public void StartListening()
@@ -40,9 +42,11 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 while (true)
                 {
                     OnNewMessageProxy(this, null, "Waiting for a connection...");
+                    LoggerHelper.AddLog("Waiting for a connection...");
 
                     TcpClient client = server.AcceptTcpClient();
                     OnNewMessageProxy(this, null, "Connected!");
+                    LoggerHelper.AddLog("Connected!");
 
                     Thread t = new Thread(new ParameterizedThreadStart(HandleDeivce));
                     t.Start(client);
@@ -67,6 +71,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 Payload payload = Serializer.Deserialize<Payload>(cleanedStream);
                 
                 OnNewMessageProxy(this, payload, "Received: " + Helper.PrintPayload(payload));
+                LoggerHelper.AddLog("Received: " + Helper.PrintPayload(payload));
 
                 PayloadProcessor proc = new PayloadProcessor();
                 proc.HandlePayload(ref payload);
@@ -75,11 +80,13 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 int bytesread = Helper.SendPayload(stream, payload);
 
                 OnNewMessageProxy(this, payload, "Sent: " + Helper.PrintPayload(payload));
-
+                LoggerHelper.AddLog("Sent: " + Helper.PrintPayload(payload));
             }
             catch (Exception e)
             {
-                OnNewMessageProxy(this, null, "Exception:" +  e.ToString());                
+                LoggerHelper.AddLog("Exception:" + e.ToString());
+                OnNewMessageProxy(this, null, "Exception:" +  e.ToString());
+              
                 client.Close();
             }
         }

@@ -49,13 +49,13 @@ namespace CryptoGeeks.API.Controllers
 
 
         // PUT: api/Users/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(int))]
         [Route("api/Users/AddDisplayName")]
-        public async Task<IHttpActionResult> GetNewDisplayName(string displayName)
+        public async Task<HttpResponseMessage> GetNewDisplayName(string displayName)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, -1, Configuration.Formatters.JsonFormatter);
             }
 
 
@@ -72,7 +72,7 @@ namespace CryptoGeeks.API.Controllers
                 
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Request.CreateResponse(HttpStatusCode.OK, user.Id, Configuration.Formatters.JsonFormatter);
         }
 
         // POST: api/Users
