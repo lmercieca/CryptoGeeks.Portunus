@@ -20,7 +20,7 @@ namespace CryptoGeeks.Portunus
 
         public TimeSpan Interval { get; set; }
 
-        public async Task<bool> StartJob()
+        public Task<bool> StartJob()
         {
             CryptoGeeks.Portunus.CommunicationFramework.Workflow workflow = new CryptoGeeks.Portunus.CommunicationFramework.Workflow();
             
@@ -32,7 +32,7 @@ namespace CryptoGeeks.Portunus
 
             workflow.TransmitData("13.81.63.14", 11000, payload);
 
-            return await Task.FromResult(true);
+            return Task.FromResult(true);
         }
     }
 
@@ -48,7 +48,7 @@ namespace CryptoGeeks.Portunus
 
         public TimeSpan Interval { get; set; }
 
-        public async Task<bool> StartJob()
+        public Task<bool> StartJob()
         {
             JsonSerializer js = new JsonSerializer();
 
@@ -63,7 +63,7 @@ namespace CryptoGeeks.Portunus
             workflow.StartListener(Helper.GetLocalMachineIp(), 11000);
 
             Application.Current.Properties["listener"] = workflow;
-            return await Task.FromResult(true);
+            return Task.FromResult(true);
         }
 
         private void Workflow_OnNewMessage(object source, Payload payload, string message)

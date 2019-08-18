@@ -161,6 +161,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\FragmentsController.cs" />
+    <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\KeysController.cs" />
     <Compile Include="Controllers\PingsController.cs" />
     <Compile Include="Controllers\SecurityQuestionsController.cs" />
@@ -236,6 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Helper\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

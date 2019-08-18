@@ -62,7 +62,7 @@ namespace CryptoGeeks.Portunus
                 "ios=861852a1-5d74-4e18-88f5-73b81c097318",
                 typeof(Analytics), typeof(Crashes));
 
-                BackgroundAggregatorService.Add(() => new PingService(60));
+                BackgroundAggregatorService.Add(() => new PingService(10));
                 BackgroundAggregatorService.Add(() => new TCPReceiveService(100));
 
                 //Start the background service

@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using Newtonsoft.Json;
+using ProtoBuf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,21 +50,31 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         }
         public static string GetPublicMachineIp()
         {
-            return new WebClient().DownloadString("http://icanhazip.com").Replace("\n", "");
+            string resp = new WebClient().DownloadString("https://portunus.azurewebsites.net/api/helper/getmyip");
+
+            return resp.Replace("\"", "");
         }
 
         public static MemoryStream PreparePayloadForSending(Payload message)
         {
             MemoryStream msChannel = new MemoryStream();
-            Serializer.Serialize<Payload>(msChannel, message);
+
+            
+            byte[] serializedPayload = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(message));
+
+            msChannel.Write(serializedPayload, 0, serializedPayload.Length);
+
+            //Serializer.Serialize<Payload>(msChannel, message);
 
 
             string eof = "<eof>";
             byte[] eofBytes = Encoding.ASCII.GetBytes(eof);
             msChannel.Write(eofBytes, 0, eofBytes.Length);
 
+            //msChannel.Position = msChannel.Length - 1;
 
             long size = 8;
+
             while (msChannel.Length % size != 0)
             {
                 msChannel.Write(new byte[] { 0 }, 0, 1);
@@ -159,7 +170,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         }
     }
 
-    [ProtoContract]
+    [ProtoContract(SkipConstructor = true)]
     public class CoreMessage
     {
         [ProtoMember(1)]
@@ -176,14 +187,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         public int OwnerUserId { get; set; }
 
 
-        public CoreMessage()
-        {
-            this.MessageType = MessageType.Ping;
-            this.MessageSource = MessageSource.ActivePeer;
-            this.MessageState = MessageState.Request;
-
-            //this.FromIp = Helper.GetPublicMachineIp();
-        }
+   
 
         public CoreMessage(MessageType type, MessageSource source, MessageState state, int ownerUserId)
         {
@@ -191,23 +195,20 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             this.MessageSource = source;
             this.MessageState = state;
 
-            //this.FromIp = Helper.GetPublicMachineIp();
+            this.FromIp = Helper.GetPublicMachineIp();
             this.OwnerUserId = ownerUserId;
         }
     }
 
-    [ProtoContract]
+    [ProtoContract(SkipConstructor = true)]
     public class Payload : CoreMessage
     {
-        [ProtoMember(11)]
+        [ProtoMember(1)]
         public DataType DataType { get; private set; }
-        [ProtoMember(12)]
+        [ProtoMember(2)]
         public string PayloadData { get; set; }
 
-        public Payload() : base(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, 1)
-        {
 
-        }
 
         public Payload(MessageType type, MessageSource source, MessageState state, DataType dataType, int ownerUserId, string payloadData) : base(type, source, state, ownerUserId)
         {

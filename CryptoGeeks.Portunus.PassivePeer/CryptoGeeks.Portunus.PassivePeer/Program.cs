@@ -15,14 +15,20 @@ namespace CryptoGeeks.Portunus.PassivePeer
         {
             Workflow workflow = new Workflow();
 
-            workflow.OnNewMessage += Workflow_OnNewMessage;
-            workflow.StartListener(Helper.GetLocalMachineIp(), 11000);
+            //workflow.OnNewMessage += Workflow_OnNewMessage;
+            //workflow.StartListener(Helper.GetLocalMachineIp(), 11000);
 
-            Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, 1, "Hello Buddy");
+            Payload payload = new Payload(MessageType.RequestForOpen, MessageSource.ActivePeer, MessageState.Response, DataType.ContactRequest, 1, "Hello Buddy");
             payload.FromIp = Helper.GetPublicMachineIp();
 
-            //workflow.TransmitData(Helper.GetMachineIp(), 11000, payload);
+            //workflow.TransmitData(Helper.GetLocalMachineIp(), 11000, payload);
             workflow.TransmitData("13.81.63.14", 11000, payload);
+
+            while (true)
+            {
+                System.Threading.Thread.Sleep(100);
+            }
+
             return;
 
 
