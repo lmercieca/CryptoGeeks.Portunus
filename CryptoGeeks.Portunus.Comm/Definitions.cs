@@ -182,7 +182,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             this.MessageSource = MessageSource.ActivePeer;
             this.MessageState = MessageState.Request;
 
-            this.FromIp = Helper.GetPublicMachineIp();
+            //this.FromIp = Helper.GetPublicMachineIp();
         }
 
         public CoreMessage(MessageType type, MessageSource source, MessageState state, int ownerUserId)
@@ -191,7 +191,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             this.MessageSource = source;
             this.MessageState = state;
 
-            this.FromIp = Helper.GetPublicMachineIp();
+            //this.FromIp = Helper.GetPublicMachineIp();
             this.OwnerUserId = ownerUserId;
         }
     }
