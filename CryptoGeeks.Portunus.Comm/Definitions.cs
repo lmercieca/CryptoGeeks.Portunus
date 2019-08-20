@@ -58,8 +58,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         public static MemoryStream PreparePayloadForSending(Payload message)
         {
             MemoryStream msChannel = new MemoryStream();
-
-            
+                        
             byte[] serializedPayload = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(message));
 
             msChannel.Write(serializedPayload, 0, serializedPayload.Length);

@@ -14,6 +14,15 @@ using Newtonsoft.Json;
 
 namespace CryptoGeeks.Portunus.CommunicationFramework
 {
+    public class TcpListenerDerivedClass : TcpListener
+    {
+        public TcpListenerDerivedClass(IPAddress address, int port) : base(address, port) { }
+        public void SetReUseAddress()
+        {
+            Socket s = this.Server;
+            s.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
+        }
+    }
     public class Listener
     {
         public delegate void OnNewMessageHandler(object source, Payload payload, String message);
@@ -26,11 +35,12 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         }
 
 
-        TcpListener server = null;
+        TcpListenerDerivedClass server = null;
         public Listener(string ip, int port)
         {
-            IPAddress localAddr = IPAddress.Parse(ip);
-            server = new TcpListener(localAddr, port);
+            IPAddress localAddr = IPAddress.Parse("0.0.0.0");
+            server = new TcpListenerDerivedClass(localAddr, port);
+          
             LoggerHelper.AddLog("Initiating on " + localAddr + ":" + port);
             server.Start();
             LoggerHelper.AddLog("Listenening on " + localAddr + ":" + port);
@@ -73,6 +83,8 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 StreamReader reader = new StreamReader(cleanedStream);
                 string text = reader.ReadToEnd();
                 reader.Close();
+
+
 
                 Payload payload = JsonConvert.DeserializeObject<Payload>(text);
                 //Payload payload = Serializer.Deserialize<Payload>(cleanedStream);

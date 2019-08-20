@@ -7,6 +7,7 @@ using CryptoGeeks.Portunus.ViewModels;
 using CryptoGeeks.Portunus.Views.AddKey;
 using CryptoGeeks.Portunus.Views.ExportImport;
 using CryptoGeeks.Portunus.Views.Recovery;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,17 +31,33 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         Dictionary<string, int> ContactReference = new Dictionary<string, int>();
 
+        public async Task<bool> SetMap()
+        {
+
+
+            return await Task.FromResult<bool>(true);
+        }
+
+
         public Conversation()
         {
             InitializeComponent();
 
-            //workflow.OnNewMessage += Workflow_OnNewMessage;
-            //workflow.StartListener(Helper.GetMachineIp(), 11000);
+            workflow.OnNewMessage += Workflow_OnNewMessage;
+
+            //Task<bool> res = SetMap();
+            //res.Wait();
+
+
+
+            workflow.StartListener(Helper.GetLocalMachineIp(), 11000);
 
             ItemListViewModel itemListViewModel = new ItemListViewModel();
-            Task<string> userTask =  itemListViewModel.RefreshData();
+            Task<string> userTask = itemListViewModel.RefreshData();
             userTask.Wait();
             Contacts = itemListViewModel.Contacts;
+
+            workflow.OnNewMessage += Workflow_OnNewMessage;
 
             foreach (SelectableItem<ContactViewModel> cvm in itemListViewModel.Contacts)
             {
@@ -61,9 +78,13 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             });*/
         }
 
+
         private void Workflow_OnNewMessage(object source, Payload payload, string message)
         {
-            txtIncoming.Text += message + Environment.NewLine;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                txtIncoming.Text = txtIncoming.Text + Environment.NewLine + message;
+            });
         }
 
         private void BtnSend_Clicked(object sender, EventArgs e)
@@ -83,7 +104,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
                 CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
                 int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
-                
+
                 Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, txtMessage.Text);
                 payload.FromIp = Helper.GetPublicMachineIp();
 
@@ -91,6 +112,17 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
                 Thread.Sleep(100);
             }
+        }
+
+        private void BtnSendBeat_Clicked(object sender, EventArgs e)
+        {
+            CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
+            int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
+
+            Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, "Hello Buddy from user " + userId);
+            payload.FromIp = Helper.GetPublicMachineIp();
+
+            workflow.TransmitData("13.81.63.14", 11000, payload);
         }
     }
 }

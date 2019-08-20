@@ -66,7 +66,7 @@ namespace CryptoGeeks.Portunus
                 BackgroundAggregatorService.Add(() => new TCPReceiveService(100));
 
                 //Start the background service
-                BackgroundAggregatorService.StartBackgroundService();
+                //BackgroundAggregatorService.StartBackgroundService();
             }
             catch (Exception exception)
             {

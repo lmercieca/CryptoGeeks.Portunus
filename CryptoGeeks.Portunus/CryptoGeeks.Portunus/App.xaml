@@ -5,34 +5,38 @@
     <Application.Resources>
         <ResourceDictionary>
 
-        <Color x:Key="HighlightBackground">#F9AC19</Color>
-        <Color x:Key="NormalBackground">#011E3B</Color>
-        <Color x:Key="NormalFontColor">White</Color>
+            <Color x:Key="HighlightBackground">#F9AC19</Color>
+            <Color x:Key="NormalBackground">#011E3B</Color>
+            <Color x:Key="NormalFontColor">White</Color>
 
-        <Color x:Key="ButtonTextColor">#0054A3</Color>
-        <Color x:Key="ButtonBackColor">White</Color>
-        <Color x:Key="OrangeText">#FCA809</Color>
-        <Color x:Key="BlueText">#011E3B</Color>
+            <Color x:Key="ButtonTextColor">#0054A3</Color>
+            <Color x:Key="ButtonBackColor">White</Color>
+            <Color x:Key="OrangeText">#FCA809</Color>
+            <Color x:Key="BlueText">#011E3B</Color>
+
+            <Color x:Key="DebugText">White</Color>
+            <Color x:Key="DebugBackground">#1e1e24</Color>
 
 
+            
 
-        <Style x:Key="SubTitleText" TargetType="Label">
-            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="27" />
-            <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
-        </Style>
+            <Style x:Key="SubTitleText" TargetType="Label">
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="27" />
+                <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
+            </Style>
 
-        <Style x:Key="SubTitleTextMinor" TargetType="Label">
-            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="23" />
-            <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
-        </Style>
+            <Style x:Key="SubTitleTextMinor" TargetType="Label">
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="23" />
+                <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
+            </Style>
 
-        <Style x:Key="NormalText" TargetType="Label">
-            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
-        </Style>
+            <Style x:Key="NormalText" TargetType="Label">
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
+            </Style>
 
 
             <Style x:Key="MinorNormalText" TargetType="Label">
@@ -41,35 +45,42 @@
                 <Setter Property="TextColor" Value="{StaticResource NormalFontColor}" />
             </Style>
 
-            
+            <Style x:Key="DebugWindow" TargetType="Label">
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="TextColor" Value="{StaticResource DebugText}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource DebugBackground}" />
+            </Style>
+
+
             <Style x:Key="NormalTextOrange" TargetType="Label">
-            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="TextColor" Value="{StaticResource OrangeText}" />
-        </Style>
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="{StaticResource OrangeText}" />
+            </Style>
 
-        <Style x:Key="NormalBlueOrange" TargetType="Label">
-            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="TextColor" Value="{StaticResource BlueText}" />
-        </Style>
+            <Style x:Key="NormalBlueOrange" TargetType="Label">
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="{StaticResource BlueText}" />
+            </Style>
 
-        <Style x:Key="NormalButton" TargetType="Button">
-            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
-            <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackColor}" />
-        </Style>
+            <Style x:Key="NormalButton" TargetType="Button">
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackColor}" />
+            </Style>
 
 
-        <Style x:Key="OrangeButton" TargetType="Button">
-            <Setter Property="FontFamily" Value="Nimbus Sans#400" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="TextColor" Value="{StaticResource BlueText}" />
-            <Setter Property="BackgroundColor" Value="{StaticResource OrangeText}" />
-        </Style>
+            <Style x:Key="OrangeButton" TargetType="Button">
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="{StaticResource BlueText}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource OrangeText}" />
+            </Style>
 
-    </ResourceDictionary>
+        </ResourceDictionary>
 
     </Application.Resources>
 </Application>

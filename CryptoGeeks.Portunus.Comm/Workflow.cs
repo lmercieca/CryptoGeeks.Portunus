@@ -40,7 +40,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         
         public void TransmitData(string serverIp, int port, Payload payload)
         {
-            new Thread(() =>
+            Thread t = new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 Transmitter transmitter = new Transmitter();
@@ -49,8 +49,10 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 LoggerHelper.AddLog("Connecting to " + serverIp + ":" + port);
                 transmitter.Connect(serverIp, port, payload);
 
-                
-            }).Start();
+
+            });
+            
+            t.Start();
         }
 
 

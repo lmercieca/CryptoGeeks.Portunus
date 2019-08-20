@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using Newtonsoft.Json;
+using ProtoBuf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             {
 
                 TcpClient client = new TcpClient(server, port);
+                
                 NetworkStream stream = client.GetStream();
 
                 int bytesread = Helper.SendPayload(stream, message);
@@ -39,10 +41,15 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 {
                     MemoryStream memStream = Helper.ReceiveStream(stream);
                     MemoryStream cleanedStream = Helper.CleanIncomingStream(memStream);
-                    Payload payload = Serializer.Deserialize<Payload>(cleanedStream);
 
-                    OnNewMessageProxy(this, payload, "Sent: {0} " + Helper.PrintPayload(payload));
-                    LoggerHelper.AddLog("Sent: {0} " + Helper.PrintPayload(payload));
+                    StreamReader reader = new StreamReader(cleanedStream);
+                    string text = reader.ReadToEnd();
+                    reader.Close();
+
+                    Payload payload = JsonConvert.DeserializeObject<Payload>(text);
+
+                    OnNewMessageProxy(this, payload, "Received: {0} " + Helper.PrintPayload(payload));
+                    LoggerHelper.AddLog("Received: {0} " + Helper.PrintPayload(payload));
                     Thread.Sleep(2000);
 
                 }

@@ -103,14 +103,14 @@ namespace CryptoGeeks.Portunus.Comm
 
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Get, Url))
-            using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+            using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false))
             {
-                var stream = await response.Content.ReadAsStreamAsync();
+                var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode)
                     return DeserializeJsonFromStream<List<UserStatusCompact>>(stream);
 
-                var content = await StreamToStringAsync(stream);
+                var content = await StreamToStringAsync(stream).ConfigureAwait(false);
             }
 
             return await Task.FromResult(new List<UserStatusCompact>() { });
