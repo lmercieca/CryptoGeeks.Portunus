@@ -60,7 +60,7 @@ namespace CryptoGeeks.Portunus
                 workflow = (CryptoGeeks.Portunus.CommunicationFramework.Workflow)listener;
 
             workflow.OnNewMessage += Workflow_OnNewMessage;
-            workflow.StartListener(Helper.GetLocalMachineIp(), 11000);
+            workflow.StartListener(11000);
 
             Application.Current.Properties["listener"] = workflow;
             return Task.FromResult(true);

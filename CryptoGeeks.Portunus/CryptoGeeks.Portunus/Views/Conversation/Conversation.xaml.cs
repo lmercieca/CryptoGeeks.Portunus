@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.MultiSelectListView;
 using Xamarin.Forms.Xaml;
+	
 
 namespace CryptoGeeks.Portunus.Views.Dashboard
 {
@@ -50,7 +52,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
 
 
-            workflow.StartListener(Helper.GetLocalMachineIp(), 11000);
+            workflow.StartListener(11000);
 
             ItemListViewModel itemListViewModel = new ItemListViewModel();
             Task<string> userTask = itemListViewModel.RefreshData();
@@ -65,7 +67,6 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                 ContactReference.Add(cvm.Data.DisplayName, cvm.Data.Id);
             }
 
-
             /*
             Thread t = new Thread(delegate ()
             {
@@ -77,6 +78,8 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
             });*/
         }
+
+    
 
 
         private void Workflow_OnNewMessage(object source, Payload payload, string message)
@@ -95,7 +98,6 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             Task<List<UserStatusCompact>> userTask = proc.GetUsersConnection(canTok);
             userTask.Wait();
 
-
             int selectedId = ContactReference[ContactsListView.SelectedItem.ToString()];
             UserStatusCompact peer = (from x in userTask.Result where x.Id == selectedId select x).FirstOrDefault();
 
@@ -107,6 +109,9 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
                 Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, txtMessage.Text);
                 payload.FromIp = Helper.GetPublicMachineIp();
+
+                ipFrom.Text = payload.FromIp;
+                ipTo.Text = peer.SourceIp;
 
                 workflow.TransmitData(peer.SourceIp, 11000, payload);
 

@@ -15,7 +15,7 @@ namespace CryptoGeeks.Portunus.Server
             
             Workflow workflow = new Workflow();
 
-            workflow.StartListener(Helper.GetLocalMachineIp(), 11000);
+            workflow.StartListener(11000);
 
             workflow.OnNewMessage += Workflow_OnNewMessage;
 

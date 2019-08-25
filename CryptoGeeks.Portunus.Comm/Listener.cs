@@ -16,7 +16,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 {
     public class TcpListenerDerivedClass : TcpListener
     {
-        public TcpListenerDerivedClass(IPAddress address, int port) : base(address, port) { }
+        public TcpListenerDerivedClass(IPAddress address, int port) : base(address, port) { SetReUseAddress(); }
         public void SetReUseAddress()
         {
             Socket s = this.Server;
@@ -36,14 +36,13 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 
 
         TcpListenerDerivedClass server = null;
-        public Listener(string ip, int port)
+        public Listener(int port)
         {
-            IPAddress localAddr = IPAddress.Parse("0.0.0.0");
-            server = new TcpListenerDerivedClass(localAddr, port);
+            server = new TcpListenerDerivedClass(IPAddress.Any, port);
           
-            LoggerHelper.AddLog("Initiating on " + localAddr + ":" + port);
+            LoggerHelper.AddLog("Initiating on " + IPAddress.Any + ":" + port);
             server.Start();
-            LoggerHelper.AddLog("Listenening on " + localAddr + ":" + port);
+            LoggerHelper.AddLog("Listenening on " + IPAddress.Any + ":" + port);
         }
 
         public void StartListening()

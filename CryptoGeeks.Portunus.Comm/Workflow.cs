@@ -1,6 +1,7 @@
 ﻿using CryptoGeeks.Portunus.Comm;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,21 +21,21 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 
         }
 
-        public void StartListener(string ip, int port)
+        public void StartListener(int port)
         {
             Thread t = new Thread(delegate ()
             {
                 // replace the IP with your system IP Address...
                 //Listener myserver = new Listener("192.168.***.***", 13000);
-                Listener myserver = new Listener(ip, port);
+                Listener myserver = new Listener( port);
                 myserver.OnNewMessage += (object source, Payload messagePayload, string message) => { OnNewMessageProxy(source, messagePayload, message); };
                 myserver.StartListening();
 
-                LoggerHelper.AddLog("listening on " + ip + ":" + port);
+                LoggerHelper.AddLog("listening on port " + port);
             });
             t.Start();
 
-            OnNewMessageProxy(this, null, "Server Started on " + ip + ":" + port);
+            OnNewMessageProxy(this, null, "Server Started on " + port);
         }
 
         
