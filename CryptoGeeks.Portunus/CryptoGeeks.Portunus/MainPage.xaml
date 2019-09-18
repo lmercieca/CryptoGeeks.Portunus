@@ -10,10 +10,10 @@
 
 
 
-    
-    
-        <telerikPrimitives:RadSideDrawer x:Name="drawer" DrawerLength="200">
-            <telerikPrimitives:RadSideDrawer.MainContent>
+
+
+    <telerikPrimitives:RadSideDrawer x:Name="drawer" DrawerLength="200">
+        <telerikPrimitives:RadSideDrawer.MainContent>
 
             <telerikPrimitives:RadSideDrawer x:Name="drawerRight" DrawerLength="200" DrawerLocation="Right" >
                 <telerikPrimitives:RadSideDrawer.MainContent>
@@ -27,88 +27,82 @@
 
                                     <ScrollView VerticalOptions="FillAndExpand">
 
-                <StackLayout Orientation="Vertical"  Padding="10">
-                    <StackLayout HorizontalOptions="CenterAndExpand"  Orientation="Horizontal" >
+                                        <StackLayout Orientation="Vertical"  Padding="10">
+                                            <StackLayout HorizontalOptions="CenterAndExpand"  Orientation="Horizontal" >
 
 
 
 
-                        <Image Aspect="AspectFit" Source="ProgressBar1.png"></Image>
+                                                <Image Aspect="AspectFit" Source="ProgressBar1.png"></Image>
 
-                    </StackLayout>
-                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical" Padding="0,0,0,20" >
+                                            </StackLayout>
+                                            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical" Padding="0,0,0,20" >
 
-                        <Label Text="{i18n:Translate Register_Step}"
+                                                <Label Text="{i18n:Translate Register_Step}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"  Style="{StaticResource Step1}"/>
 
 
-                        <Label Text="{i18n:Translate Register_Title}"
+                                                <Label Text="{i18n:Translate Register_Title}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"  Style="{StaticResource Step1Minor}"/>
 
 
-                        <Label Text="{i18n:Translate Register_Subtitle}"
+                                                <Label Text="{i18n:Translate Register_Subtitle}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" Style="{StaticResource Step1_Title}"/>
 
-                    </StackLayout>
+                                            </StackLayout>
 
-                    <AbsoluteLayout  VerticalOptions="FillAndExpand">
+                                            <AbsoluteLayout  VerticalOptions="FillAndExpand">
 
-                        <Label Text="{i18n:Translate Register_Lastname}"  AbsoluteLayout.LayoutBounds="3,0,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"   Style="{StaticResource SecurityQuestionText}"/>
+                                                <Label Text="{i18n:Translate Register_Lastname}"  AbsoluteLayout.LayoutBounds="3,0,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"   Style="{StaticResource SecurityQuestionText}"/>
 
-                        <Entry  
+                                                <Entry  x:Name="LastName"
                   ReturnType="Next"  AbsoluteLayout.LayoutBounds="0,25,1,40"  HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   IsSpellCheckEnabled="False" TextColor="White"    FlexLayout.Grow="1" 
                  Style="{StaticResource SecurityQuestionText}"/>
 
 
-                        <Label Text="{i18n:Translate Register_Firstname}"  AbsoluteLayout.LayoutBounds="3,70,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"       
+                                                <Label Text="{i18n:Translate Register_Firstname}"  AbsoluteLayout.LayoutBounds="3,70,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"       
                   Style="{StaticResource SecurityQuestionText}"/>
 
-                        <Entry   AbsoluteLayout.LayoutBounds="0,95,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
-                  ReturnType="Next" IsSpellCheckEnabled="False" TextColor="White" 
+                                                <Entry   AbsoluteLayout.LayoutBounds="0,95,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
+                  ReturnType="Next" IsSpellCheckEnabled="False" TextColor="White" x:Name="FirstName" 
                 HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/>
 
 
-                        <Label Text="{i18n:Translate Register_DOB}"  AbsoluteLayout.LayoutBounds="3,140,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"       
+                                                <Label Text="{i18n:Translate Register_DOB}"  AbsoluteLayout.LayoutBounds="3,140,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"       
                     Style="{StaticResource SecurityQuestionText}"/>
 
-                        <DatePicker MinimumDate="01/01/1930"   AbsoluteLayout.LayoutBounds="0,165,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
-                  TextColor="White"  Format="dd/MMM/yyyy" 
+                                                <DatePicker MinimumDate="01/01/1930"   AbsoluteLayout.LayoutBounds="0,165,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
+                  TextColor="White"  Format="dd/MMM/yyyy" x:Name="DOB"
                 HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"
              />
 
 
-                        <Label Text="{i18n:Translate Register_Email}"        AbsoluteLayout.LayoutBounds="3,210,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional" 
+                                                <Label Text="{i18n:Translate Register_Email}"        AbsoluteLayout.LayoutBounds="3,210,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional" 
                    Style="{StaticResource SecurityQuestionText}"/>
 
-                        <Entry  AbsoluteLayout.LayoutBounds="0,235,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
+                                                <Entry  AbsoluteLayout.LayoutBounds="0,235,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
                   ReturnType="Next" IsSpellCheckEnabled="False" IsTextPredictionEnabled="false"  TextColor="White"  Keyboard="Email"
-                HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/>
+                HorizontalOptions="FillAndExpand" x:Name="Email"  Style="{StaticResource SecurityQuestionText}"/>
 
-                        <Label Text="{i18n:Translate Register_Country}"  AbsoluteLayout.LayoutBounds="3,280,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"       
+                                                <Label Text="{i18n:Translate Register_Country}"  AbsoluteLayout.LayoutBounds="3,280,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional"       
                   Style="{StaticResource SecurityQuestionText}"/>
 
-                        <Picker x:Name="Country"  Title="Country" AbsoluteLayout.LayoutBounds="0,305,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
+                                                <Picker x:Name="Country"  Title="Country" AbsoluteLayout.LayoutBounds="0,305,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"   
                    TextColor="White"  ItemDisplayBinding="{Binding Name}"
                 HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/>
 
-                        <Label Text="{i18n:Translate Register_Phone}"        AbsoluteLayout.LayoutBounds="3,350,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional" 
+                                                <Label Text="{i18n:Translate Register_Phone}"        AbsoluteLayout.LayoutBounds="3,350,1,20"  HorizontalOptions="Fill" AbsoluteLayout.LayoutFlags="WidthProportional" 
                   Style="{StaticResource SecurityQuestionText}"/>
 
-                        <StackLayout  HorizontalOptions="FillAndExpand"  Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,375,1,40"  AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"    >
-                            <Picker  
-               TextColor="White"   ItemDisplayBinding="{Binding CallingCode}"
-                HorizontalOptions="Start" x:Name="CountryCode"  Style="{StaticResource SecurityQuestionText}"/>
-
-                            <Entry  
+                                                <Entry  x:Name="Phone"
                   ReturnType="Next" IsSpellCheckEnabled="False" TextColor="White"  
                 HorizontalOptions="FillAndExpand"  Style="{StaticResource SecurityQuestionText}"/>
-                        </StackLayout>
-                    </AbsoluteLayout>
-                </StackLayout>
-            </ScrollView>
+                                            </AbsoluteLayout>
+                                        </StackLayout>
+                                    </ScrollView>
 
                                 </telerikPrimitives:RadSideDrawer.MainContent>
                                 <telerikPrimitives:RadSideDrawer.DrawerContent>
@@ -128,10 +122,10 @@
                 </telerikPrimitives:RadSideDrawer.DrawerContent>
             </telerikPrimitives:RadSideDrawer>
         </telerikPrimitives:RadSideDrawer.MainContent>
-            <telerikPrimitives:RadSideDrawer.DrawerContent>
+        <telerikPrimitives:RadSideDrawer.DrawerContent>
             <Label  Style="{StaticResource SecurityQuestionText}" Text="The information we store on the mobile is --- &#10; The information sent to the server is --"></Label>
-            </telerikPrimitives:RadSideDrawer.DrawerContent>
-        </telerikPrimitives:RadSideDrawer>
+        </telerikPrimitives:RadSideDrawer.DrawerContent>
+    </telerikPrimitives:RadSideDrawer>
 
 
 </ContentPage>

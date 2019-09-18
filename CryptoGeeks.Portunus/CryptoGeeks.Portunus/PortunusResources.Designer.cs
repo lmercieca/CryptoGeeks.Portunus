@@ -61,6 +61,33 @@ namespace CryptoGeeks.Portunus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Contact.
+        /// </summary>
+        internal static string AddContact_Title {
+            get {
+                return ResourceManager.GetString("AddContact_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a new key.
+        /// </summary>
+        internal static string AddKey_Title {
+            get {
+                return ResourceManager.GetString("AddKey_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboard.
+        /// </summary>
+        internal static string Dashboard_Title {
+            get {
+                return ResourceManager.GetString("Dashboard_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         internal static string Register_Country {

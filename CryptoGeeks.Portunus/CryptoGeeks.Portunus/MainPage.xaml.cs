@@ -40,7 +40,6 @@ namespace CryptoGeeks.Portunus
                 var apiResult = countriesApi.RefreshDataAsync().Result;
 
                 Country.ItemsSource = apiResult;
-                CountryCode.ItemsSource = apiResult;
             }
             catch (Exception exception)
             {

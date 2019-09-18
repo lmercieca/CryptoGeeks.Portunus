@@ -36,21 +36,32 @@ namespace CryptoGeeks.API.Controllers
             return Ok(user);
         }
 
+        // GET: api/Users/5
+        [ResponseType(typeof(bool))]
+        [Route("api/Users/GetUserByName")]
+        public HttpResponseMessage GetUserByName(string displayName)
+        {
+            bool userExist = db.Users.Where(x => x.DisplayName.ToLower() == displayName.ToLower()).Count() > 0;
+
+            return Request.CreateResponse(HttpStatusCode.OK, userExist, Configuration.Formatters.JsonFormatter);
+        }
+    
+
+
         // PUT: api/Users/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUser(int id, User user)
+        [ResponseType(typeof(int))]
+        [Route("api/Users/AddDisplayName")]
+        public async Task<HttpResponseMessage> GetNewDisplayName(string displayName)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, -1, Configuration.Formatters.JsonFormatter);
             }
 
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
 
-            db.Entry(user).State = EntityState.Modified;
+            User user = new User() { DisplayName = displayName };
+
+            db.Entry(user).State = EntityState.Added;
 
             try
             {
@@ -58,17 +69,10 @@ namespace CryptoGeeks.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Request.CreateResponse(HttpStatusCode.OK, user.Id, Configuration.Formatters.JsonFormatter);
         }
 
         // POST: api/Users
