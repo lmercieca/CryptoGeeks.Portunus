@@ -41,6 +41,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CryptoGeeks.Portunus.Comm\CryptoGeeks.Portunus.Comm.csproj" />
     <ProjectReference Include="..\..\CryptoGeeks.SecretSplitter\SecretSplitter.csproj" />
+    <ProjectReference Include="..\..\P2Pchat-master\Shared\Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +52,9 @@
     </Compile>
     <Compile Update="SignIn\PasscodeLogin.xaml.cs">
       <DependentUpon>PasscodeLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Conversation\Comm.xaml.cs">
+      <DependentUpon>Comm.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Conversation\Conversation.xaml.cs">
       <DependentUpon>Conversation.xaml</DependentUpon>
@@ -85,6 +89,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AddKey\AddEntry.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Conversation\test.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Dashboard\KeyDetails.xaml">

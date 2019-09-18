@@ -21,12 +21,13 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 OnNewMessage(source, payload, message);
         }
 
-        public void Connect(String server, int port, Payload message)
+        public void Connect(String server, int port, Payload message, bool bind)
         {
             try
             {
 
-                TcpClient client = new TcpClient(server, port);
+                TcpClientDerivedClass client = new TcpClientDerivedClass(server, port, Helper.GetLocalMachineIp(), bind);
+                
                 
                 NetworkStream stream = client.GetStream();
 

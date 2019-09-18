@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.MultiSelectListView;
 using Xamarin.Forms.Xaml;
-	
+
 
 namespace CryptoGeeks.Portunus.Views.Dashboard
 {
@@ -33,25 +34,19 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         Dictionary<string, int> ContactReference = new Dictionary<string, int>();
 
-        public async Task<bool> SetMap()
-        {
 
 
-            return await Task.FromResult<bool>(true);
-        }
+        
 
 
         public Conversation()
         {
             InitializeComponent();
 
+
             workflow.OnNewMessage += Workflow_OnNewMessage;
-
-            //Task<bool> res = SetMap();
-            //res.Wait();
-
-
-
+            
+   
             workflow.StartListener(11000);
 
             ItemListViewModel itemListViewModel = new ItemListViewModel();
@@ -79,7 +74,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             });*/
         }
 
-    
+
 
 
         private void Workflow_OnNewMessage(object source, Payload payload, string message)
@@ -113,7 +108,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                 ipFrom.Text = payload.FromIp;
                 ipTo.Text = peer.SourceIp;
 
-                workflow.TransmitData(peer.SourceIp, 11000, payload);
+                workflow.TransmitData(peer.SourceIp, 11000, payload, true);
 
                 Thread.Sleep(100);
             }
@@ -126,8 +121,9 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
             Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, "Hello Buddy from user " + userId);
             payload.FromIp = Helper.GetPublicMachineIp();
+            //payload.FromIp = Helper.GetLocalMachineIp();
 
-            workflow.TransmitData("13.81.63.14", 11000, payload);
+            workflow.TransmitData("13.81.63.14", 11000, payload, false);
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using SecureStorage = CryptoGeeks.Common.SecureStorage;
 using Matcha.BackgroundService;
+using CryptoGeeks.Portunus.Views.Conversation;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CryptoGeeks.Portunus
@@ -44,11 +45,15 @@ namespace CryptoGeeks.Portunus
 
             string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
 
+            MainPage = new NavigationPage(new CryptoGeeks.Portunus.Views.Dashboard.Comm());
+
+            /*
             if (!string.IsNullOrEmpty(displayName))
                 MainPage = new NavigationPage(new Keys());
             else
 
                 MainPage = new NavigationPage(new Register());
+                */
 
         }
 

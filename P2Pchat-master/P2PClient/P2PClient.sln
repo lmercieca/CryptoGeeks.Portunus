@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2PClient", "P2PClient\P2PClient.csproj", "{DA970A31-638F-4214-9320-B4DC2B313329}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "..\Shared\Shared.csproj", "{399E2711-902A-41FE-8883-6DAFFCE50E01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2PBareClient", "P2PBareClient\P2PBareClient.csproj", "{CE15C271-63EB-4280-A093-EE3A83BDAEE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA970A31-638F-4214-9320-B4DC2B313329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA970A31-638F-4214-9320-B4DC2B313329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA970A31-638F-4214-9320-B4DC2B313329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA970A31-638F-4214-9320-B4DC2B313329}.Release|Any CPU.Build.0 = Release|Any CPU
+		{399E2711-902A-41FE-8883-6DAFFCE50E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{399E2711-902A-41FE-8883-6DAFFCE50E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{399E2711-902A-41FE-8883-6DAFFCE50E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{399E2711-902A-41FE-8883-6DAFFCE50E01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE15C271-63EB-4280-A093-EE3A83BDAEE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE15C271-63EB-4280-A093-EE3A83BDAEE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE15C271-63EB-4280-A093-EE3A83BDAEE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE15C271-63EB-4280-A093-EE3A83BDAEE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D7B3CFC-BC91-4F18-AF8D-F27645B2E3B9}
+	EndGlobalSection
+EndGlobal

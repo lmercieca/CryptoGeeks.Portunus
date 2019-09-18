@@ -22,7 +22,7 @@ namespace CryptoGeeks.Portunus.PassivePeer
             payload.FromIp = Helper.GetPublicMachineIp();
 
             //workflow.TransmitData(Helper.GetLocalMachineIp(), 11000, payload);
-            workflow.TransmitData("13.81.63.14", 11000, payload);
+            workflow.TransmitData("13.81.63.14", 11000, payload, false);
 
             while (true)
             {
@@ -51,7 +51,7 @@ namespace CryptoGeeks.Portunus.PassivePeer
                 for (int i = 0; i < 3; i++)
                 {
                     payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, 1, "Hello Buddy");
-                    workflow.TransmitData(peer.SourceIp, 11000, payload);
+                    workflow.TransmitData(peer.SourceIp, 11000, payload, true);
 
                     Thread.Sleep(100);
                 }

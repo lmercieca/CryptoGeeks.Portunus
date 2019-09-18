@@ -193,6 +193,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\P2Pchat-master\Shared\Shared.csproj">
+      <Project>{399e2711-902a-41fe-8883-6daffce50e01}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CryptoGeeks.Portunus\CryptoGeeks.Portunus.csproj">
       <Project>{07427CAF-9A56-4B15-BDB6-EBCD0BE6DD1B}</Project>
       <Name>CryptoGeeks.Portunus</Name>

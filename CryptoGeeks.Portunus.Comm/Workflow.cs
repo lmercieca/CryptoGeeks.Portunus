@@ -39,7 +39,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         }
 
         
-        public void TransmitData(string serverIp, int port, Payload payload)
+        public void TransmitData(string serverIp, int port, Payload payload, bool bind)
         {
             Thread t = new Thread(() =>
             {
@@ -48,7 +48,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 transmitter.OnNewMessage += (object source, Payload messagePayload, string message) => { OnNewMessageProxy(source, messagePayload, message); };
                 //transmitter.Connect("192.168.***.***", payload);
                 LoggerHelper.AddLog("Connecting to " + serverIp + ":" + port);
-                transmitter.Connect(serverIp, port, payload);
+                transmitter.Connect(serverIp, port, payload, bind);
 
 
             });
