@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,29 +16,35 @@ namespace CruptoGeeks.Server.Host
     public partial class Form1 : Form
     {
         ObservableCollection<Connection> Connections = new ObservableCollection<Connection>();
+        const string SERVER_IP = "127.0.0.1";
 
         public Form1()
         {
             InitializeComponent();
 
-            Connection item = new Connection(
-                new PeerConnection()
-                {
-                    IP = "127.0.0.1",
-                    PeerPort = 100001,
-                    ServerPort = 100002
-                },
-                new PeerConnection()
-                {
-                    IP = "127.0.0.2",
-                    PeerPort = 200001,
-                    ServerPort = 200002
-                }
-            );
+            nudPort.Maximum = int.MaxValue;
 
-            Connections.Add(item);
-            UpdateDisplay();
-         
+
+            //Connection item = new Connection(
+            //    new PeerConnection()
+            //    {
+            //        IP = "127.0.0.1",
+            //        PeerPort = 100001,
+            //        ServerPort = 100002
+            //    },
+            //    new PeerConnection()
+            //    {
+            //        IP = "127.0.0.2",
+            //        PeerPort = 200001,
+            //        ServerPort = 200002
+            //    }
+            //);
+
+            //Connections.Add(item);
+            //UpdateDisplay();
+
+            MainChannel mc = new MainChannel((int)nudPort.Value);
+
         }
 
         private void UpdateDisplay()
@@ -54,25 +62,12 @@ namespace CruptoGeeks.Server.Host
             dgvDetails.DataSource = displayConnections;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Connection item = new Connection(
-               new PeerConnection()
-               {
-                   IP = "127.0.0.3",
-                   PeerPort = 300001,
-                   ServerPort = 300002
-               },
-               new PeerConnection()
-               {
-                   IP = "127.0.0.4",
-                   PeerPort = 400001,
-                   ServerPort = 400002
-               }
-           );
 
-            Connections.Add(item);
-            UpdateDisplay();
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            //---listen at the specified IP and port no.---
+            IPAddress localAdd = IPAddress.Parse(SERVER_IP);
+            TcpListener listenerFromClient = new TcpListener(localAdd, (int)nudPort.Value);
         }
     }
 

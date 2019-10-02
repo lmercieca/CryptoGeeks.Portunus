@@ -25,10 +25,8 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         {
             try
             {
-
                 TcpClientDerivedClass client = new TcpClientDerivedClass(server, port, Helper.GetLocalMachineIp(), bind);
-                
-                
+               
                 NetworkStream stream = client.GetStream();
 
                 int bytesread = Helper.SendPayload(stream, message);
@@ -36,7 +34,6 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 LoggerHelper.AddLog("Sent: {0} " + Helper.PrintPayload(message));
 
                 // Bytes Array to receive Server Response.
-
 
                 try
                 {
@@ -52,7 +49,6 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                     OnNewMessageProxy(this, payload, "Received: {0} " + Helper.PrintPayload(payload));
                     LoggerHelper.AddLog("Received: {0} " + Helper.PrintPayload(payload));
                     Thread.Sleep(2000);
-
                 }
                 catch (Exception e)
                 {
@@ -61,7 +57,6 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 
                     client.Close();
                 }
-
              
                 stream.Close();
                 client.Close();

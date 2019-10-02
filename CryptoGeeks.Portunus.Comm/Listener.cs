@@ -61,13 +61,13 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         }
 
 
-        TcpListenerDerivedClass server = null;
+        public TcpListenerDerivedClass Server = null;
         public Listener(int port)
         {
-            server = new TcpListenerDerivedClass(IPAddress.Any, port);
+            Server = new TcpListenerDerivedClass(IPAddress.Any, port);
 
             LoggerHelper.AddLog("Initiating on " + IPAddress.Any + ":" + port);
-            server.Start();
+            Server.Start();
             LoggerHelper.AddLog("Listenening on " + IPAddress.Any + ":" + port);
         }
 
@@ -80,7 +80,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                     OnNewMessageProxy(this, null, "Waiting for a connection...");
                     LoggerHelper.AddLog("Waiting for a connection...");
 
-                    TcpClient client = server.AcceptTcpClient();
+                    TcpClient client = Server.AcceptTcpClient();
                     OnNewMessageProxy(this, null, "Connected!");
                     LoggerHelper.AddLog("Connected!");
 
@@ -91,7 +91,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             catch (SocketException e)
             {
                 OnNewMessageProxy(this, null, "SocketException: " + e);
-                server.Stop();
+                Server.Stop();
             }
         }
         public void HandleDeivce(Object obj)
@@ -126,6 +126,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 OnNewMessageProxy(this, payload, "Sent: " + Helper.PrintPayload(payload));
                 LoggerHelper.AddLog("Sent: " + Helper.PrintPayload(payload));
 
+                Helper.SendPayload(stream, payload);
 
 
             }

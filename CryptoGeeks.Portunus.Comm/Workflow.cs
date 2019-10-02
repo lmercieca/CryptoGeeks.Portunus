@@ -17,8 +17,6 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         {
             if (OnNewMessage != null)
                 OnNewMessage(source, payload, message);
-
-
         }
 
         public void StartListener(int port)
