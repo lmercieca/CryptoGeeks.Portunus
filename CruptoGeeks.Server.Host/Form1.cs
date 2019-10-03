@@ -17,6 +17,7 @@ namespace CruptoGeeks.Server.Host
     {
         ObservableCollection<Connection> Connections = new ObservableCollection<Connection>();
         const string SERVER_IP = "127.0.0.1";
+        MainChannel mc = new MainChannel();
 
         public Form1()
         {
@@ -24,6 +25,7 @@ namespace CruptoGeeks.Server.Host
 
             nudPort.Maximum = int.MaxValue;
 
+            mc.OnNewClient += Mc_OnNewClient;
 
             //Connection item = new Connection(
             //    new PeerConnection()
@@ -43,7 +45,32 @@ namespace CruptoGeeks.Server.Host
             //Connections.Add(item);
             //UpdateDisplay();
 
-            MainChannel mc = new MainChannel((int)nudPort.Value);
+
+
+        }
+
+        private void Mc_OnNewClient(string remoteIp, int remotePort, string serverIp, int serverPort, int userId)
+        {
+            Connection conn = new Connection(
+                new PeerConnection()
+                {
+                    IP = remoteIp,
+                    PeerPort = remotePort,
+                    ServerPort = serverPort,
+                    UserID = userId
+                },
+                new PeerConnection()
+                {
+                    IP = "",
+                    PeerPort = -1,
+                    ServerPort = -1,
+                    UserID = -1
+                }
+            );
+
+            Connections.Add(conn);
+
+            this.Invoke((MethodInvoker)delegate { UpdateDisplay(); });
 
         }
 
@@ -54,9 +81,11 @@ namespace CruptoGeeks.Server.Host
                 PrimaryIP = x.Primary.IP,
                 PrimaryPeerPort = x.Primary.PeerPort,
                 PrimaryServerPort = x.Primary.ServerPort,
+                PrimaryUser = x.Primary.UserID,
                 SecondaryServerPort = x.Secondary.ServerPort,
                 SecondaryIP = x.Secondary.IP,
-                SecondaryPort = x.Secondary.PeerPort
+                SecondaryPort = x.Secondary.PeerPort,
+                SecUser = x.Secondary.UserID
             }).ToList();
 
             dgvDetails.DataSource = displayConnections;
@@ -65,9 +94,11 @@ namespace CruptoGeeks.Server.Host
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            //---listen at the specified IP and port no.---
-            IPAddress localAdd = IPAddress.Parse(SERVER_IP);
-            TcpListener listenerFromClient = new TcpListener(localAdd, (int)nudPort.Value);
+            Task t = Task.Factory.StartNew(() =>
+            {
+                mc.StartListening((int)nudPort.Value);
+               
+            });
         }
     }
 
@@ -76,6 +107,7 @@ namespace CruptoGeeks.Server.Host
         public string IP { get; set; }
         public int PeerPort { get; set; }
         public int ServerPort { get; set; }
+        public int UserID { get; set; }
     }
 
     public class Connection

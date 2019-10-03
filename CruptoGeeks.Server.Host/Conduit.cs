@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
+using CryptoGeeks.Portunus.CommunicationFramework;
 
 namespace CruptoGeeks.Server.Host
 {
@@ -15,7 +16,7 @@ namespace CruptoGeeks.Server.Host
         TcpClient client = null;
         TcpClient server = null;
 
-        public Conduit(TcpListener client, TcpListener server)
+        public Conduit(TcpListenerDerivedClass client, TcpListenerDerivedClass server)
         {
             listenerFromClient = client;
             listenerFromServer = server;

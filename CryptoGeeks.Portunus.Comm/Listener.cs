@@ -11,6 +11,7 @@ using ProtoBuf;
 using System.IO;
 using CryptoGeeks.Portunus.Comm;
 using Newtonsoft.Json;
+using Interceptor;
 
 namespace CryptoGeeks.Portunus.CommunicationFramework
 {
@@ -51,6 +52,15 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 
     public class Listener
     {
+        public delegate void OnNewConnectionHandler(object source, Payload payload, String message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint, Listener listener);
+        public event OnNewConnectionHandler OnNewConnection;
+
+        public void OnNewConnectionProxy(object source, Payload payload, String message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint, Listener listener)
+        {
+            if (OnNewConnection != null)
+                OnNewConnection(source, payload, message, remoteEndpoint, serverEndPoint, listener);
+        }
+
         public delegate void OnNewMessageHandler(object source, Payload payload, String message);
         public event OnNewMessageHandler OnNewMessage;
 
@@ -99,6 +109,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             TcpClient client = (TcpClient)obj;
             var stream = client.GetStream();
 
+            
 
             try
             {
@@ -113,6 +124,20 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 
                 Payload payload = JsonConvert.DeserializeObject<Payload>(text);
                 //Payload payload = Serializer.Deserialize<Payload>(cleanedStream);
+
+                if (payload.MessageState == MessageState.Request && payload.MessageType == MessageType.NewConnection)
+                {
+                    Listener listener = new Listener(PortService.GetInstance.GetNextPort());
+                    listener.StartListening();
+
+                    OnNewConnection(this, payload, "", ((IPEndPoint)client.Client.RemoteEndPoint), ((IPEndPoint)client.Client.LocalEndPoint), listener);
+
+                    
+                        
+
+
+                    
+                }
 
                 OnNewMessageProxy(this, payload, "Received: " + Helper.PrintPayload(payload));
                 LoggerHelper.AddLog("Received: " + Helper.PrintPayload(payload));

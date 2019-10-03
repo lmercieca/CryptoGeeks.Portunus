@@ -9,7 +9,7 @@ using System.Text;
 
 namespace CryptoGeeks.Portunus.CommunicationFramework
 {
-    public enum MessageType { Ping, RequestForOpen, RequestForChannel };
+    public enum MessageType { NewConnection, Ping, RequestForOpen, RequestForChannel };
     public enum MessageSource { ActivePeer, PassivePeer, Server }
     public enum MessageState { Request, Response }
     public enum DataType { ContactRequest, RequestForHoldFragment, RequestForReturnFragment }
