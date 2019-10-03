@@ -12,7 +12,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
     public enum MessageType { NewConnection, Ping, RequestForOpen, RequestForChannel };
     public enum MessageSource { ActivePeer, PassivePeer, Server }
     public enum MessageState { Request, Response }
-    public enum DataType { ContactRequest, RequestForHoldFragment, RequestForReturnFragment }
+    public enum DataType { ClientPortResponse, ContactRequest, RequestForHoldFragment, RequestForReturnFragment }
 
 
     public class LoggerHelper
@@ -31,7 +31,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             var filename = Path.Combine(documents, "portunus.log");
 
 
-            File.WriteAllText(filename, data);
+          //  File.WriteAllText(filename, data);
 
 
         }
@@ -203,11 +203,9 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
     public class Payload : CoreMessage
     {
         [ProtoMember(1)]
-        public DataType DataType { get; private set; }
+        public DataType DataType { get; set; }
         [ProtoMember(2)]
         public string PayloadData { get; set; }
-
-
 
         public Payload(MessageType type, MessageSource source, MessageState state, DataType dataType, int ownerUserId, string payloadData) : base(type, source, state, ownerUserId)
         {

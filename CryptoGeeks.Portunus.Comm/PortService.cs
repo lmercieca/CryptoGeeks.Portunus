@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CryptoGeeks.Portunus.Comm
@@ -23,7 +25,10 @@ namespace CryptoGeeks.Portunus.Comm
 
         private PortService()
         {
-            Parallel.Invoke(() => RefreshPortListProcess());
+            Task t = Task.Factory.StartNew(() =>
+            {
+                Parallel.Invoke(() => RefreshPortListProcess());
+            });
 
         }
 
@@ -56,17 +61,17 @@ namespace CryptoGeeks.Portunus.Comm
                                 .Where(n => n.Port >= startingPort)
                                 .Select(n => n.Port);
 
-            //getting active udp listeners
-            var udpListenerPorts = properties.GetActiveUdpListeners()
-                                .Where(n => n.Port >= startingPort)
-                                .Select(n => n.Port);
+            ////getting active udp listeners
+            //var udpListenerPorts = properties.GetActiveUdpListeners()
+            //                    .Where(n => n.Port >= startingPort)
+            //                    .Select(n => n.Port);
 
             if (Monitor.TryEnter(_lock, 300))
             {
                 AvailablePorts = Enumerable.Range(startingPort, ushort.MaxValue)
                     .Where(i => !tcpConnectionPorts.Contains(i))
-                    .Where(i => !tcpListenerPorts.Contains(i))
-                    .Where(i => !udpListenerPorts.Contains(i)).ToList();
+                    .Where(i => !tcpListenerPorts.Contains(i)).ToList();
+                //.Where(i => !udpListenerPorts.Contains(i)).ToList();
 
                 Monitor.Exit(_lock);
             }

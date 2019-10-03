@@ -12,7 +12,7 @@ namespace CruptoGeeks.Server.Host
 {
     public class MainChannel
     {
-        public delegate void OnNewClientHandler(string remoteIp,  int remotePort, string serverIp, int serverPort, int userId);
+        public delegate void OnNewClientHandler(string remoteIp, int remotePort, string serverIp, int serverPort, int userId);
         public event OnNewClientHandler OnNewClient;
 
 
@@ -23,12 +23,12 @@ namespace CruptoGeeks.Server.Host
         Listener listener = null;
 
         List<Conduit> clientsChannels = new List<Conduit>();
-        Dictionary<int, Listener> clients = new Dictionary<int, Listener>();
+        List<int> clients = new List<int>();
 
 
         public MainChannel()
         {
-           
+
 
         }
         public void StartListening(int port)
@@ -39,9 +39,9 @@ namespace CruptoGeeks.Server.Host
             listener.StartListening();
         }
 
-        private void Listener_OnNewConnection(object source, Payload payload, string message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint, Listener listener)
+        private void Listener_OnNewConnection(object source, Payload payload, string message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint)
         {
-            clients.Add(payload.OwnerUserId, listener);
+            clients.Add(payload.OwnerUserId);
 
 
             if (OnNewClient != null)
@@ -58,8 +58,9 @@ namespace CruptoGeeks.Server.Host
                 Console.WriteLine(message);
 
                 HandlePayload(ref payload);
-
             }
+
+
         }
 
 
@@ -69,17 +70,17 @@ namespace CruptoGeeks.Server.Host
             {
                 case MessageType.Ping:
                     MarkPing(payload);
-                          break;
+                    break;
 
                 case MessageType.RequestForOpen:
 
                     break;
 
                 case MessageType.RequestForChannel:
-                    
-                    TcpListenerDerivedClass primary = new TcpListenerDerivedClass(IPAddress.Any, 
+
+                    TcpListenerDerivedClass primary = new TcpListenerDerivedClass(IPAddress.Any,
                         PortService.GetInstance().GetNextPort());
-                    TcpListenerDerivedClass secondary = new TcpListenerDerivedClass(IPAddress.Any, 
+                    TcpListenerDerivedClass secondary = new TcpListenerDerivedClass(IPAddress.Any,
                         PortService.GetInstance().GetNextPort());
 
                     Conduit conduit = new Conduit(primary, secondary);
@@ -102,7 +103,7 @@ namespace CruptoGeeks.Server.Host
 
             db.Pings.Add(ping);
 
-           
+
         }
 
     }

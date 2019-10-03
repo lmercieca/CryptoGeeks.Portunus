@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoGeeks.Portunus.Comm;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -26,6 +27,10 @@ namespace CruptoGeeks.Server.Host
             nudPort.Maximum = int.MaxValue;
 
             mc.OnNewClient += Mc_OnNewClient;
+
+
+            PortService.GetInstance();
+
 
             //Connection item = new Connection(
             //    new PeerConnection()
@@ -99,6 +104,8 @@ namespace CruptoGeeks.Server.Host
                 mc.StartListening((int)nudPort.Value);
                
             });
+
+            lblStatus.Text = "Listening";
         }
     }
 

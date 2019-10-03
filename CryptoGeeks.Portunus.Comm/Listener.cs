@@ -12,6 +12,7 @@ using System.IO;
 using CryptoGeeks.Portunus.Comm;
 using Newtonsoft.Json;
 using Interceptor;
+using CruptoGeeks.Portunus.Comm;
 
 namespace CryptoGeeks.Portunus.CommunicationFramework
 {
@@ -52,13 +53,15 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 
     public class Listener
     {
-        public delegate void OnNewConnectionHandler(object source, Payload payload, String message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint, Listener listener);
+        public delegate void OnNewConnectionHandler(object source, Payload payload, String message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint);
         public event OnNewConnectionHandler OnNewConnection;
 
-        public void OnNewConnectionProxy(object source, Payload payload, String message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint, Listener listener)
+        public NetworkStream ListenerStream = null;
+
+        public void OnNewConnectionProxy(object source, Payload payload, String message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint)
         {
             if (OnNewConnection != null)
-                OnNewConnection(source, payload, message, remoteEndpoint, serverEndPoint, listener);
+                OnNewConnection(source, payload, message, remoteEndpoint, serverEndPoint);
         }
 
         public delegate void OnNewMessageHandler(object source, Payload payload, String message);
@@ -69,7 +72,6 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
             if (OnNewMessage != null)
                 OnNewMessage(source, payload, message);
         }
-
 
         public TcpListenerDerivedClass Server = null;
         public Listener(int port)
@@ -104,40 +106,38 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 Server.Stop();
             }
         }
+
+
+        public void Stop()
+        {
+            if (Server != null)
+            {
+                Server.Stop();
+            }
+        }
+
+        public void TransmitData(Payload payload)
+        {
+            if (ListenerStream != null)
+            Helper.SendPayload(ListenerStream, payload);
+        }
+
         public void HandleDeivce(Object obj)
         {
             TcpClient client = (TcpClient)obj;
-            var stream = client.GetStream();
-
-            
+            ListenerStream = client.GetStream();
 
             try
             {
-                MemoryStream memStream = Helper.ReceiveStream(stream);
+                MemoryStream memStream = Helper.ReceiveStream(ListenerStream);
                 MemoryStream cleanedStream = Helper.CleanIncomingStream(memStream);
 
                 StreamReader reader = new StreamReader(cleanedStream);
                 string text = reader.ReadToEnd();
                 reader.Close();
 
-
-
                 Payload payload = JsonConvert.DeserializeObject<Payload>(text);
                 //Payload payload = Serializer.Deserialize<Payload>(cleanedStream);
-
-                if (payload.MessageState == MessageState.Request && payload.MessageType == MessageType.NewConnection)
-                {
-                    Listener listener = new Listener(PortService.GetInstance.GetNextPort());
-                    listener.StartListening();
-
-                    OnNewConnection(this, payload, "", ((IPEndPoint)client.Client.RemoteEndPoint), ((IPEndPoint)client.Client.LocalEndPoint), listener);
-
-                    
-                        
-
-
-                    
-                }
 
                 OnNewMessageProxy(this, payload, "Received: " + Helper.PrintPayload(payload));
                 LoggerHelper.AddLog("Received: " + Helper.PrintPayload(payload));
@@ -146,14 +146,27 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 proc.HandlePayload(ref payload);
 
                 payload.PayloadData = "Ack data: " + payload.PayloadData;
-                int bytesread = Helper.SendPayload(stream, payload);
+
+                if (payload.MessageState == MessageState.Request && payload.MessageType == MessageType.NewConnection)
+                {
+                    int port = PortService.GetInstance().GetNextPort();
+
+                    ClientConnectionManager.GetInstance().AddServerConnection(payload.OwnerUserId, port);
+
+                    OnNewConnection(this, payload, "", ((IPEndPoint)client.Client.RemoteEndPoint), ((IPEndPoint)client.Client.LocalEndPoint));
+
+                    payload.PayloadData = port.ToString();
+                    payload.DataType = DataType.ClientPortResponse;
+
+                }
+
+
+                int bytesread = Helper.SendPayload(ListenerStream, payload);
 
                 OnNewMessageProxy(this, payload, "Sent: " + Helper.PrintPayload(payload));
                 LoggerHelper.AddLog("Sent: " + Helper.PrintPayload(payload));
 
-                Helper.SendPayload(stream, payload);
-
-
+                Helper.SendPayload(ListenerStream, payload);
             }
             catch (Exception e)
             {

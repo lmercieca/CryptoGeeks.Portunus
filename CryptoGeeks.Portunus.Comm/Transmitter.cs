@@ -30,7 +30,7 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 NetworkStream stream = client.GetStream();
 
                 int bytesread = Helper.SendPayload(stream, message);
-                OnNewMessageProxy(this, message, "Sent: {0} " +  Helper.PrintPayload(message));
+               // OnNewMessageProxy(this, message, "Sent: {0} " +  Helper.PrintPayload(message));
                 LoggerHelper.AddLog("Sent: {0} " + Helper.PrintPayload(message));
 
                 // Bytes Array to receive Server Response.
