@@ -23,6 +23,12 @@ namespace CryptoGeeks.API.Controllers
             return db.Fragments;
         }
 
+        public IQueryable<Fragment> GetFragmentsForKey(int keyId)
+        {
+            return db.Fragments.Where(x=>x.KeyFk == keyId);
+        }
+
+
 
         public IQueryable<Fragment> GetFragmentsForUser(string DisplayName)
         {

@@ -59,11 +59,9 @@
                             
 
                             <StackLayout HorizontalOptions="Center"   Orientation="Horizontal" Padding="10,10,10,10">
-                                <Button x:Name="btnConversation"  Grid.Column="0" Grid.Row="1"  Text="Conv" Style="{StaticResource OrangeButton}" Clicked="BtnConversation_Clicked"></Button>
                                 <Button x:Name="btnRefresh"  Grid.Column="0" Grid.Row="0"  Text="Refresh" Style="{StaticResource NormalButton}" Clicked="BtnRefresh_Clicked"></Button>
                                 <Button x:Name="btnExport"  Grid.Column="1" Grid.Row="0"  Text="Export" Style="{StaticResource NormalButton}" Clicked="BtnExport_Clicked"></Button>
                                 <Button x:Name="btnAdd"  Grid.Column="2" Grid.Row="0"  Text="Add New" Style="{StaticResource OrangeButton}" Clicked="BtnAdd_Clicked"></Button>
-                                
 
                             </StackLayout>
                         </ListView.Footer>

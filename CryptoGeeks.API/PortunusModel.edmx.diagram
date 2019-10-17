@@ -11,11 +11,19 @@
         <EntityTypeShape EntityType="PortunusModel.SecurityQuestion" Width="1.5" PointX="2.75" PointY="4.75" />
         <EntityTypeShape EntityType="PortunusModel.User" Width="1.5" PointX="4.75" PointY="4.75" />
         <AssociationConnector Association="PortunusModel.FK_Fragment_Key" />
-        <EntityTypeShape EntityType="PortunusModel.Ping" Width="1.5" PointX="7" PointY="4.625" />
-        <AssociationConnector Association="PortunusModel.FK_Ping_Users" />
         <EntityTypeShape EntityType="PortunusModel.UserStatusCompact" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="PortunusModel.Setting" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="PortunusModel.UserStatu" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="PortunusModel.Contact" Width="1.5" PointX="7" PointY="8.625" />
+        <EntityTypeShape EntityType="PortunusModel.KeyRequest" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="PortunusModel.UserKeyFragment" Width="1.5" PointX="10" PointY="2.625" />
+        <AssociationConnector Association="PortunusModel.FK_Contacts_Users" />
+        <AssociationConnector Association="PortunusModel.FK_Contacts_Users1" />
+        <AssociationConnector Association="PortunusModel.FK_UserKeyFragment_Fragments" />
+        <AssociationConnector Association="PortunusModel.FK_UserKeyFragment_Keys" />
+        <AssociationConnector Association="PortunusModel.FK_UserKeyFragment_Users" />
+        <AssociationConnector Association="PortunusModel.FK_UserKeyFragment_Users1" />
+        <EntityTypeShape EntityType="PortunusModel.Ping" Width="1.5" PointX="7.5" PointY="5.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

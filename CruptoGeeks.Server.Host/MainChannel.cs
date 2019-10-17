@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CruptoGeeks.Server.Host
@@ -16,15 +17,26 @@ namespace CruptoGeeks.Server.Host
         public event OnNewClientHandler OnNewClient;
 
 
-        TcpListener listenerFromServer = null;
-        TcpClient client = null;
 
         PayloadProcessor payloadProcessor = new PayloadProcessor();
         Listener listener = null;
 
         List<Conduit> clientsChannels = new List<Conduit>();
-        List<int> clients = new List<int>();
+        Dictionary<int, Listener> clients = new Dictionary<int, Listener>();
+        Listener clientListener;
 
+        public void CloseConnections()
+        {
+            foreach (Conduit c in clientsChannels)
+            {
+                c.Close();
+            }
+
+            if (listener != null)
+                listener.Stop();
+
+
+        }
 
         public MainChannel()
         {
@@ -36,13 +48,18 @@ namespace CruptoGeeks.Server.Host
             listener = new Listener(port);
             listener.OnNewMessage += Listener_OnNewMessage;
             listener.OnNewConnection += Listener_OnNewConnection;
+            listener.OnHandlePayload += Listener_OnHandlePayload;
             listener.StartListening();
+        }
+
+        private void Listener_OnHandlePayload(Payload payload, bool isServerListener)
+        {
+            HandlePayload(ref payload);
         }
 
         private void Listener_OnNewConnection(object source, Payload payload, string message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint)
         {
-            clients.Add(payload.OwnerUserId);
-
+            //clients.Add(payload.OwnerUserId);
 
             if (OnNewClient != null)
                 OnNewClient(remoteEndpoint.Address.ToString(), remoteEndpoint.Port, serverEndPoint.Address.ToString(), serverEndPoint.Port, payload.OwnerUserId);
@@ -59,8 +76,6 @@ namespace CruptoGeeks.Server.Host
 
                 HandlePayload(ref payload);
             }
-
-
         }
 
 
@@ -70,23 +85,126 @@ namespace CruptoGeeks.Server.Host
             {
                 case MessageType.Ping:
                     MarkPing(payload);
+
+                    if (!clients.ContainsKey(payload.OwnerUserId))
+                    {
+                        int port = PortService.GetInstance().GetNextPort();
+
+                        clientListener = new Listener(port);
+                        clientListener.OnNewMessage += Listener_OnNewMessage;
+                        clientListener.OnNewConnection += Listener_OnNewConnection;
+                        clientListener.OnHandlePayload += Listener_OnHandlePayload;
+
+                        clients.Add(payload.OwnerUserId, clientListener);
+                        clientListener.StartListening();
+
+                        Payload p = new Payload(MessageType.RequestForChannel, MessageSource.Server, MessageState.Request,
+                        DataType.ContactRequest, payload.OwnerUserId, port.ToString());
+
+                        OnNewClient(payload.FromIp, -1, "127.0.0.1", -1, payload.OwnerUserId);
+
+                        listener.TransmitData(p);
+                    }
+                    else
+                    {
+                        payload.MessageState = MessageState.Response;
+                        clients[payload.OwnerUserId].TransmitData(payload);
+                    }
                     break;
 
-                case MessageType.RequestForOpen:
+                case MessageType.RequestForClose:
+                    string id = payload.AdditionalData;
 
+                    Conduit cond = clientsChannels.Where(x => x.ID == id).FirstOrDefault();
+
+                    if (cond != null)
+                    {
+                        cond.Close();
+                        clientsChannels.Remove(cond);
+                    }
                     break;
 
                 case MessageType.RequestForChannel:
 
-                    TcpListenerDerivedClass primary = new TcpListenerDerivedClass(IPAddress.Any,
-                        PortService.GetInstance().GetNextPort());
-                    TcpListenerDerivedClass secondary = new TcpListenerDerivedClass(IPAddress.Any,
-                        PortService.GetInstance().GetNextPort());
+                    if (clients.ContainsKey(payload.OwnerUserId) && clients.ContainsKey(int.Parse(payload.AdditionalData)))
+                    {
+                        int primaryPort = PortService.GetInstance().GetNextPort();
+                        int secondaryPort = PortService.GetInstance().GetNextPort();
 
-                    Conduit conduit = new Conduit(primary, secondary);
-                    conduit.InitiateChannel();
+                        Listener primary = new Listener(primaryPort);
+                        Listener secondary = new Listener(secondaryPort);
 
-                    clientsChannels.Add(conduit);
+
+                        primary.StartListening();
+                        secondary.StartListening();
+
+
+                        Conduit conduit = new Conduit(primary, secondary, payload.OwnerUserId, int.Parse(payload.AdditionalData));
+                        conduit.InitiateChannel();
+
+
+                        Payload p = new Payload(MessageType.RequestForChannel, MessageSource.Server, MessageState.Response,
+                        DataType.ContactRequest, int.Parse(payload.AdditionalData), secondaryPort.ToString(), conduit.ID);
+
+                        Listener main = clients[payload.OwnerUserId];
+                        main.TransmitData(p);
+
+
+                        var thread = new Thread(() =>
+                        {
+                            conduit.StartChannel();
+                        });
+
+                        p = new Payload(MessageType.RequestForChannel, MessageSource.Server, MessageState.Response,
+                        DataType.ContactRequest, payload.OwnerUserId, primaryPort.ToString(), conduit.ID);
+
+                        Listener sec = clients[int.Parse(payload.AdditionalData)];
+                        sec.TransmitData(p);
+
+
+                        clientsChannels.Add(conduit);
+
+                    }
+                    break;
+
+                case MessageType.ClosePeerConnection:
+                    string Id = payload.PayloadData;
+                    Conduit c = clientsChannels.Where(x => x.ID == Id).FirstOrDefault();
+
+                    if (c != null)
+                    {
+                        c.Close();
+                        clientsChannels.Remove(c);
+                    }
+
+                    break;
+
+
+                case MessageType.CloseServerConnection:
+
+                    int user = payload.OwnerUserId;
+
+                    List<Conduit> conduits = clientsChannels.Where(x => x.PrimaryUserId == user || x.SecondaryUserId == user).ToList();
+
+
+
+                    foreach (Conduit conduit in conduits)
+                    {
+
+                        Payload closeChannelPayload = new Payload(MessageType.ClosePeerConnection, MessageSource.Server, MessageState.Request,
+                  DataType.ContactRequest, user, conduit.ID);
+
+                        
+
+                            Listener sec = clients[conduit.SecondaryUserId];
+                        sec.TransmitData(closeChannelPayload);
+
+
+                        conduit.Close();
+                        clientsChannels.Remove(conduit);
+                    }
+
+                    this.clients.Remove(user);
 
                     break;
             }

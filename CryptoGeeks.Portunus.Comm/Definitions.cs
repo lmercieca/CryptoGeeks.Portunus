@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using ProtoBuf;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,8 @@ using System.Text;
 
 namespace CryptoGeeks.Portunus.CommunicationFramework
 {
-    public enum MessageType { NewConnection, Ping, RequestForOpen, RequestForChannel };
+    
+    public enum MessageType { NewConnection, Ping, RequestForOpen, RequestForChannel, RequestForClose, PeerMessage, Hello, CloseServerConnection, ClosePeerConnection };
     public enum MessageSource { ActivePeer, PassivePeer, Server }
     public enum MessageState { Request, Response }
     public enum DataType { ClientPortResponse, ContactRequest, RequestForHoldFragment, RequestForReturnFragment }
@@ -173,16 +175,23 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
     public class CoreMessage
     {
         [ProtoMember(1)]
+        [JsonProperty(Required = Required.Always)]
         public MessageType MessageType { get; private set; }
+
+        [JsonProperty(Required = Required.Always)]
         [ProtoMember(2)]
         public MessageSource MessageSource { get; private set; }
+
         [ProtoMember(3)]
-        public MessageState MessageState { get; private set; }
+        [JsonProperty(Required = Required.Always)]
+        public MessageState MessageState { get; set; }
 
         [ProtoMember(4)]
+        [JsonProperty(Required = Required.Always)]
         public string FromIp { get; set; }
 
         [ProtoMember(5)]
+        [JsonProperty(Required = Required.Always)]
         public int OwnerUserId { get; set; }
 
 
@@ -202,16 +211,25 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
     [ProtoContract(SkipConstructor = true)]
     public class Payload : CoreMessage
     {
-        [ProtoMember(1)]
+
+        [ProtoMember(11)]
+        [JsonProperty(Required = Required.Always)]
         public DataType DataType { get; set; }
-        [ProtoMember(2)]
+
+        [ProtoMember(12)]
+        [JsonProperty(Required = Required.Always)]
         public string PayloadData { get; set; }
 
-        public Payload(MessageType type, MessageSource source, MessageState state, DataType dataType, int ownerUserId, string payloadData) : base(type, source, state, ownerUserId)
+        [ProtoMember(13)]
+        [JsonProperty(Required = Required.Always)]
+        public string AdditionalData { get; set; }
+
+
+        public Payload(MessageType type, MessageSource source, MessageState state, DataType dataType, int ownerUserId, string payloadData, string additionalData = "") : base(type, source, state, ownerUserId)
         {
             this.DataType = DataType;
             this.PayloadData = payloadData;
+            this.AdditionalData = additionalData;
         }
     }
-
 }

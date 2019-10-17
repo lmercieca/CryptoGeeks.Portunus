@@ -33,7 +33,7 @@
                     </Grid>
 
                     <Label Text="Display Name" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>                    
-                    <Controls:PortunusEntry  x:Name="DisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}" Placeholder="Display Name"></Controls:PortunusEntry>
+                    <Entry  x:Name="DisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}" Placeholder="Display Name"></Entry>
 
 
 

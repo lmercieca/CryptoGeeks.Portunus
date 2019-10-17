@@ -102,13 +102,13 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                 CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
                 int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
 
-                Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, txtMessage.Text);
-                payload.FromIp = Helper.GetPublicMachineIp();
+                //Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, txtMessage.Text);
+                //payload.FromIp = Helper.GetPublicMachineIp();
 
-                ipFrom.Text = payload.FromIp;
-                ipTo.Text = peer.SourceIp;
+                //ipFrom.Text = payload.FromIp;
+                //ipTo.Text = peer.SourceIp;
 
-                workflow.TransmitData(peer.SourceIp, 11000, payload, true);
+                //workflow.TransmitData(peer.SourceIp, 11000, payload, true);
 
                 Thread.Sleep(100);
             }
@@ -119,11 +119,11 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
             int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
 
-            Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, "Hello Buddy from user " + userId);
-            payload.FromIp = Helper.GetPublicMachineIp();
+            //Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, "Hello Buddy from user " + userId);
+            //payload.FromIp = Helper.GetPublicMachineIp();
             //payload.FromIp = Helper.GetLocalMachineIp();
 
-            workflow.TransmitData("13.81.63.14", 11000, payload, false);
+            //workflow.TransmitData("13.81.63.14", 11000, payload, false);
         }
     }
 }

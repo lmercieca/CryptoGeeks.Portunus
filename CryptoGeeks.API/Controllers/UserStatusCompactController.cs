@@ -23,6 +23,11 @@ namespace CryptoGeeks.API.Controllers
             return db.UserStatusCompacts;
         }
 
+        public IQueryable<UserStatusCompact> GetUserStatus(int userId)
+        {
+            return db.UserStatusCompacts.Where(x=>x.Id == userId);
+        }
+
         // GET: api/UserStatusCompact/5
         [ResponseType(typeof(UserStatusCompact))]
         public async Task<IHttpActionResult> GetUserStatusCompact(int id)

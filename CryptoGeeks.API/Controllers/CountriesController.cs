@@ -24,6 +24,12 @@ namespace CryptoGeeks.API.Controllers
             return (from c in db.Countries select new CountryView { Name = c.Name }).AsNoTracking();
         }
 
+
+        public IQueryable<CountryView> GetCountryByName(string Name)
+        {
+            return (from c in db.Countries where c.Name.ToLower().Contains(Name.ToLower()) select new CountryView { Name = c.Name }).AsNoTracking();
+        }
+
         // GET: api/Countries/5
         [ResponseType(typeof(Country))]
         public async Task<IHttpActionResult> GetCountry(int id)
@@ -37,6 +43,8 @@ namespace CryptoGeeks.API.Controllers
 
             return Ok(country);
         }
+
+
 
         // PUT: api/Countries/5
         [ResponseType(typeof(void))]

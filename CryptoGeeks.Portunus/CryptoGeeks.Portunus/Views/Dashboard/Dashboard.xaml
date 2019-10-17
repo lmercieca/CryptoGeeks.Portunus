@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               BackgroundColor="{StaticResource NormalBackground}"
+             x:Class="CryptoGeeks.Portunus.Views.Dashboard.Dashboard">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand">
+            <!-- <Label Text="Wxample 0" FontSize="25" BackgroundColor="Snow"></Label>-->
+
+            <Grid HorizontalOptions="CenterAndExpand" Padding="5" ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="45*" />
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnKeys" Grid.Column="0" Grid.Row="0" Text="Keys" BackgroundColor="#eff0d1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75"></Button>
+                <Button x:Name="btnConatcts" Grid.Column="2" Grid.Row="0" Text="Contacts" BackgroundColor="#d7c0d0" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75" ></Button>
+                <Button x:Name="btnRequests" Grid.Column="0" Grid.Row="1" Text="Fragments" BackgroundColor="#77ba99" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75"></Button>
+                <Button x:Name="btnSettings" Grid.Column="2" Grid.Row="1" Text="Settings" BackgroundColor="SkyBlue" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75"></Button>
+
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

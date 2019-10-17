@@ -10,9 +10,11 @@ using System.Threading;
 using ProtoBuf;
 using System.IO;
 using CryptoGeeks.Portunus.Comm;
-using Newtonsoft.Json;
+
 using Interceptor;
 using CruptoGeeks.Portunus.Comm;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace CryptoGeeks.Portunus.CommunicationFramework
 {
@@ -56,7 +58,14 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         public delegate void OnNewConnectionHandler(object source, Payload payload, String message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint);
         public event OnNewConnectionHandler OnNewConnection;
 
+        public delegate void OnHandlePayloadHandler(Payload payload, bool isServerPayload);
+        public event OnHandlePayloadHandler OnHandlePayload;
+
+        public bool IsServerListener { get; set; }
+
+        public int Port { get; set; }
         public NetworkStream ListenerStream = null;
+        TcpClient Client = null;
 
         public void OnNewConnectionProxy(object source, Payload payload, String message, IPEndPoint remoteEndpoint, IPEndPoint serverEndPoint)
         {
@@ -74,31 +83,41 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
         }
 
         public TcpListenerDerivedClass Server = null;
-        public Listener(int port)
+        public Listener(int port, bool isServerListener = true)
         {
+            this.IsConnected = false;
+            this.Port = port;
             Server = new TcpListenerDerivedClass(IPAddress.Any, port);
-
+            this.IsServerListener = isServerListener;
             LoggerHelper.AddLog("Initiating on " + IPAddress.Any + ":" + port);
             Server.Start();
             LoggerHelper.AddLog("Listenening on " + IPAddress.Any + ":" + port);
         }
 
+        public bool IsConnected { get; set; }
+
         public void StartListening()
         {
             try
             {
-                while (true)
+
+                Task tConn = Task.Factory.StartNew(() =>
                 {
-                    OnNewMessageProxy(this, null, "Waiting for a connection...");
-                    LoggerHelper.AddLog("Waiting for a connection...");
+                    while (true)
+                    {
+                        OnNewMessageProxy(this, null, "Waiting for a connection...");
+                        LoggerHelper.AddLog("Waiting for a connection...");
 
-                    TcpClient client = Server.AcceptTcpClient();
-                    OnNewMessageProxy(this, null, "Connected!");
-                    LoggerHelper.AddLog("Connected!");
+                        Client = Server.AcceptTcpClient();
+                        this.IsConnected = true;
+                        OnNewMessageProxy(this, null, "Connected!");
+                        LoggerHelper.AddLog("Connected!");
 
-                    Thread t = new Thread(new ParameterizedThreadStart(HandleDeivce));
-                    t.Start(client);
-                }
+                        Thread t = new Thread(new ParameterizedThreadStart(HandleDeivce));
+                        t.Start(Client);
+                    }
+                });
+
             }
             catch (SocketException e)
             {
@@ -118,14 +137,38 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
 
         public void TransmitData(Payload payload)
         {
-            if (ListenerStream != null)
-            Helper.SendPayload(ListenerStream, payload);
+            if (ListenerStream == null)
+            {
+                if (Client == null)
+                {
+                    var thread = new Thread(() =>
+                    {
+                        StartListening();
+                        Thread.Sleep(1000);
+                        ListenerStream = Client.GetStream();
+
+                        Helper.SendPayload(ListenerStream, payload);
+                    });
+                    thread.Start();
+                }
+                else
+                {
+                    ListenerStream = Client.GetStream();
+
+                    Helper.SendPayload(ListenerStream, payload);
+                }
+
+            }
+            else
+            {
+                Helper.SendPayload(ListenerStream, payload);
+            }
         }
 
         public void HandleDeivce(Object obj)
         {
-            TcpClient client = (TcpClient)obj;
-            ListenerStream = client.GetStream();
+            Client = (TcpClient)obj;
+            ListenerStream = Client.GetStream();
 
             try
             {
@@ -137,43 +180,19 @@ namespace CryptoGeeks.Portunus.CommunicationFramework
                 reader.Close();
 
                 Payload payload = JsonConvert.DeserializeObject<Payload>(text);
-                //Payload payload = Serializer.Deserialize<Payload>(cleanedStream);
 
                 OnNewMessageProxy(this, payload, "Received: " + Helper.PrintPayload(payload));
                 LoggerHelper.AddLog("Received: " + Helper.PrintPayload(payload));
 
-                PayloadProcessor proc = new PayloadProcessor();
-                proc.HandlePayload(ref payload);
-
-                payload.PayloadData = "Ack data: " + payload.PayloadData;
-
-                if (payload.MessageState == MessageState.Request && payload.MessageType == MessageType.NewConnection)
-                {
-                    int port = PortService.GetInstance().GetNextPort();
-
-                    ClientConnectionManager.GetInstance().AddServerConnection(payload.OwnerUserId, port);
-
-                    OnNewConnection(this, payload, "", ((IPEndPoint)client.Client.RemoteEndPoint), ((IPEndPoint)client.Client.LocalEndPoint));
-
-                    payload.PayloadData = port.ToString();
-                    payload.DataType = DataType.ClientPortResponse;
-
-                }
-
-
-                int bytesread = Helper.SendPayload(ListenerStream, payload);
-
-                OnNewMessageProxy(this, payload, "Sent: " + Helper.PrintPayload(payload));
-                LoggerHelper.AddLog("Sent: " + Helper.PrintPayload(payload));
-
-                Helper.SendPayload(ListenerStream, payload);
+                OnHandlePayload(payload, this.IsServerListener);
+                StartListening();
             }
             catch (Exception e)
             {
                 LoggerHelper.AddLog("Exception:" + e.ToString());
                 OnNewMessageProxy(this, null, "Exception:" + e.ToString());
 
-                client.Close();
+                Client.Close();
             }
         }
     }

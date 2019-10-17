@@ -10,14 +10,25 @@ namespace CruptoGeeks.Server.Host
 {
     public class Conduit
     {
-        TcpListener listenerFromClient;
-        TcpListener listenerFromServer;
+        public string ID { get; set; }
+
+        public int PrimaryUserId { get; set; }
+        public int SecondaryUserId { get; set; }
+
+        Listener listenerFromClient;
+        Listener listenerFromServer;
 
         TcpClient client = null;
         TcpClient server = null;
 
-        public Conduit(TcpListenerDerivedClass client, TcpListenerDerivedClass server)
+        
+
+        public Conduit(Listener client, Listener server, int primaryUserId, int secondaryUserId)
         {
+            this.ID = Guid.NewGuid().ToString();
+            this.PrimaryUserId = primaryUserId;
+            this.SecondaryUserId = secondaryUserId;
+
             listenerFromClient = client;
             listenerFromServer = server;
         }
@@ -25,15 +36,15 @@ namespace CruptoGeeks.Server.Host
         public void InitiateChannel()
         {
             Console.WriteLine("Interceptor Listening...");
-            listenerFromClient.Start();
-            listenerFromServer.Start();
+            listenerFromClient.Server.Start();
+            listenerFromServer.Server.Start();
         }
 
         public void StartChannel()
         {
             //---incoming client connected---
-            client = listenerFromClient.AcceptTcpClient();
-            server = listenerFromServer.AcceptTcpClient();
+            client = listenerFromClient.Server.AcceptTcpClient();
+            server = listenerFromServer.Server.AcceptTcpClient();
 
             //---get the incoming data through a network stream---
             NetworkStream nwStreamClient = client.GetStream();
@@ -75,7 +86,7 @@ namespace CruptoGeeks.Server.Host
             {
                 listenerFromServer.Stop();
                 server.Close();
-            }            
+            }
         }
     }
 }

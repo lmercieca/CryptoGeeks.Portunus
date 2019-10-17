@@ -32,10 +32,13 @@ namespace CryptoGeeks.API
         public virtual DbSet<Key> Keys { get; set; }
         public virtual DbSet<SecurityQuestion> SecurityQuestions { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Ping> Pings { get; set; }
         public virtual DbSet<UserStatusCompact> UserStatusCompacts { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<UserStatu> UserStatus { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<KeyRequest> KeyRequests { get; set; }
+        public virtual DbSet<UserKeyFragment> UserKeyFragments { get; set; }
+        public virtual DbSet<Ping> Pings { get; set; }
     
         public virtual int CleanPingsForUser(Nullable<int> userFk)
         {

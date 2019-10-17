@@ -107,6 +107,11 @@ namespace CruptoGeeks.Server.Host
 
             lblStatus.Text = "Listening";
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mc.CloseConnections();
+        }
     }
 
     public class PeerConnection

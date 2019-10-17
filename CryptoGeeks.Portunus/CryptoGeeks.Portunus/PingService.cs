@@ -27,10 +27,10 @@ namespace CryptoGeeks.Portunus
             SecureStorage secureStorage = new SecureStorage();
             int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
 
-            Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, "Hello Buddy");
-            payload.FromIp = Helper.GetPublicMachineIp();
+           // Payload payload = new Payload(MessageType.Ping, MessageSource.ActivePeer, MessageState.Request, DataType.ContactRequest, userId, "Hello Buddy");
+           // payload.FromIp = Helper.GetPublicMachineIp();
 
-            workflow.TransmitData("13.81.63.14", 11000, payload,false);
+            //workflow.TransmitData("13.81.63.14", 11000, payload,false);
 
             return Task.FromResult(true);
         }

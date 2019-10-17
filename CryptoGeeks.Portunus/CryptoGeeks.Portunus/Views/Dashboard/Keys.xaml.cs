@@ -1,4 +1,5 @@
 ﻿using CryptoGeeks.Portunus.Models;
+using CryptoGeeks.Portunus.Services;
 using CryptoGeeks.Portunus.ViewModels;
 using CryptoGeeks.Portunus.Views.AddKey;
 using CryptoGeeks.Portunus.Views.ExportImport;
@@ -20,6 +21,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
     public partial class Keys : ContentPage, INotifyPropertyChanged
     {
         ItemListViewModel itemListViewModel;
+        KeysService keysService = new KeysService();
 
         private bool _refreshing;
         public bool IsRefreshing
@@ -27,8 +29,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             get { return _refreshing; }
             set { this._refreshing = value; OnPropertyChanged("IsRefreshing"); }
         }
-
-
+        
 
         public Keys()
         {
@@ -86,12 +87,12 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                 await itemListViewModel.RefreshKeys();
 
 
-                Device.BeginInvokeOnMainThread(() =>
+                Device.BeginInvokeOnMainThread(async () => 
                 {
                     KeysListView.BeginRefresh();
 
                     KeysListView.ItemsSource = null;
-                    KeysListView.ItemsSource = itemListViewModel.Keys;
+                    KeysListView.ItemsSource = await keysService.GetKeysForUser() ;
                     KeysListView.EndRefresh();
                     KeysListView.IsRefreshing = false;
 
@@ -99,8 +100,6 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
 
 
-                KeysListView.EndRefresh();
-                KeysListView.IsRefreshing = false;
 
             }
             catch (Exception ex)

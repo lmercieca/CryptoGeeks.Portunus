@@ -13,6 +13,8 @@ namespace CryptoGeeks.Portunus.Comm
         object _lock = new object();
 
         List<int> AvailablePorts = new List<int>();
+        List<int> TakenPorts = new List<int>();
+
         private static PortService instance = null;
 
         public static PortService GetInstance()
@@ -34,7 +36,10 @@ namespace CryptoGeeks.Portunus.Comm
 
         public int GetNextPort()
         {
-            return AvailablePorts.First();
+            int port = AvailablePorts.First(); ;
+            TakenPorts.Add(port);
+            RefreshPortList(1000);
+            return port;
         }
 
 
@@ -70,7 +75,8 @@ namespace CryptoGeeks.Portunus.Comm
             {
                 AvailablePorts = Enumerable.Range(startingPort, ushort.MaxValue)
                     .Where(i => !tcpConnectionPorts.Contains(i))
-                    .Where(i => !tcpListenerPorts.Contains(i)).ToList();
+                    .Where(i => !tcpListenerPorts.Contains(i))
+                    .Where(i => !TakenPorts.Contains(i)).ToList();
                 //.Where(i => !udpListenerPorts.Contains(i)).ToList();
 
                 Monitor.Exit(_lock);

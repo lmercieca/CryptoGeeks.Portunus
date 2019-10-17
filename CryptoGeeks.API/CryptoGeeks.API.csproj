@@ -54,6 +54,16 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -126,6 +136,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -159,12 +173,18 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Contact.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\FragmentsController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
+    <Compile Include="Controllers\KeyRequestsController.cs" />
     <Compile Include="Controllers\KeysController.cs" />
     <Compile Include="Controllers\PingsController.cs" />
     <Compile Include="Controllers\SecurityQuestionsController.cs" />
+    <Compile Include="Controllers\UserKeyFragmentsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UserStatusCompactController.cs" />
     <Compile Include="Country.cs">
@@ -177,6 +197,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Key.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KeyRequest.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CountryView.cs" />
@@ -208,6 +231,9 @@
     <Compile Include="User.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserKeyFragment.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserStatu.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
@@ -216,6 +242,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="PortunusModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -227,6 +254,11 @@
       <DependentUpon>PortunusModel.edmx</DependentUpon>
       <LastGenOutput>PortunusModel.cs</LastGenOutput>
     </Content>
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -251,6 +283,8 @@
     <None Include="Properties\PublishProfiles\CryptoGeeksAPI20190517114141 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Portunus - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\PortunusApi - Web Deploy.pubxml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
