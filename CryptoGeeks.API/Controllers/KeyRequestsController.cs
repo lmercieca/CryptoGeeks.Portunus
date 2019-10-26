@@ -23,10 +23,34 @@ namespace CryptoGeeks.API.Controllers
             return db.KeyRequests;
         }
 
+        [ResponseType(typeof(List<GetKeyRequests_Result>))]
+        public List<GetKeyRequests_Result> GetKeyRequestsForUser(Nullable<int> userId)
+        {
+            List<GetKeyRequests_Result> keyRequest = db.GetKeyRequests(userId).ToList();
+
+            return keyRequest;
+        }
+
         public IQueryable<KeyRequest> GetKeyRequestsForKey(int KeyId)
         {
             return db.KeyRequests.Where(x=>x.KeyID == KeyId);
         }
+
+        public IHttpActionResult GetFragmentAsSent(int fragmentId)
+        {
+            db.MarkFragmentAsSent(fragmentId);
+            return Ok();
+        }
+
+        [ResponseType(typeof(List<GetKeyFragmentRequests_Result>))]
+        public List<GetKeyFragmentRequests_Result> GetFragmentsForUser(int UserId)
+        {
+            List<GetKeyFragmentRequests_Result> keyRequest = db.GetKeyFragmentRequests(UserId).ToList();
+
+            return keyRequest;
+        }
+
+
         // GET: api/KeyRequests/5
         [ResponseType(typeof(KeyRequest))]
         public async Task<IHttpActionResult> GetKeyRequest(int id)

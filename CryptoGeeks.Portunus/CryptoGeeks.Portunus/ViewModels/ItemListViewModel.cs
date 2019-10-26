@@ -1,11 +1,13 @@
-﻿using CryptoGeeks.Common;
+﻿using CryptoGeeks.API;
+using CryptoGeeks.Common;
 using CryptoGeeks.Portunus.Api;
 using CryptoGeeks.Portunus.Api.Model;
 using CryptoGeeks.Portunus.Helpers;
-using CryptoGeeks.Portunus.Models;
+using CryptoGeeks.Portunus.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms.MultiSelectListView;
@@ -15,66 +17,37 @@ namespace CryptoGeeks.Portunus.ViewModels
     public class ItemListViewModel : BaseViewModel
     {
         public ObservableCollection<Key> Keys { get; set; }
+
         public MultiSelectObservableCollection<ContactViewModel> Contacts { get; set; }
-        public MultiSelectObservableCollection<Fragment> Fragments { get; set; }
+
+        public ObservableCollection<Fragment> Fragments { get; set; }
+
+        public User currentUser;
 
         public List<ContactViewModel> BaseContactList { get; set; }
 
         public ItemListViewModel()
-        {
-
-           
+        {           
             this.Keys = new ObservableCollection<Key>();
             this.Contacts = new MultiSelectObservableCollection<ContactViewModel>();
-            this.Fragments = new MultiSelectObservableCollection<Fragment>();
-
-            Contact contact = new  Contact() {  DisplayName = "Loading.." };
-            ContactViewModel cvm = new ContactViewModel(contact);
-
-            Fragment fragment1 = new Fragment() { Data="Fragment 1", Owner= contact};
-            Fragment fragment2 = new Fragment() { Data = "Fragment 2", Owner = contact };
-            Fragment fragment3 = new Fragment() { Data = "Fragment 1", Owner = contact };
-
-            Key key = new Key()
-            {
-                CreatedDate = DateTime.Now,
-                Fragments = new List<Fragment>() { fragment1, fragment2, fragment3 },
-                RequiredFragments = 2,
-                DisplayName = "Loading"
-                
-            };
-
-            //Just for tesing
-            this.Keys.Add(key);
-            this.Contacts.Add(cvm);
-
-           
+            this.Fragments = new ObservableCollection<Fragment>();           
         }
 
-        public async Task<string> RefreshData()
+        public async Task<User> RefreshData()
         {
-            ContactService contactService = new ContactService();
-            var res = await contactService.RefreshDataAsync().ConfigureAwait(false);
+            NameValueCollection parameters = new NameValueCollection();
+            SecureStorage secureStorage = new SecureStorage();
 
-            this.Contacts = res;
+            string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
 
-           
+            parameters.Add("displayName", displayName);
+            currentUser = await new EntityService<User>().Get(SettingsService.GetUserDetailsByName(), parameters);
 
-            return await Task.FromResult("");
+            return currentUser;
         }
 
-        public async Task<string> RefreshKeys()
-        {
+        public async Task
 
-            KeyService keyService = new KeyService();
-
-            SecureStorage secStorage = new SecureStorage();
-
-            var res = await keyService.RefreshDataAsync(secStorage.GetFromSecureStorage(Constants.DisplayName));
-
-            this.Keys = res;
-
-            return await Task.FromResult("");
-        }
+       
     }
 }

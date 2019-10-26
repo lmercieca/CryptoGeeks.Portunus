@@ -2,7 +2,7 @@
 using CryptoGeeks.Portunus.Comm;
 using CryptoGeeks.Portunus.CommunicationFramework;
 using CryptoGeeks.Portunus.Helpers;
-using CryptoGeeks.Portunus.Models;
+//using CryptoGeeks.Portunus.Models;
 using CryptoGeeks.Portunus.ViewModels;
 using CryptoGeeks.Portunus.Views.AddKey;
 using CryptoGeeks.Portunus.Views.ExportImport;

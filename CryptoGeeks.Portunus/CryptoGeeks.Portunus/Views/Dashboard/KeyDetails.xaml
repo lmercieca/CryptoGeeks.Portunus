@@ -6,60 +6,78 @@
              Title="Key details">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout  HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" Padding="10,10,10,10" >
+            <StackLayout  HorizontalOptions="CenterAndExpand" Padding="10,10,10,10" VerticalOptions="FillAndExpand" >
                 <Image HorizontalOptions="Center"
    VerticalOptions="Start" Margin="0,10,0,20" Source="LogoSmall.png" />
 
-                <StackLayout HorizontalOptions="Center" VerticalOptions="FillAndExpand" Orientation="Vertical"   >
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical" Spacing="0"  >
 
-
-                    <Grid>
+                    <Grid  VerticalOptions="FillAndExpand">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-
-                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="1*" />
                         </Grid.RowDefinitions>
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
+
                         <Label Text="Display Name" Grid.Row="0" Grid.Column="0"   Style="{StaticResource NormalText}"></Label>
                         <Label x:Name="DisplayName" Grid.Row="0" Grid.Column="1"  Text="{Binding DisplayName}"   Style="{StaticResource NormalText}"></Label>
 
-                        <Label Text="Min no of Parts" Grid.Row="1" Grid.Column="0"   Style="{StaticResource NormalText}"></Label>
-                        <Label x:Name="MinParts" Grid.Row="1" Grid.Column="1"   Text="{Binding RequiredFragments}"  Style="{StaticResource NormalText}"></Label>
+                        <Label Text="Fragments Required" Grid.Row="1" Grid.Column="0"   Style="{StaticResource NormalText}"></Label>
+                        <Label x:Name="MinParts" Grid.Row="1" Grid.Column="1"   Text="{Binding RecoverNo}"  Style="{StaticResource NormalText}"></Label>
+
+                        <Label Text="Fragments"  Grid.Row="2" Grid.Column="0" TextDecorations="Underline"    Style="{StaticResource SubTitleTextMinor}"></Label>
+
+
+                        <ListView  x:Name="FragmentsListView" Grid.Row="3"  Grid.ColumnSpan="2"   ItemsSource="{Binding Fragments}" IsPullToRefreshEnabled="False"  VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement" >
+                                                        
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+
+                                    <ViewCell>
+                                        <Grid  >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.8*"/>
+                                                <ColumnDefinition Width="0.2*"/>
+                                            </Grid.ColumnDefinitions>
+
+
+                                            <Label Text="{Binding FragmentHolder}" VerticalTextAlignment="Center"  Grid.Column="0" Style="{StaticResource MinorNormalText}" />
+                                            <Image Source="select.png" BackgroundColor="Transparent" x:Name="imgBtnRemove"  Grid.Column="1" IsVisible="{Binding SentToOwner}"></Image>
+                                        </Grid>
+                                    </ViewCell>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
 
 
 
-                        <Label Text="Fragments"  Grid.Row="2" Grid.Column="0"   Style="{StaticResource SubTitleTextMinor}"></Label>
 
-
-                        <StackLayout  x:Name="FragmentsListView"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  BindableLayout.ItemsSource="{Binding Fragments}" Orientation="Vertical">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <Label Text="{Binding Owner.DisplayName}"  Style="{StaticResource MinorNormalText}" />
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
-
-                        <Label Text=""  Grid.Row="4" Grid.Column="0"   Style="{StaticResource SubTitleTextMinor}"></Label>
-
-                        
-                        <Button Text="Back" x:Name="btnBack"  Grid.Row="5" Grid.Column="0" Style="{StaticResource NormalButton}" Clicked="BtnBack_Clicked"></Button>
-                        <Button Text="Recover" x:Name="btnRecover" Grid.Row="5" Grid.Column="1" Style="{StaticResource OrangeButton}"  Clicked="BtnRecover_Clicked"  ></Button>
                     </Grid>
 
 
                 </StackLayout>
 
 
-               
+                <StackLayout HorizontalOptions="Center"   Orientation="Horizontal" Padding="10,10,10,10">
+                    <Button Text="Back" x:Name="btnBack"  Grid.Column="0" Grid.Row="0"  Style="{StaticResource NormalButton}" Clicked="BtnBack_Clicked"></Button>
+                    <Button Text="Recover" x:Name="btnRecover"  Grid.Column="2" Grid.Row="0"  Style="{StaticResource OrangeButton}"  Clicked="BtnRecover_Clicked"  ></Button>                 
+                </StackLayout>
             </StackLayout>
+
+           
+            
         </ScrollView>
 
     </ContentPage.Content>

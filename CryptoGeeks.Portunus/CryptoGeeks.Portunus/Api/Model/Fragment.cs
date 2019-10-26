@@ -12,6 +12,7 @@ namespace CryptoGeeks.Portunus.Api.Model
         public bool SentToHolder { get; set; }
         public bool SentToOwner { get; set; }
         public string Data { get; set; }
+        public Nullable<int> Owner { get; set; }
 
         public virtual ApiKey Key { get; set; }
     }

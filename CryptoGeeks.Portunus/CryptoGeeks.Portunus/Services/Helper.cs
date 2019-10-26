@@ -11,12 +11,17 @@ namespace CryptoGeeks.Portunus.Services
         {
             StringBuilder queryString = new StringBuilder();
 
+            if (parameters == null || parameters.Count ==0)
+                return baseUrl;
+
             foreach (string key in parameters)
             {
-                queryString.Append(key + "=" + parameters[key]);
+                queryString.Append(key + "=" + parameters[key] + "&");
             }
 
-            return baseUrl + "?" + System.Web.HttpUtility.HtmlEncode(queryString);
+            string paramString = queryString.ToString().Remove(queryString.Length - 1, 1);
+            return baseUrl + "?" + Uri.EscapeUriString(paramString);
         }
+
     }
 }

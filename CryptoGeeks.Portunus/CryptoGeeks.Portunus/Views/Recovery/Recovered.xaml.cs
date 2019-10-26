@@ -1,4 +1,4 @@
-﻿using CryptoGeeks.Portunus.Models;
+﻿using CryptoGeeks.API;
 using CryptoGeeks.Portunus.Views.Dashboard;
 using System;
 using System.Collections.Generic;

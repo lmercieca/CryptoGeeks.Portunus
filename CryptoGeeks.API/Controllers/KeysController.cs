@@ -25,23 +25,28 @@ namespace CryptoGeeks.API.Controllers
 
 
         [Route("api/Keys/GetKeysForUser")]
-        public IQueryable<Key> GetKeysForUser(string DisplayName)
+        public IQueryable<Key> GetKeysForUser(int userId)
         {
-            return db.Keys.Where(x => x.Owner.ToLower().Trim() == DisplayName.ToLower().Trim());
+            return db.Keys.Where(x => x.User == userId);
         }
 
 
-        // GET: api/Keys/5
-        [ResponseType(typeof(Key))]
-        public async Task<IHttpActionResult> GetKey(int id)
+        [Route("api/Keys/GetKeysCountForUser")]
+        public int GetKeysCountForUser(int userId)
         {
-            Key key = await db.Keys.FindAsync(id);
-            if (key == null)
-            {
-                return NotFound();
-            }
+            return db.Keys.Where(x => x.User == userId).Count();
+        }
 
-            return Ok(key);
+
+
+
+        // GET: api/Keys/5
+        
+        public Key GetKey(int id)
+        {
+            Key key = db.Keys.Where(x=>x.Id ==id).FirstOrDefault();
+           
+            return key;
         }
 
         // PUT: api/Keys/5

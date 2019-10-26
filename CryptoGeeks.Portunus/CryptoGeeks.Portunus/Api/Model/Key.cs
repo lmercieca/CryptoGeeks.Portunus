@@ -18,6 +18,7 @@ namespace CryptoGeeks.Portunus.Api.Model
         public int Split { get; set; }
         public Nullable<int> RecoverNo { get; set; }
         public string Data { get; set; }
+        public int User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApiFragment> Fragments { get; set; }

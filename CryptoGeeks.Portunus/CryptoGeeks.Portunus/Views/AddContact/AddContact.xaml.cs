@@ -1,7 +1,14 @@
-﻿using CryptoGeeks.Portunus.Api.Model;
+﻿using CryptoGeeks.API;
+using CryptoGeeks.Common;
+using CryptoGeeks.Portunus.Api.Model;
+using CryptoGeeks.Portunus.Helpers;
+using CryptoGeeks.Portunus.Services;
+using CryptoGeeks.Portunus.Services.POCO;
 using CryptoGeeks.Portunus.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,49 +22,44 @@ namespace CryptoGeeks.Portunus.Views.AddContact
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddContact : ContentPage
     {
-        ItemListViewModel itemListViewModel;
-
+        ObservableCollection<GetAvailableContactsForUser_Result> contacts;
 
         public AddContact()
         {
             InitializeComponent();
 
-            itemListViewModel = new ItemListViewModel();
+            NavigationPage.SetHasNavigationBar(this, false);
 
-            this.Appearing += AddContact_Appearing;
-
-            BindingContext = itemListViewModel;
+            BindData();
 
             btnDone.IsVisible = false;
         }
 
-        private async void AddContact_Appearing(object sender, EventArgs e)
+        private async Task<ObservableCollection<GetAvailableContactsForUser_Result>> LoadUsersData()
         {
-            base.OnAppearing();
 
-            await LoadData();
+            EntityService<ObservableCollection<GetAvailableContactsForUser_Result>> entityService = new EntityService<ObservableCollection<GetAvailableContactsForUser_Result>>();
+            NameValueCollection parameters = new NameValueCollection();
+            CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
+            parameters.Add("userId", secureStorage.GetFromSecureStorage(Constants.UserId));
+
+            return await entityService.Get(SettingsService.GetAvailableContactsForUser(), parameters);
+
         }
 
-        private async Task<string> LoadData()
+        public async void BindData()
         {
-            await itemListViewModel.RefreshData();
+            BindingContext = null;
+            ContactsListView.ItemsSource = null;
 
+            contacts = await LoadUsersData();
+            BindingContext = contacts;
+            ContactsListView.ItemsSource = contacts; ;
 
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                ContactsListView.BeginRefresh();
-
-                ContactsListView.ItemsSource = null;
-                ContactsListView.ItemsSource = itemListViewModel.Contacts;
-                ContactsListView.EndRefresh();
-
-                btnDone.IsVisible = true;
-
-            });
-
-
-            return await Task.FromResult("");
         }
+
+
+
 
         private void MyListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -71,9 +73,9 @@ namespace CryptoGeeks.Portunus.Views.AddContact
 
             if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
-                ContactsListView.ItemsSource = itemListViewModel.Contacts;
+                ContactsListView.ItemsSource = contacts;
 
-                if (itemListViewModel.Contacts.Count() == 0)
+                if (contacts.Count() == 0)
                     btnDone.IsVisible = false;
                 else
 
@@ -82,7 +84,7 @@ namespace CryptoGeeks.Portunus.Views.AddContact
             else
             {
                 // ContactsListView.ItemsSource = _container.Employees.Where(i => i.Name.Contains(e.NewTextValue));                
-                var result = itemListViewModel.Contacts.Where(i => i.Data.DisplayName.ToLower().Contains(e.NewTextValue.ToLower()));
+                var result = contacts.Where(i => i.DisplayName.ToLower().Contains(e.NewTextValue.ToLower()));
                 ContactsListView.ItemsSource = result;
 
                 if (result.Count() == 0)
@@ -93,6 +95,38 @@ namespace CryptoGeeks.Portunus.Views.AddContact
             }
 
             ContactsListView.EndRefresh();
+        }
+
+        private async void ImgBtnAdd_Clicked(object sender, EventArgs e)
+        {
+            GetAvailableContactsForUser_Result cnt = ((ImageButton)sender).BindingContext as GetAvailableContactsForUser_Result;
+
+
+            EntityService<Contact> entityService = new EntityService<Contact>();
+            SecureStorage secureStorage = new SecureStorage();
+
+            Contact contact = new Contact()
+            {
+                UserID = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId)),
+                ContactID = cnt.UserId
+            };
+            
+            await entityService.Add(SettingsService.PostContactUrl(), contact);
+
+            BindData();
+
+        }
+
+        private void BtnDone_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                Navigation.PushAsync(new NavigationPage(new CryptoGeeks.Portunus.Views.Dashboard.Dashboard()));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 

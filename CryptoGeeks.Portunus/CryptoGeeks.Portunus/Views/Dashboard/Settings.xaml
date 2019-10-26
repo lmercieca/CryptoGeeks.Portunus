@@ -17,8 +17,10 @@
 
 
 
-                    <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Enter the details you want others to see" Style="{StaticResource SubTitleTextMinor}"></Label>
+                   <!-- <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Enter the details you want others to see" Style="{StaticResource SubTitleTextMinor}"></Label> -->
 
+                     <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Export or import your settings" Style="{StaticResource SubTitleTextMinor}"></Label> 
+                    
                     <Grid VerticalOptions="Center"  >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -27,17 +29,18 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                     </Grid>
 
-                    <Label Text="Display Name" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
-                    <Entry x:Name="DisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}" Placeholder="Display Name"></Entry>
+                    <!-- <Label Text="Display Name" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
+                    <Entry x:Name="DisplayName" Grid.Column="1" Grid.Row="0" Style="{StaticResource NormalText}" Placeholder="Display Name"></Entry>
+                    <Button Text="Update" x:Name="btnUpdate"  Grid.Column="0" Grid.Row="1" Style="{StaticResource OrangeButton}" Clicked="BtnUpdate_Clicked"  ></Button>-->
 
 
 
-                   
-
-                    <Button Text="Import" x:Name="btnImport" Style="{StaticResource NormalButton}" Clicked="BtnImport_Clicked"  ></Button>
+                    <Button Text="Export" x:Name="btnExport"   Grid.Column="0" Grid.Row="2" Style="{StaticResource NormalButton}" Clicked="BtnExport_Clicked"  ></Button>
+                    <Button Text="Import" x:Name="btnImport" Grid.Column="2" Grid.Row="2" Style="{StaticResource NormalButton}" Clicked="BtnImport_Clicked"  ></Button>
 
                 </StackLayout>
             </StackLayout>

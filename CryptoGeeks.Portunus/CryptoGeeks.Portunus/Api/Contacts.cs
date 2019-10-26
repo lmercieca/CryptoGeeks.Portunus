@@ -10,10 +10,12 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Threading;
 using System.IO;
-using CryptoGeeks.Portunus.Models;
 using Refit;
 using Xamarin.Forms.MultiSelectListView;
 using System.Web;
+using CryptoGeeks.API;
+using CryptoGeeks.Portunus.Services;
+using System.Collections.Specialized;
 
 namespace CryptoGeeks.Portunus.Api
 {
@@ -147,6 +149,21 @@ namespace CryptoGeeks.Portunus.Api
             }
 
             return await Task.FromResult(id);
+        }
+
+        public async Task<string> UpdateDisplayName(string id, string displayName)
+        {
+
+            EntityService<User> userService = new EntityService<User>();
+            NameValueCollection parameters = new NameValueCollection();
+            parameters.Add("displayName", displayName);
+            parameters.Add("userId", id);
+
+
+            await new EntityService<User>().GetWithNoReturn(SettingsService.GetNewDisplayName(), parameters);
+
+            
+            return await Task.FromResult("");
         }
     }
 }

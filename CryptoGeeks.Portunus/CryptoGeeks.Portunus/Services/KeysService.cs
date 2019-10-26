@@ -1,38 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Text;
 using System.Threading.Tasks;
-using CryptoGeeks.Portunus.Models;
+using CryptoGeeks.API;
+using CryptoGeeks.Portunus.Helpers;
 
 namespace CryptoGeeks.Portunus.Services
 {
     public class KeysService
     {
-        public async Task<int> GetKeysCount()
-        {
-            return await Task.FromResult(1);
-        }
-
-        public async Task<int> GetFragmentsCount()
-        {
-            return await Task.FromResult(1);
-        }
+        
 
         public async Task<List<Key>> GetKeysForUser()
         {
-            return await Task.FromResult(new List<Key>()
-            {
-                new Key()
-                {
-                     CreatedDate = DateTime.Today,
-                      Data = "123",
-                       DisplayName = "Loui",
-                        Identifier = Guid.NewGuid().ToString(),
-                         RequiredFragments = 3
+            EntityService<List<Key>> entityService = new EntityService<List<Key>>();
+            NameValueCollection parameters = new NameValueCollection();
 
+            CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
+            parameters.Add("UserId", secureStorage.GetFromSecureStorage(Constants.UserId));
+            return await entityService.Get(SettingsService.GetKeysForUser(), parameters);
 
-                }
-            });
         }
     }
 }

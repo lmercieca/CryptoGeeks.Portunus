@@ -48,5 +48,68 @@ namespace CryptoGeeks.API
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CleanPingsForUser", userFkParameter);
         }
+    
+        public virtual ObjectResult<GetContactsForUser_Result> GetContactsForUser(Nullable<int> user)
+        {
+            var userParameter = user.HasValue ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetContactsForUser_Result>("GetContactsForUser", userParameter);
+        }
+    
+        public virtual ObjectResult<GetAvailableContactsForUser_Result> GetAvailableContactsForUser(Nullable<int> user)
+        {
+            var userParameter = user.HasValue ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAvailableContactsForUser_Result>("GetAvailableContactsForUser", userParameter);
+        }
+    
+        public virtual ObjectResult<GetKeyFragmentRequests_Result> GetKeyFragmentRequests(Nullable<int> userID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetKeyFragmentRequests_Result>("GetKeyFragmentRequests", userIDParameter);
+        }
+    
+        public virtual int MarkFragmentAsSent(Nullable<int> fragmentId)
+        {
+            var fragmentIdParameter = fragmentId.HasValue ?
+                new ObjectParameter("fragmentId", fragmentId) :
+                new ObjectParameter("fragmentId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MarkFragmentAsSent", fragmentIdParameter);
+        }
+    
+        public virtual ObjectResult<GetKeyRequests_Result> GetKeyRequests(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetKeyRequests_Result>("GetKeyRequests", userIdParameter);
+        }
+    
+        public virtual ObjectResult<Fragment> GetPendingFragmentsForUser(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fragment>("GetPendingFragmentsForUser", userIdParameter);
+        }
+    
+        public virtual ObjectResult<Fragment> GetPendingFragmentsForUser(Nullable<int> userId, MergeOption mergeOption)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fragment>("GetPendingFragmentsForUser", mergeOption, userIdParameter);
+        }
     }
 }

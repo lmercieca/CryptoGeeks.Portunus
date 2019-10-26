@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Threading;
 using System.IO;
-using CryptoGeeks.Portunus.Models;
 using Refit;
 using Xamarin.Forms.MultiSelectListView;
 using System.Web;
 using System.Net.Http.Headers;
+using CryptoGeeks.API;
 
 namespace CryptoGeeks.Portunus.Api
 {
@@ -75,11 +75,9 @@ namespace CryptoGeeks.Portunus.Api
                         {
                             string result = await Content.ReadAsStringAsync();
 
-                            List<ApiKey> results = JsonConvert.DeserializeObject<List<ApiKey>>(result);
+                            ObservableCollection<Key> results = JsonConvert.DeserializeObject<ObservableCollection<Key>>(result);
 
-                            var keys = from x in results select new Key(x);
-
-                            var Items = new ObservableCollection<Key>(keys.ToList());
+                            var Items = results;
 
                             return Items;
                         }

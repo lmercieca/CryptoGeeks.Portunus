@@ -22,6 +22,7 @@ namespace CryptoGeeks.Portunus.Helpers
         public static string ContactsURL = BaseUrl + "/users/GetUsers";
         public static string GetUserByNameURL = BaseUrl + "/users/GetUserByName";
         public static string AddDisplayNameURL = BaseUrl + "/users/AddDisplayName";
+        public static string UpdateDisplayName = BaseUrl + "/users/GetNewDisplayName";
 
         public static string AddContact = BaseUrl + "/keys/PostKey";
         public static string RemoveContact = BaseUrl + "/Contacts/DeleteContact";

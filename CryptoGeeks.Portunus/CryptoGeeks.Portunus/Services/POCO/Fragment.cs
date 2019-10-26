@@ -14,21 +14,24 @@ namespace CryptoGeeks.API
     
     public partial class Fragment
     {
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Fragment()
         {
             this.UserKeyFragments = new HashSet<UserKeyFragment>();
         }
-    
+
         public int Id { get; set; }
         public int KeyFk { get; set; }
         public string FragmentHolder { get; set; }
         public bool SentToHolder { get; set; }
         public bool SentToOwner { get; set; }
         public string Data { get; set; }
-    
+        public Nullable<int> Owner { get; set; }
+
         public virtual Key Key { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserKeyFragment> UserKeyFragments { get; set; }
+        public virtual User User { get; set; }
     }
 }

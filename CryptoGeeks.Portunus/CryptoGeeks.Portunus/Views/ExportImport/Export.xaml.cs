@@ -1,5 +1,5 @@
 ﻿using CryptoGeeks.Portunus.Helpers;
-using CryptoGeeks.Portunus.Models;
+//using CryptoGeeks.Portunus.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,11 +42,11 @@ namespace CryptoGeeks.Portunus.Views.ExportImport
 
                 CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
 
-                string fragmentsJson = secureStorage.GetFromSecureStorage(Constants.OtherUsersFragmentsList);
-                string keysJson = secureStorage.GetFromSecureStorage(Constants.KeysList);
+                string fragmentsJson = secureStorage.GetFromSecureStorage(Constants.UserId);
+                string keysJson = secureStorage.GetFromSecureStorage(Constants.DisplayName);
 
                 SecurityHelper securityHelper = new SecurityHelper();
-                string secureData = securityHelper.Encrypt(fragmentsJson + "~~~" + keysJson, txtPassword.Text);
+                string secureData = securityHelper.Encrypt(fragmentsJson + "~" + keysJson, txtPassword.Text);
                 FileWriter(secureData);
 
                 await SendEmail("Portunus - Details export", "Please find attached an export of your current keys and fragments. Store it in a secure manner, remember with great power comes great responsibility (spiderman)!");

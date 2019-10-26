@@ -45,7 +45,28 @@ namespace CryptoGeeks.API.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, userExist, Configuration.Formatters.JsonFormatter);
         }
-    
+
+        [ResponseType(typeof(User))]
+        [Route("api/Users/GetUserDetailsByName")]
+        public IHttpActionResult GetUserDetailsByName(string displayName)
+        {
+           User user = db.Users.Where(x => x.DisplayName.ToLower() == displayName.ToLower()).FirstOrDefault();
+
+            return Ok(user);
+        }
+
+
+        // GET: api/Users/5
+        [Route("api/Users/GetNewUserName")]
+        public void GetNewUserName(int userId, string displayName)
+        {
+            User user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+
+            user.DisplayName = displayName;
+
+            db.SaveChanges();
+
+        }
 
 
         // PUT: api/Users/5

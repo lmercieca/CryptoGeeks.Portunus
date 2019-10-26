@@ -24,6 +24,9 @@
         <AssociationConnector Association="PortunusModel.FK_UserKeyFragment_Users" />
         <AssociationConnector Association="PortunusModel.FK_UserKeyFragment_Users1" />
         <EntityTypeShape EntityType="PortunusModel.Ping" Width="1.5" PointX="7.5" PointY="5.5" />
+        <AssociationConnector Association="PortunusModel.FK_Keys_Users" />
+        <AssociationConnector Association="PortunusModel.FK_KeyRequest_Keys" />
+        <AssociationConnector Association="PortunusModel.FK_Fragments_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

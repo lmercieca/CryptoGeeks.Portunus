@@ -29,10 +29,15 @@ namespace CryptoGeeks.API.Controllers
         }
 
 
-
-        public IQueryable<Fragment> GetFragmentsForUser(string DisplayName)
+        public List<Fragment> GetPendingFragmentsForUser(int userId)
         {
-            return db.Fragments.Where(x => x.FragmentHolder.ToLower().Trim() == DisplayName.ToLower().Trim());
+            return db.GetPendingFragmentsForUser(userId).ToList();
+        }
+
+
+        public IQueryable<Fragment> GetFragmentsForUser(int userId)
+        {
+            return db.Fragments.Where(x => x.Owner == userId);
         }
 
 

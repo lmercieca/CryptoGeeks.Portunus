@@ -1,4 +1,7 @@
-﻿using CryptoGeeks.Portunus.Models;
+﻿using CryptoGeeks.API;
+using CryptoGeeks.Portunus.Services;
+using Plugin.Clipboard;
+//using CryptoGeeks.Portunus.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +13,33 @@ using Xamarin.Forms.Xaml;
 
 namespace CryptoGeeks.Portunus.Views.Dashboard
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class KeyDetails : ContentPage
-	{
-        private Key key; 
-
-		public KeyDetails ()
-		{
-			InitializeComponent ();
-		}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class KeyDetails : ContentPage
+    {
+        Key key;
+       
+        public KeyDetails()
+        {
+            InitializeComponent();
+        }
 
 
         public KeyDetails(Key key)
         {
             this.key = key;
 
-            BindingContext = key;
-            InitializeComponent();
+             InitializeComponent();
 
-            FragmentsListView.BindingContext = key;
+            BindingContext = this.key;
+
+            FragmentsListView.HeightRequest = (key.Fragments.Count * 100)/ 2;
+
+            bool pendingKeys = key.Fragments.Where(x => x.SentToOwner == false).Count() >= key.RecoverNo;
+
+            if (!pendingKeys)
+                btnRecover.Text = "View";
+            else
+                btnRecover.Text = "Recover";
 
         }
 
@@ -39,7 +50,25 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         private async void BtnRecover_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new Recover(key)), true);
+            bool pendingKeys = key.Fragments.Where(x => x.SentToOwner == false).Count() >= key.RecoverNo;
+
+            if (!pendingKeys)
+            {
+                bool copy = await DisplayAlert("Key data", key.Data, "Copy", "Close");
+                if (copy)
+                    CrossClipboard.Current.SetText(key.Data);
+            }
+            else
+            {
+                KeyRequest kr = new KeyRequest();
+                kr.KeyID = key.Id;
+                kr.RequestDate = DateTime.Now;
+
+                EntityService<KeyRequest> keyRequestService = new EntityService<KeyRequest>();
+                await keyRequestService.Add(SettingsService.PostKeyRequestUrl(), kr);
+
+                await this.Navigation.PushAsync(new Dashboard());
+            }
         }
     }
 }

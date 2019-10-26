@@ -59,7 +59,7 @@ namespace CryptoGeeks.Portunus.Views.Registration
                         secureStorage.StoreInSecureStorage(Constants.DisplayName, DisplayName.Text);
                         secureStorage.StoreInSecureStorage(Constants.UserId, id.ToString());
 
-                        await Navigation.PushModalAsync(new NavigationPage(new Keys()), true);
+                        await Navigation.PushAsync(new CryptoGeeks.Portunus.Views.Dashboard.Dashboard());
                     }
                 }
             }

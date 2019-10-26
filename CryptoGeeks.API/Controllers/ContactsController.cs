@@ -23,10 +23,20 @@ namespace CryptoGeeks.API.Controllers
             return db.Contacts;
         }
 
-        public IQueryable<Contact> GetContactsForUser(int userId)
+        public IQueryable<GetContactsForUser_Result> GetContactsForUser(int userId)
         {
-            return db.Contacts.Where(x=>x.UserID == userId);
+            IQueryable<GetContactsForUser_Result> contacts = db.GetContactsForUser(userId).AsQueryable();
+
+            return contacts;
         }
+
+        public IQueryable<GetAvailableContactsForUser_Result> GetAvailableContactsForUser(int userId)
+        {
+            IQueryable<GetAvailableContactsForUser_Result> contacts = db.GetAvailableContactsForUser(userId).AsQueryable();
+
+            return contacts;
+        }
+
 
         // GET: api/Contacts/5
         [ResponseType(typeof(Contact))]

@@ -1,8 +1,13 @@
-﻿using CryptoGeeks.Portunus.Models;
+﻿using CryptoGeeks.API;
+using CryptoGeeks.Portunus.Helpers;
+using CryptoGeeks.Portunus.Services.POCO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms.MultiSelectListView;
 
 namespace CryptoGeeks.Portunus.Services
 {
@@ -13,16 +18,15 @@ namespace CryptoGeeks.Portunus.Services
             return await Task.FromResult(1);
         }
 
-        public async Task<List<Contact>> GetContactsForUser()
+        public async Task<MultiSelectObservableCollection<GetContactsForUser_Result>> GetContactsForUser()
         {
-            return await Task.FromResult(new List<Contact>()
-            {
-                new Contact()
-                {
-                     DisplayName = "Bob",
-                      Id = 1
-                }
-            });
+            EntityService<MultiSelectObservableCollection<GetContactsForUser_Result>> contact = new EntityService<MultiSelectObservableCollection<GetContactsForUser_Result>>();
+            NameValueCollection parameters = new NameValueCollection();
+
+            CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
+            parameters.Add("UserId", secureStorage.GetFromSecureStorage(Constants.UserId));
+            
+            return await contact.Get(SettingsService.GetContactsForUserUrl(), parameters);
         }
     }
 }

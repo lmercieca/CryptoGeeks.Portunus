@@ -26,9 +26,11 @@ namespace CryptoGeeks.API
         public bool SentToHolder { get; set; }
         public bool SentToOwner { get; set; }
         public string Data { get; set; }
+        public Nullable<int> Owner { get; set; }
     
         public virtual Key Key { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserKeyFragment> UserKeyFragments { get; set; }
+        public virtual User User { get; set; }
     }
 }

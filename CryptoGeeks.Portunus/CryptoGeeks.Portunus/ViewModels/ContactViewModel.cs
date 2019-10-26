@@ -1,5 +1,5 @@
-﻿using CryptoGeeks.Portunus.Api.Model;
-using CryptoGeeks.Portunus.Models;
+﻿using CryptoGeeks.API;
+using CryptoGeeks.Portunus.Api.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,8 +26,8 @@ namespace CryptoGeeks.Portunus.Api.Model
 
         public bool Selected { get; set; }
 
-        public string DisplayName { get { return this.contact.DisplayName; } }
-        public int Id { get { return this.contact.Id; } }
+        public string DisplayName { get { return this.contact.User.DisplayName; } }
+        public int Id { get { return this.contact.User.Id; } }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

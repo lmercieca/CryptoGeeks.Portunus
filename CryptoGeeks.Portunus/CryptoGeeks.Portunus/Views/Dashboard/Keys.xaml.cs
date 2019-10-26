@@ -1,10 +1,14 @@
-﻿using CryptoGeeks.Portunus.Models;
+﻿using CryptoGeeks.API;
+using CryptoGeeks.Portunus.Helpers;
+//using CryptoGeeks.Portunus.Models;
 using CryptoGeeks.Portunus.Services;
 using CryptoGeeks.Portunus.ViewModels;
 using CryptoGeeks.Portunus.Views.AddKey;
 using CryptoGeeks.Portunus.Views.ExportImport;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -20,8 +24,8 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Keys : ContentPage, INotifyPropertyChanged
     {
-        ItemListViewModel itemListViewModel;
         KeysService keysService = new KeysService();
+        ObservableCollection<Key> keys;
 
         private bool _refreshing;
         public bool IsRefreshing
@@ -29,30 +33,37 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             get { return _refreshing; }
             set { this._refreshing = value; OnPropertyChanged("IsRefreshing"); }
         }
-        
+
+        private async Task<ObservableCollection<Key>> LoadUsersData()
+        {
+
+            EntityService<ObservableCollection<Key>> entityService = new EntityService<ObservableCollection<Key>>();
+            NameValueCollection parameters = new NameValueCollection();
+            CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
+            parameters.Add("userId", secureStorage.GetFromSecureStorage(Constants.UserId));
+
+            return await entityService.Get(SettingsService.GetKeysForUser(), parameters);
+
+        }
+
+        public async void BindData()
+        {
+            BindingContext = null;
+            KeysListView.ItemsSource = null;
+
+            keys = await LoadUsersData();
+            BindingContext = keys;
+            KeysListView.ItemsSource = keys; ;
+
+        }
 
         public Keys()
         {
             try
             {
                 InitializeComponent();
-                
-                itemListViewModel = new ItemListViewModel();
-                BindingContext = itemListViewModel;
-                this.Appearing += KeyList_Appearing;
-
-                
-
-                //KeysListView.RefreshCommand = new Command(async () => {
-                //    //Do your stuff.    
-                //    await LoadData();
-                //    KeysListView.IsRefreshing = false;
-                //    KeysListView.EndRefresh();
-                //});
-
-                KeysListView.IsRefreshing = false;
-
-
+                keys = new ObservableCollection<Key>();
+                BindData();
             }
             catch (Exception ex)
             {
@@ -66,39 +77,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
                 base.OnAppearing();
 
-                await LoadData();
-                KeysListView.IsRefreshing = false;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        private async Task<string> LoadData()
-        {
-
-            this.IsRefreshing = true;
-
-
-            try
-            {
-                await itemListViewModel.RefreshKeys();
-
-
-                Device.BeginInvokeOnMainThread(async () => 
-                {
-                    KeysListView.BeginRefresh();
-
-                    KeysListView.ItemsSource = null;
-                    KeysListView.ItemsSource = await keysService.GetKeysForUser() ;
-                    KeysListView.EndRefresh();
-                    KeysListView.IsRefreshing = false;
-
-                });
-
-
+                BindData();
 
 
             }
@@ -106,14 +85,6 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
                 Console.WriteLine(ex.Message);
             }
-
-            IsRefreshing = false;
-
-            this.IsRefreshing = false;
-            KeysListView.IsRefreshing = false;
-
-
-            return await Task.FromResult("");
         }
 
         private void BtnAdd_Clicked(object sender, EventArgs e)
@@ -146,7 +117,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         }
 
-        private void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
+        private async void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -154,12 +125,12 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
                 if (string.IsNullOrWhiteSpace(e.NewTextValue))
                 {
-                    KeysListView.ItemsSource = itemListViewModel.Keys;
+                    KeysListView.ItemsSource = await keysService.GetKeysForUser();
                 }
                 else
                 {
                     // ContactsListView.ItemsSource = _container.Employees.Where(i => i.Name.Contains(e.NewTextValue));                
-                    var result = itemListViewModel.Keys.Where(i => i.DisplayName.ToLower().Contains(e.NewTextValue.ToLower()));
+                    var result = keys.Where(i => i.DisplayName.ToLower().Contains(e.NewTextValue.ToLower()));
                     KeysListView.ItemsSource = result;
 
 
@@ -226,13 +197,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         private async void BtnRefresh_Clicked(object sender, EventArgs e)
         {
-            await LoadData();
-        }
-
-        private async void BtnConversation_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new NavigationPage(new Conversation()), true);
-
+            BindData();
         }
     }
 }

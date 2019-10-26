@@ -193,6 +193,21 @@
     <Compile Include="Fragment.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetAvailableContactsForUser_Result.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetContactsForUser_Result.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetKeyFragmentRequests_Result.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetKeyRequests_Result.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPendingFragmentsForUser_Result.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

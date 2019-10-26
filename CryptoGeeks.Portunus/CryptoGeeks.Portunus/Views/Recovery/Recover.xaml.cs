@@ -1,5 +1,6 @@
-﻿using CryptoGeeks.Portunus.Api.Model;
-using CryptoGeeks.Portunus.Models;
+﻿using CryptoGeeks.API;
+using CryptoGeeks.Portunus.Api.Model;
+
 using CryptoGeeks.Portunus.ViewModels;
 using CryptoGeeks.Portunus.Views.AddKey;
 using CryptoGeeks.Portunus.Views.ExportImport;
@@ -91,7 +92,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                 Console.WriteLine("Done main thread at " + DateTime.Now.ToString("hh:mm:ss"));
 
 
-                if (fragments.Where(c => c.IsSelected).Count() >= key.RequiredFragments)
+                if (fragments.Where(c => c.IsSelected).Count() >= key.RecoverNo)
                 {
 
                     btnStart.IsVisible = false;

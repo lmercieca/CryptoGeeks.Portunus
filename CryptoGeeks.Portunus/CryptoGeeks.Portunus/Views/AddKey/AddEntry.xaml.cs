@@ -1,8 +1,11 @@
-﻿using CryptoGeeks.Common;
+﻿using CryptoGeeks.API;
+using CryptoGeeks.Common;
 using CryptoGeeks.Portunus.Api;
 using CryptoGeeks.Portunus.Api.Model;
 using CryptoGeeks.Portunus.Helpers;
-using CryptoGeeks.Portunus.Models;
+using CryptoGeeks.Portunus.Services;
+using CryptoGeeks.Portunus.Services.POCO;
+//using CryptoGeeks.Portunus.Models;
 using CryptoGeeks.Portunus.ViewModels;
 using Moserware.Security.Cryptography;
 using System;
@@ -20,18 +23,20 @@ namespace CryptoGeeks.Portunus.Views.AddKey
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddEntry : TabbedPage
     {
-        ItemListViewModel itemListViewModel;
-
+        //ItemListViewModel itemListViewModel;
+        MultiSelectObservableCollection<GetContactsForUser_Result> contacts;
 
         public AddEntry()
         {
             InitializeComponent();
 
-            itemListViewModel = new ItemListViewModel();
+            ContactService cs = new ContactService();
+            
+            //itemListViewModel = new ItemListViewModel();
 
             this.Appearing += AddContact_Appearing;
 
-            BindingContext = itemListViewModel;
+            //BindingContext = itemListViewModel;
 
         }
 
@@ -44,15 +49,17 @@ namespace CryptoGeeks.Portunus.Views.AddKey
 
         private async Task<string> LoadData()
         {
-            await itemListViewModel.RefreshData();
-
-
-            Device.BeginInvokeOnMainThread(() =>
+            // await itemListViewModel.RefreshData();
+            ContactsService cs = new ContactsService();
+         
+            Device.BeginInvokeOnMainThread( async() =>
             {
+                contacts = await cs.GetContactsForUser();
+
                 ContactsListView.BeginRefresh();
 
                 ContactsListView.ItemsSource = null;
-                ContactsListView.ItemsSource = itemListViewModel.Contacts;
+                ContactsListView.ItemsSource = contacts;
                 ContactsListView.EndRefresh();
             });
 
@@ -86,40 +93,43 @@ namespace CryptoGeeks.Portunus.Views.AddKey
        {
             try
             {
-                if (itemListViewModel.Contacts.Where(x => x.IsSelected).Count() < int.Parse(txtRecoverNo.Text))
-            {
-                await DisplayAlert("Add key", "You need to have more contacts than the minimum number of pieces to recover the message.", "OK");
+                if (contacts.Where(x => x.IsSelected).Count() < int.Parse(txtRecoverNo.Text))
+                {
+                    await DisplayAlert("Add key", "You need to have more contacts than the minimum number of pieces to recover the message.", "OK");
 
                 return;
             }
 
             SecureStorage secureStorage = new SecureStorage();
             string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
-
+            int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
 
             ApiKey apiKey = new ApiKey()
             {
                 Owner = displayName,
+               
                 RecoverNo = int.Parse(txtRecoverNo.Text),
                 Key1 = txtDisplayName.Text,
                 Data = txtKey.Text,
-                Split = itemListViewModel.Contacts.Where(x => x.IsSelected).Count(),
+               // Split = itemListViewModel.Contacts.Where(x => x.IsSelected).Count(),
+                User = userId,
                 Fragments = new List<ApiFragment>()
             };
 
-            List<SelectableItem<ContactViewModel>> selectedContacts = itemListViewModel.Contacts.Where(x => x.IsSelected).ToList();
+            List<SelectableItem<GetContactsForUser_Result>> selectedContacts = contacts.Where(x => x.IsSelected).ToList();
 
             string[] frags = SecretSplitter.SplitMessage(apiKey.Data, apiKey.RecoverNo.Value, apiKey.Split);
             int cnt = 0;
 
-            foreach (SelectableItem<ContactViewModel> selContact in selectedContacts)
+            foreach (SelectableItem<GetContactsForUser_Result> selContact in selectedContacts)
             {
-                apiKey.Fragments.Add(new ApiFragment()
-                {
-                    FragmentHolder = selContact.Data.DisplayName,
-                    Data = frags[cnt],
-                     SentToHolder = true,
-                     SentToOwner = false
+                    apiKey.Fragments.Add(new ApiFragment()
+                    {
+                        FragmentHolder = selContact.Data.DisplayName,
+                        Data = frags[cnt],
+                        SentToHolder = true,
+                        SentToOwner = false,
+                        Owner = selContact.Data.ID
                 });
 
                 cnt++;

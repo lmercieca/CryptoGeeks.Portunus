@@ -21,6 +21,8 @@ namespace CryptoGeeks.API
             this.Contacts1 = new HashSet<Contact>();
             this.UserKeyFragments = new HashSet<UserKeyFragment>();
             this.UserKeyFragments1 = new HashSet<UserKeyFragment>();
+            this.Keys = new HashSet<Key>();
+            this.Fragments = new HashSet<Fragment>();
         }
     
         public int Id { get; set; }
@@ -34,5 +36,9 @@ namespace CryptoGeeks.API
         public virtual ICollection<UserKeyFragment> UserKeyFragments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserKeyFragment> UserKeyFragments1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Key> Keys { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Fragment> Fragments { get; set; }
     }
 }

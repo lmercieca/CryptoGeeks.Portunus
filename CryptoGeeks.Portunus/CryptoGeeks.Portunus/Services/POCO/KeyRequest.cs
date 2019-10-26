@@ -11,11 +11,13 @@ namespace CryptoGeeks.API
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class KeyRequest
     {
         public int Id { get; set; }
         public Nullable<int> KeyID { get; set; }
         public Nullable<System.DateTime> RequestDate { get; set; }
+
+        public virtual Key Key { get; set; }
     }
 }

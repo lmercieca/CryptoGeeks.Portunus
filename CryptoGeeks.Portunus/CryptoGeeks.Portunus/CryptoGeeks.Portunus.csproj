@@ -10,6 +10,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Contact.cs" />
+    <Compile Remove="Models\Fragment.cs" />
+    <Compile Remove="Models\Key.cs" />
+    <Compile Remove="ViewModels\ItemListViewModel.cs" />
+    <Compile Remove="Views\Conversation\Comm.xaml.cs" />
+    <Compile Remove="Views\Conversation\Conversation.xaml.cs" />
+    <Compile Remove="Views\Conversation\test.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Views\Conversation\Comm.xaml" />
+    <EmbeddedResource Remove="Views\Conversation\Conversation.xaml" />
+    <EmbeddedResource Remove="Views\Conversation\test.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\Images\Progress bar 1.png" />
     <None Remove="Assets\Images\Progress bar 2.png" />
     <None Remove="Assets\Images\Progress bar 3.png" />
@@ -28,14 +44,17 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
     <PackageReference Include="Xamarin.Forms.MultiSelectListView" Version="2.1.0" />
+    <PackageReference Include="Xamarin.Plugins.Clipboard" Version="2.2.1" />
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="Reset Passcode\" />
     <Folder Include="Add key\" />
     <Folder Include="Recovery\" />
+    <Folder Include="Views\Conversation\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,11 +72,17 @@
     <Compile Update="SignIn\PasscodeLogin.xaml.cs">
       <DependentUpon>PasscodeLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Conversation\Comm.xaml.cs">
-      <DependentUpon>Comm.xaml</DependentUpon>
+    <Compile Update="Views\Dashboard\Fragments.xaml.cs">
+      <DependentUpon>Fragments.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Conversation\Conversation.xaml.cs">
-      <DependentUpon>Conversation.xaml</DependentUpon>
+    <Compile Update="Views\Dashboard\FragmentsRequests.xaml.cs">
+      <DependentUpon>FragmentsRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Dashboard\KeysRequests.xaml.cs">
+      <DependentUpon>KeysRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ExportImport\ImportData.xaml.cs">
+      <DependentUpon>ImportData.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Recovery\Recover.xaml.cs">
       <DependentUpon>Recover.xaml</DependentUpon>
@@ -89,9 +114,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AddKey\AddEntry.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Conversation\test.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Dashboard\Contacts.xaml">
