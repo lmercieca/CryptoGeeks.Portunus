@@ -34,10 +34,9 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                     </Grid>
-
-
+                    
                     <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
-                    <ListView x:Name="KeysListView"   IsPullToRefreshEnabled="false"  SelectionMode="None"  
+                    <ListView x:Name="KeysListView"   IsPullToRefreshEnabled="true"  SelectionMode="None"  
                              IsRefreshing="{Binding IsRefreshing}"   ItemSelected="KeysListView_ItemSelected"  ItemsSource="{Binding Keys}"   VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
                         <ListView.ItemTemplate>
                             <DataTemplate>

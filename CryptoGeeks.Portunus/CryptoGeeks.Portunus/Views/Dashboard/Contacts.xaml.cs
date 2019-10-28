@@ -54,6 +54,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             BindingContext = contacts;
             KeysListView.ItemsSource = contacts; ;
 
+      
         }
         public Contacts()
         {
@@ -61,21 +62,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
                 InitializeComponent();
 
-                NavigationPage.SetHasNavigationBar(this, false);
-                contacts = new ObservableCollection<GetContactsForUser_Result>();
-
-                BindData();
-
-                KeysListView.RefreshCommand = new Command(async () =>
-                {
-                    contacts = await GetContacts();
-
-                    KeysListView.ItemsSource = contacts;
-                    KeysListView.IsRefreshing = false;
-                    KeysListView.EndRefresh();
-                });
-
-                KeysListView.IsRefreshing = false;
+                this.Appearing += Contacts_Appearing;               
 
                 
             }
@@ -85,6 +72,24 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             }
         }
 
+        private void Contacts_Appearing(object sender, EventArgs e)
+        {
+            NavigationPage.SetHasNavigationBar(this, false);
+            contacts = new ObservableCollection<GetContactsForUser_Result>();
+
+            BindData();
+
+            KeysListView.RefreshCommand = new Command(async () =>
+            {
+                contacts = await GetContacts();
+
+                KeysListView.ItemsSource = contacts;
+                KeysListView.IsRefreshing = false;
+                KeysListView.EndRefresh();
+            });
+
+            KeysListView.IsRefreshing = false;
+        }
 
         private void BtnAdd_Clicked(object sender, EventArgs e)
         {
@@ -153,6 +158,12 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             service.Delete(SettingsService.DeleteContactUrl(), cnt.ID);
 
             BindData();
+        }
+
+        private void BtnAddContacts_Clicked(object sender, EventArgs e)
+        {
+
+            Navigation.PushModalAsync(new NavigationPage(new AddContact.AddContact()));
         }
     }
 }

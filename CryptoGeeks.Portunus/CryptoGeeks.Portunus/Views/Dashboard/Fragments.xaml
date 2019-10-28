@@ -56,7 +56,6 @@
 
                             <StackLayout HorizontalOptions="Center"   Orientation="Horizontal" Padding="10,10,10,10">
                                 <Button x:Name="btnRefresh"  Grid.Column="0" Grid.Row="0"  Text="Refresh" Style="{StaticResource NormalButton}" Clicked="BtnRefresh_Clicked"></Button>
-                                <Button x:Name="btnAdd"  Grid.Column="2" Grid.Row="0"  Text="Add New" Style="{StaticResource OrangeButton}" Clicked="BtnAdd_Clicked"></Button>
                             </StackLayout>
                         </ListView.Footer>
 

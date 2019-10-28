@@ -15,6 +15,5 @@ namespace CryptoGeeks.API
     {
         public string DisplayName { get; set; }
         public int UserId { get; set; }
-        public Nullable<int> ID { get; set; }
     }
 }

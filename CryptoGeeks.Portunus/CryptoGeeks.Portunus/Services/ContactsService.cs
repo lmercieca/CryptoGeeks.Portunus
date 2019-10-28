@@ -20,13 +20,23 @@ namespace CryptoGeeks.Portunus.Services
 
         public async Task<MultiSelectObservableCollection<GetContactsForUser_Result>> GetContactsForUser()
         {
-            EntityService<MultiSelectObservableCollection<GetContactsForUser_Result>> contact = new EntityService<MultiSelectObservableCollection<GetContactsForUser_Result>>();
+            EntityService<ObservableCollection<GetContactsForUser_Result>> entityService = new EntityService<ObservableCollection<GetContactsForUser_Result>>();
             NameValueCollection parameters = new NameValueCollection();
 
             CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
-            parameters.Add("UserId", secureStorage.GetFromSecureStorage(Constants.UserId));
-            
-            return await contact.Get(SettingsService.GetContactsForUserUrl(), parameters);
+            parameters.Add("userId", secureStorage.GetFromSecureStorage(Constants.UserId));
+            ObservableCollection<GetContactsForUser_Result> result = await entityService.Get(SettingsService.GetAllForUserUrl(), parameters);
+
+            MultiSelectObservableCollection<GetContactsForUser_Result> finalRes = new MultiSelectObservableCollection<GetContactsForUser_Result>();
+
+            foreach(GetContactsForUser_Result re in result)
+            {
+                finalRes.Add(re);
+            }
+
+            return finalRes;
+
+
         }
     }
 }

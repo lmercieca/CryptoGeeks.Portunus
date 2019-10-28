@@ -63,6 +63,23 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
             uint timeout = 550;
 
+            if (currentUser.Contacts.Count() == 0)
+            {
+                new Thread(async () =>
+                {
+                    while (true)
+                    {
+                        await btnConatcts.ScaleTo(1.05, timeout, Easing.CubicInOut);
+                        await btnConatcts.ScaleTo(1, timeout, Easing.CubicInOut);
+                        await btnConatcts.ScaleTo(1.05, timeout, Easing.CubicInOut);
+                        await btnConatcts.ScaleTo(1, timeout, Easing.CubicInOut);
+                        await btnConatcts.ScaleTo(1.05, timeout, Easing.CubicInOut);
+                        await btnConatcts.ScaleTo(1, timeout, Easing.CubicInOut);
+                    }
+                }).Start();
+            }
+
+
 
             if (currentUser.Fragments.Where(F => F.SentToOwner == false).Count() > 0)
             {
@@ -129,7 +146,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         private void BtnKeys_Clicked(object sender, EventArgs e)
         {
-            this.Navigation.PushAsync(new Keys());
+            this.Navigation.PushAsync(new Keys(currentUser));
         }
 
         private void BtnConatcts_Clicked(object sender, EventArgs e)

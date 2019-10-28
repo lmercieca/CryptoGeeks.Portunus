@@ -271,6 +271,9 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
         <Function Name="GetPendingFragmentsForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetReceivedFragmentsCountForKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="keyId" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetSentFragmentsCountForKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="keyId" Type="int" Mode="In" />
         </Function>
@@ -682,7 +685,6 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
         <ComplexType Name="GetAvailableContactsForUser_Result">
           <Property Type="String" Name="DisplayName" Nullable="false" MaxLength="500" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="Int32" Name="ID" Nullable="true" />
         </ComplexType>
         <Association Name="FK_Fragments_Users">
           <End Type="PortunusModel.User" Role="User" Multiplicity="0..1" />
@@ -873,7 +875,6 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
               <ComplexTypeMapping TypeName="PortunusModel.GetAvailableContactsForUser_Result">
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

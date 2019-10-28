@@ -40,6 +40,7 @@ namespace CryptoGeeks.Portunus
 
             await Task.Delay(3000);
 
+            
             string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
 
             if (!string.IsNullOrEmpty(displayName))

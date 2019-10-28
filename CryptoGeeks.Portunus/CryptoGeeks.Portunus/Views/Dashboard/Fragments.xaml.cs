@@ -88,19 +88,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             }
         }
 
-        private void BtnAdd_Clicked(object sender, EventArgs e)
-        {
-            try
-            {
-                Navigation.PushModalAsync(new NavigationPage(new AddEntry()));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-        }
-
+       
         private async void KeysListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             try

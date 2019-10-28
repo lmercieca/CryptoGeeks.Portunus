@@ -27,6 +27,8 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         KeysService keysService = new KeysService();
         ObservableCollection<Key> keys;
 
+        User currentUser;
+
         private bool _refreshing;
         public bool IsRefreshing
         {
@@ -57,10 +59,12 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         }
 
-        public Keys()
+        public Keys(User currentUser)
         {
             try
             {
+                this.currentUser = currentUser;
+
                 InitializeComponent();
                 keys = new ObservableCollection<Key>();
                 BindData();
@@ -91,7 +95,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         {
             try
             {
-                Navigation.PushModalAsync(new NavigationPage(new AddEntry()));
+                Navigation.PushModalAsync(new NavigationPage(new AddEntry(this.currentUser)));
             }
             catch (Exception ex)
             {

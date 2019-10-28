@@ -25,13 +25,15 @@ namespace CryptoGeeks.Portunus.Views.AddKey
     {
         //ItemListViewModel itemListViewModel;
         MultiSelectObservableCollection<GetContactsForUser_Result> contacts;
+        User currentUser;
 
-        public AddEntry()
+        public AddEntry(User currentUser)
         {
             InitializeComponent();
 
             ContactService cs = new ContactService();
-            
+            this.currentUser = currentUser;
+
             //itemListViewModel = new ItemListViewModel();
 
             this.Appearing += AddContact_Appearing;
@@ -51,17 +53,17 @@ namespace CryptoGeeks.Portunus.Views.AddKey
         {
             // await itemListViewModel.RefreshData();
             ContactsService cs = new ContactsService();
-         
-            Device.BeginInvokeOnMainThread( async() =>
-            {
-                contacts = await cs.GetContactsForUser();
 
-                ContactsListView.BeginRefresh();
+            Device.BeginInvokeOnMainThread(async () =>
+           {
+               contacts = await cs.GetContactsForUser();
 
-                ContactsListView.ItemsSource = null;
-                ContactsListView.ItemsSource = contacts;
-                ContactsListView.EndRefresh();
-            });
+               ContactsListView.BeginRefresh();
+
+               ContactsListView.ItemsSource = null;
+               ContactsListView.ItemsSource = contacts;
+               ContactsListView.EndRefresh();
+           });
 
 
             return await Task.FromResult("");
@@ -84,45 +86,57 @@ namespace CryptoGeeks.Portunus.Views.AddKey
             ContactsListView.EndRefresh();
         }
 
-        private void BtnNext_Clicked(object sender, EventArgs e)
+        private async void BtnNext_Clicked(object sender, EventArgs e)
         {
+            if (int.Parse(txtRecoverNo.Text) > currentUser.Contacts.Count())
+            {
+                if (await DisplayAlert("Add key", "You only have " + currentUser.Contacts.Count() + " contacts linked. Would you like to add more contacts?.", "Yes", "No"))
+                {
+                    await Navigation.PushModalAsync(new AddContact.AddContact());
+                }
+                else
+                {
+                    await Navigation.PopModalAsync(true);
+                }
+            }
+
             this.CurrentPage = this.Children[1];
         }
 
         private async void BtnDone_Clicked(object sender, EventArgs e)
-       {
+        {
             try
             {
                 if (contacts.Where(x => x.IsSelected).Count() < int.Parse(txtRecoverNo.Text))
                 {
                     await DisplayAlert("Add key", "You need to have more contacts than the minimum number of pieces to recover the message.", "OK");
 
-                return;
-            }
+                    return;
+                }
 
-            SecureStorage secureStorage = new SecureStorage();
-            string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
-            int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
+                SecureStorage secureStorage = new SecureStorage();
+                string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
+                int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
+                List<SelectableItem<GetContactsForUser_Result>> selectedContacts = contacts.Where(x => x.IsSelected).ToList();
 
-            ApiKey apiKey = new ApiKey()
-            {
-                Owner = displayName,
+                ApiKey apiKey = new ApiKey()
+                {
+                    Owner = displayName,
+
+                    RecoverNo = int.Parse(txtRecoverNo.Text),
+                    Key1 = txtDisplayName.Text,
+                    Data = txtKey.Text,
+                    Split = selectedContacts.Count(),
+                    User = userId,
+                    Fragments = new List<ApiFragment>()
+                };
+
                
-                RecoverNo = int.Parse(txtRecoverNo.Text),
-                Key1 = txtDisplayName.Text,
-                Data = txtKey.Text,
-               // Split = itemListViewModel.Contacts.Where(x => x.IsSelected).Count(),
-                User = userId,
-                Fragments = new List<ApiFragment>()
-            };
+                string[] frags = SecretSplitter.SplitMessage(apiKey.Data, apiKey.RecoverNo.Value, apiKey.Split);
+                int cnt = 0;
 
-            List<SelectableItem<GetContactsForUser_Result>> selectedContacts = contacts.Where(x => x.IsSelected).ToList();
-
-            string[] frags = SecretSplitter.SplitMessage(apiKey.Data, apiKey.RecoverNo.Value, apiKey.Split);
-            int cnt = 0;
-
-            foreach (SelectableItem<GetContactsForUser_Result> selContact in selectedContacts)
-            {
+                foreach (SelectableItem<GetContactsForUser_Result> selContact in selectedContacts)
+                {
                     apiKey.Fragments.Add(new ApiFragment()
                     {
                         FragmentHolder = selContact.Data.DisplayName,
@@ -130,17 +144,17 @@ namespace CryptoGeeks.Portunus.Views.AddKey
                         SentToHolder = true,
                         SentToOwner = false,
                         Owner = selContact.Data.ID
-                });
+                    });
 
-                cnt++;
-            }
+                    cnt++;
+                }
 
-            KeyService keyService = new KeyService();
-            await keyService.AddKey(apiKey);
+                KeyService keyService = new KeyService();
+                await keyService.AddKey(apiKey);
 
 
-            await DisplayAlert("Add key", "Key successfully added.", "OK");
-            await Navigation.PopModalAsync(true);
+                await DisplayAlert("Add key", "Key successfully added.", "OK");
+                await Navigation.PopModalAsync(true);
             }
             catch (Exception ex)
             {

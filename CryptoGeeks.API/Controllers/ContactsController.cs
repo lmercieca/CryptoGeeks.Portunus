@@ -53,7 +53,7 @@ namespace CryptoGeeks.API.Controllers
 
         // PUT: api/Contacts/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutContact(int id, Contact contact)
+        public async Task<IHttpActionResult> PutContact(int id, Contact contact)       
         {
             if (!ModelState.IsValid)
             {

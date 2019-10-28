@@ -161,8 +161,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         private async void BtnCancel_Clicked(object sender, EventArgs e)
         {
-
-            await Navigation.PushModalAsync(new NavigationPage(new Keys()), true);
+            await Navigation.PushModalAsync(new Dashboard(), true);
         }
     }
 }
