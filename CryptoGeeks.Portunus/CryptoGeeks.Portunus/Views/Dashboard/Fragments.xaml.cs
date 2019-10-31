@@ -26,7 +26,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
     public partial class Fragments : ContentPage, INotifyPropertyChanged
     {
         KeysService keysService = new KeysService();
-        ObservableCollection<Fragment> keyRequests;
+        ObservableCollection<GetFragmentsForUser_Result> fragments;
 
         private bool _refreshing;
         public bool IsRefreshing
@@ -35,10 +35,10 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             set { this._refreshing = value; OnPropertyChanged("IsRefreshing"); }
         }
 
-        private async Task<ObservableCollection<Fragment>> LoadUsersData()
+        private async Task<ObservableCollection<GetFragmentsForUser_Result>> LoadUsersData()
         {
 
-            EntityService<ObservableCollection<Fragment>> entityService = new EntityService<ObservableCollection<Fragment>>();
+            EntityService<ObservableCollection<GetFragmentsForUser_Result>> entityService = new EntityService<ObservableCollection<GetFragmentsForUser_Result>>();
             NameValueCollection parameters = new NameValueCollection();
             CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
             parameters.Add("userId", secureStorage.GetFromSecureStorage(Constants.UserId));
@@ -52,9 +52,9 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             BindingContext = null;
             KeysListView.ItemsSource = null;
 
-            keyRequests = await LoadUsersData();
-            BindingContext = keyRequests;
-            KeysListView.ItemsSource = keyRequests; ;
+            fragments = await LoadUsersData();
+            BindingContext = fragments;
+            KeysListView.ItemsSource = fragments; ;
 
         }
 
@@ -63,7 +63,10 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             try
             {
                 InitializeComponent();
-                keyRequests = new ObservableCollection<Fragment>();
+
+                NavigationPage.SetHasNavigationBar(this, false);
+
+                fragments = new ObservableCollection<GetFragmentsForUser_Result>();
                 BindData();
             }
             catch (Exception ex)

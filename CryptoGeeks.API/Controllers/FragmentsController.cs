@@ -23,9 +23,12 @@ namespace CryptoGeeks.API.Controllers
             return db.Fragments;
         }
 
-        public IQueryable<Fragment> GetFragmentsForKey(int keyId)
+        public List<GetFragmentsForKey_Result> GetFragmentsForKey(int keyId)
         {
-            return db.Fragments.Where(x=>x.KeyFk == keyId);
+
+            List<GetFragmentsForKey_Result> result = db.GetFragmentsForKey(keyId).ToList();
+
+            return result;
         }
 
 
@@ -35,9 +38,11 @@ namespace CryptoGeeks.API.Controllers
         }
 
 
-        public IQueryable<Fragment> GetFragmentsForUser(int userId)
+        public List<GetFragmentsForUser_Result> GetFragmentsForUser(int userId)
         {
-            return db.Fragments.Where(x => x.Owner == userId);
+            List<GetFragmentsForUser_Result> result = db.GetFragmentsForUser(userId).ToList();
+
+            return result;
         }
 
 
@@ -93,13 +98,20 @@ namespace CryptoGeeks.API.Controllers
         [ResponseType(typeof(Fragment))]
         public async Task<IHttpActionResult> PostFragment(Fragment fragment)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            db.Fragments.Add(fragment);
-            await db.SaveChangesAsync();
+                db.Fragments.Add(fragment);
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                string e = ex.Message;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = fragment.Id }, fragment);
         }

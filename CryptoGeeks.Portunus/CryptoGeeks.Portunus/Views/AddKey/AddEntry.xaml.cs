@@ -10,6 +10,8 @@ using CryptoGeeks.Portunus.ViewModels;
 using Moserware.Security.Cryptography;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,15 +27,13 @@ namespace CryptoGeeks.Portunus.Views.AddKey
     {
         //ItemListViewModel itemListViewModel;
         MultiSelectObservableCollection<GetContactsForUser_Result> contacts;
-        User currentUser;
-
-        public AddEntry(User currentUser)
+      
+        public AddEntry()
         {
             InitializeComponent();
 
             ContactService cs = new ContactService();
-            this.currentUser = currentUser;
-
+            
             //itemListViewModel = new ItemListViewModel();
 
             this.Appearing += AddContact_Appearing;
@@ -86,13 +86,28 @@ namespace CryptoGeeks.Portunus.Views.AddKey
             ContactsListView.EndRefresh();
         }
 
+
+        public async Task<int> GetContacts()
+        {
+            EntityService<int> entityService = new EntityService<int>();
+            NameValueCollection parameters = new NameValueCollection();
+
+            CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
+            parameters.Add("userId", secureStorage.GetFromSecureStorage(Constants.UserId));
+            int contactsCount = await entityService.Get(SettingsService.GetContactsCountForUser(), parameters);
+
+            return contactsCount;
+        }
+
         private async void BtnNext_Clicked(object sender, EventArgs e)
         {
-            if (int.Parse(txtRecoverNo.Text) > currentUser.Contacts.Count())
-            {
-                if (await DisplayAlert("Add key", "You only have " + currentUser.Contacts.Count() + " contacts linked. Would you like to add more contacts?.", "Yes", "No"))
+            int contactsCount = await GetContacts();
+
+            if (int.Parse(txtRecoverNo.Text) > contactsCount)
+            {               
+                if (await DisplayAlert("Add key", "You only have " + contactsCount + " contacts linked. Would you like to add more contacts?.", "Yes", "No"))
                 {
-                    await Navigation.PushModalAsync(new AddContact.AddContact());
+                    await Navigation.PushModalAsync(new NavigationPage(new AddContact.AddContact()));
                 }
                 else
                 {
@@ -119,16 +134,16 @@ namespace CryptoGeeks.Portunus.Views.AddKey
                 int userId = int.Parse(secureStorage.GetFromSecureStorage(Constants.UserId));
                 List<SelectableItem<GetContactsForUser_Result>> selectedContacts = contacts.Where(x => x.IsSelected).ToList();
 
-                ApiKey apiKey = new ApiKey()
+                Key apiKey = new Key()
                 {
                     Owner = displayName,
-
+                    DisplayName = txtDisplayName.Text,
                     RecoverNo = int.Parse(txtRecoverNo.Text),
-                    Key1 = txtDisplayName.Text,
+                    Key1 = DateTime.Now.ToLongDateString(),
                     Data = txtKey.Text,
                     Split = selectedContacts.Count(),
                     User = userId,
-                    Fragments = new List<ApiFragment>()
+                    Fragments = new List<Fragment>()
                 };
 
                
@@ -137,20 +152,22 @@ namespace CryptoGeeks.Portunus.Views.AddKey
 
                 foreach (SelectableItem<GetContactsForUser_Result> selContact in selectedContacts)
                 {
-                    apiKey.Fragments.Add(new ApiFragment()
+                    Fragment frag =             new Fragment()
                     {
                         FragmentHolder = selContact.Data.DisplayName,
                         Data = frags[cnt],
                         SentToHolder = true,
                         SentToOwner = false,
-                        Owner = selContact.Data.ID
-                    });
+                        Owner = selContact.Data.UserId                      
+                    };
 
+                    
+                    apiKey.Fragments.Add(frag);
                     cnt++;
                 }
 
-                KeyService keyService = new KeyService();
-                await keyService.AddKey(apiKey);
+                EntityService<Key> keyService = new EntityService<Key>();
+                await keyService.Add(SettingsService.PostKeyUrl(),apiKey);
 
 
                 await DisplayAlert("Add key", "Key successfully added.", "OK");

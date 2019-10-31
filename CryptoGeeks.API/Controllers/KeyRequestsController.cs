@@ -36,6 +36,18 @@ namespace CryptoGeeks.API.Controllers
             return db.KeyRequests.Where(x=>x.KeyID == KeyId);
         }
 
+
+        public void GetMarkReqyestComplete(int KeyId)
+        {
+            KeyRequest kr =  db.KeyRequests.Where(x => x.KeyID == KeyId).FirstOrDefault();
+
+            db.Entry(kr).State = EntityState.Modified;
+            kr.Completed = true;
+
+            db.SaveChanges();
+
+        }
+
         public IHttpActionResult GetFragmentAsSent(int fragmentId)
         {
             db.MarkFragmentAsSent(fragmentId);

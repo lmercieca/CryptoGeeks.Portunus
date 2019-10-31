@@ -50,7 +50,7 @@ namespace CryptoGeeks.API.Controllers
         [Route("api/Users/GetUserDetailsByName")]
         public IHttpActionResult GetUserDetailsByName(string displayName)
         {
-           User user = db.Users.Where(x => x.DisplayName.ToLower() == displayName.ToLower()).FirstOrDefault();
+            User user = db.Users.Where(x => x.DisplayName.ToLower() == displayName.ToLower()).FirstOrDefault();
 
             return Ok(user);
         }
@@ -65,6 +65,32 @@ namespace CryptoGeeks.API.Controllers
             user.DisplayName = displayName;
 
             db.SaveChanges();
+
+        }
+
+        [Route("api/Users/GetDashboard")]
+        [ResponseType(typeof(GetDashboard_Result))]
+        public GetDashboard_Result GetDashboard(int userId)
+        {
+            List<GetDashboard_Result> dashboard = db.GetDashboard(userId).ToList();
+
+            return dashboard[0];
+
+        }
+
+
+        [Route("api/Users/GetNewUser")]
+        [ResponseType(typeof(int))]
+        public int GetNewUser(string displayName)
+        {
+            User u = new User();
+            u.DisplayName = displayName;
+
+            db.Users.Add(u);
+            db.SaveChanges();
+
+
+            return u.Id;
 
         }
 
@@ -90,7 +116,7 @@ namespace CryptoGeeks.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                
+
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, user.Id, Configuration.Formatters.JsonFormatter);
@@ -103,7 +129,7 @@ namespace CryptoGeeks.API.Controllers
             db.Users.Add(user);
             await db.SaveChangesAsync();
 
-            
+
             return user;
         }
 

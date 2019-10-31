@@ -4,27 +4,31 @@
                BackgroundColor="{StaticResource NormalBackground}"
              x:Class="CryptoGeeks.Portunus.Views.Dashboard.Dashboard">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="CenterAndExpand">
-            <!-- <Label Text="Wxample 0" FontSize="25" BackgroundColor="Snow"></Label>-->
-            <Image HorizontalOptions="Center"
-   VerticalOptions="Start" Margin="10,10,10,10" Source="LogoSmall.png" />
-            
-            <Grid HorizontalOptions="CenterAndExpand" Padding="5" ColumnSpacing="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="49*" />
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="49*" />
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="btnConatcts" Grid.Column="0" Grid.Row="0" Text="Contacts" BackgroundColor="#eff0d1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75" ></Button>
-                <Button x:Name="btnKeys" Grid.Column="2" Grid.Row="0" Text="Keys" BackgroundColor="#d7c0d0" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75"></Button>
-                <Button x:Name="btnRequests" Grid.Column="0" Grid.Row="1" Text="Key Requests" BackgroundColor="#77ba99" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75"></Button>
-                <Button x:Name="btnFragRequests" Grid.Column="2" Grid.Row="1" Text="Fragment Requests" BackgroundColor="#ffdfba" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75"></Button>
-                <Button x:Name="btnFragments" Grid.Column="0" Grid.Row="2" Text="Fragments" BackgroundColor="#9c8ade" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75"></Button>
-                <Button x:Name="btnSettings" Grid.Column="2" Grid.Row="2" Text="Settings" BackgroundColor="SkyBlue" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="120" HeightRequest="75"></Button>
+        <ScrollView >
+            <StackLayout HorizontalOptions="CenterAndExpand" >
+                <!-- <Label Text="Wxample 0" FontSize="25" BackgroundColor="Snow"></Label>-->
 
 
-            </Grid>
-        </StackLayout>
+                    <Image HorizontalOptions="Center" 
+   VerticalOptions="Start" Margin="2,2,2,2" Source="LogoSmall.png" />
+
+
+
+                <Label   HorizontalOptions="Center"   x:Name="displayName"   Style="{StaticResource NormalText}" Text="What would you like to do?" Margin="10" ></Label>
+
+
+
+                <Button x:Name="btnConatcts" Text="Add contacts so they can store my fragments" BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="220" HeightRequest="100" ></Button>
+                <Button x:Name="btnKeys" Text="Add keys and send them to selected contacts" BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="220" HeightRequest="100"></Button>
+                <Button x:Name="btnRequests" IsVisible="False" Text="View my key retrieval requests" BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="220" HeightRequest="100"></Button>
+                <Button x:Name="btnFragRequests" IsVisible="False" Text="View the fragment users are requesting" BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="220" HeightRequest="100"></Button>
+                <Button x:Name="btnFragments" IsVisible="False" Text="View fragments I am storing" BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="220" HeightRequest="100"></Button>
+                <Button x:Name="btnSettings"  Text="Import or export settings" BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="220" HeightRequest="100"></Button>
+
+                <Button x:Name="btnRefresh"  Text="Refresh Data" BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="220" HeightRequest="100"></Button>
+
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

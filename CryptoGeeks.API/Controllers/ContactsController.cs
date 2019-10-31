@@ -30,6 +30,12 @@ namespace CryptoGeeks.API.Controllers
             return contacts;
         }
 
+        public int GetContactsCountForUser(int userId)
+        {
+            return db.GetContactsForUser(userId).Count();
+
+        }
+
         public IQueryable<GetAvailableContactsForUser_Result> GetAvailableContactsForUser(int userId)
         {
             IQueryable<GetAvailableContactsForUser_Result> contacts = db.GetAvailableContactsForUser(userId).AsQueryable();

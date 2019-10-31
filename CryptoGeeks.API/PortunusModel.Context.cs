@@ -111,5 +111,41 @@ namespace CryptoGeeks.API
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fragment>("GetPendingFragmentsForUser", mergeOption, userIdParameter);
         }
+    
+        public virtual ObjectResult<GetDashboard_Result> GetDashboard(Nullable<int> userID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboard_Result>("GetDashboard", userIDParameter);
+        }
+    
+        public virtual ObjectResult<GetKeysForUser_Result> GetKeysForUser(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetKeysForUser_Result>("GetKeysForUser", userIdParameter);
+        }
+    
+        public virtual ObjectResult<GetFragmentsForUser_Result> GetFragmentsForUser(Nullable<int> userID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFragmentsForUser_Result>("GetFragmentsForUser", userIDParameter);
+        }
+    
+        public virtual ObjectResult<GetFragmentsForKey_Result> GetFragmentsForKey(Nullable<int> keyId)
+        {
+            var keyIdParameter = keyId.HasValue ?
+                new ObjectParameter("KeyId", keyId) :
+                new ObjectParameter("KeyId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFragmentsForKey_Result>("GetFragmentsForKey", keyIdParameter);
+        }
     }
 }

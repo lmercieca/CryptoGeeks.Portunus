@@ -41,6 +41,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KeyID" Type="int" />
           <Property Name="RequestDate" Type="datetime" />
+          <Property Name="Completed" Type="bit" />
         </EntityType>
         <EntityType Name="Keys">
           <Key>
@@ -262,11 +263,23 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
         <Function Name="GetContactsForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetDashboard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetFragmentsForKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetFragmentsForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetKeyFragmentRequests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetKeyRequests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetKeysForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
         <Function Name="GetPendingFragmentsForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
@@ -436,6 +449,18 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
           <FunctionImport Name="GetPendingFragmentsForUser" EntitySet="Fragments" ReturnType="Collection(PortunusModel.Fragment)">
           <Parameter Name="userId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetDashboard" ReturnType="Collection(PortunusModel.GetDashboard_Result)">
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetKeysForUser" ReturnType="Collection(PortunusModel.GetKeysForUser_Result)">
+          <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetFragmentsForUser" ReturnType="Collection(PortunusModel.GetFragmentsForUser_Result)">
+          <Parameter Name="userID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetFragmentsForKey" ReturnType="Collection(PortunusModel.GetFragmentsForKey_Result)">
+            <Parameter Name="KeyId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Country">
           <Key>
@@ -556,6 +581,7 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
           <Property Name="KeyID" Type="Int32" />
           <Property Name="RequestDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Key" Relationship="PortunusModel.FK_KeyRequest_Keys" FromRole="KeyRequest" ToRole="Key" />
+          <Property Name="Completed" Type="Boolean" />
         </EntityType>
         <EntityType Name="UserKeyFragment">
           <Key>
@@ -731,6 +757,42 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
           <Property Type="String" Name="Data" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="Owner" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="GetDashboard_Result">
+          <Property Type="Int32" Name="Keys" Nullable="true" />
+          <Property Type="Int32" Name="KeyRequests" Nullable="true" />
+          <Property Type="Int32" Name="Contacts" Nullable="true" />
+          <Property Type="Int32" Name="Fragments" Nullable="true" />
+          <Property Type="Int32" Name="FragmentRequests" Nullable="true" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="DisplayName" Nullable="false" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="GetKeysForUser_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Data" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DisplayName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Owner" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="RecoverNo" Nullable="true" />
+          <Property Type="Int32" Name="Split" Nullable="false" />
+          <Property Type="Int32" Name="User" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetFragmentsForUser_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="KeyFk" Nullable="false" />
+          <Property Type="String" Name="FragmentHolder" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="SentToHolder" Nullable="false" />
+          <Property Type="Boolean" Name="SentToOwner" Nullable="false" />
+          <Property Type="String" Name="Data" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Owner" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetFragmentsForKey_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="KeyFk" Nullable="false" />
+          <Property Type="String" Name="FragmentHolder" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="SentToHolder" Nullable="false" />
+          <Property Type="Boolean" Name="SentToOwner" Nullable="false" />
+          <Property Type="String" Name="Data" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Owner" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -833,6 +895,7 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
           <EntitySetMapping Name="KeyRequests">
             <EntityTypeMapping TypeName="PortunusModel.KeyRequest">
               <MappingFragment StoreEntitySet="KeyRequest">
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
                 <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
                 <ScalarProperty Name="KeyID" ColumnName="KeyID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -912,6 +975,58 @@ warning 6002: The table/view 'Portunus.dbo.UserStatusCompact' does not have a pr
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetPendingFragmentsForUser" FunctionName="PortunusModel.Store.GetPendingFragmentsForUser">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDashboard" FunctionName="PortunusModel.Store.GetDashboard">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PortunusModel.GetDashboard_Result">
+                <ScalarProperty Name="Keys" ColumnName="Keys" />
+                <ScalarProperty Name="KeyRequests" ColumnName="KeyRequests" />
+                <ScalarProperty Name="Contacts" ColumnName="Contacts" />
+                <ScalarProperty Name="Fragments" ColumnName="Fragments" />
+                <ScalarProperty Name="FragmentRequests" ColumnName="FragmentRequests" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetKeysForUser" FunctionName="PortunusModel.Store.GetKeysForUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PortunusModel.GetKeysForUser_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="RecoverNo" ColumnName="RecoverNo" />
+                <ScalarProperty Name="Split" ColumnName="Split" />
+                <ScalarProperty Name="User" ColumnName="User" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetFragmentsForUser" FunctionName="PortunusModel.Store.GetFragmentsForUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PortunusModel.GetFragmentsForUser_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="KeyFk" ColumnName="KeyFk" />
+                <ScalarProperty Name="FragmentHolder" ColumnName="FragmentHolder" />
+                <ScalarProperty Name="SentToHolder" ColumnName="SentToHolder" />
+                <ScalarProperty Name="SentToOwner" ColumnName="SentToOwner" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetFragmentsForKey" FunctionName="PortunusModel.Store.GetFragmentsForKey">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PortunusModel.GetFragmentsForKey_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="KeyFk" ColumnName="KeyFk" />
+                <ScalarProperty Name="FragmentHolder" ColumnName="FragmentHolder" />
+                <ScalarProperty Name="SentToHolder" ColumnName="SentToHolder" />
+                <ScalarProperty Name="SentToOwner" ColumnName="SentToOwner" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

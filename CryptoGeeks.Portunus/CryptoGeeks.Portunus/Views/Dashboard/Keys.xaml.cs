@@ -2,6 +2,7 @@
 using CryptoGeeks.Portunus.Helpers;
 //using CryptoGeeks.Portunus.Models;
 using CryptoGeeks.Portunus.Services;
+using CryptoGeeks.Portunus.Services.POCO;
 using CryptoGeeks.Portunus.ViewModels;
 using CryptoGeeks.Portunus.Views.AddKey;
 using CryptoGeeks.Portunus.Views.ExportImport;
@@ -24,10 +25,8 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Keys : ContentPage, INotifyPropertyChanged
     {
-        KeysService keysService = new KeysService();
-        ObservableCollection<Key> keys;
-
-        User currentUser;
+        public KeysService keysService = new KeysService();
+        public ObservableCollection<GetKeysForUser_Result> keys;
 
         private bool _refreshing;
         public bool IsRefreshing
@@ -36,10 +35,10 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             set { this._refreshing = value; OnPropertyChanged("IsRefreshing"); }
         }
 
-        private async Task<ObservableCollection<Key>> LoadUsersData()
+        private async Task<ObservableCollection<GetKeysForUser_Result>> LoadUsersData()
         {
 
-            EntityService<ObservableCollection<Key>> entityService = new EntityService<ObservableCollection<Key>>();
+            EntityService<ObservableCollection<GetKeysForUser_Result>> entityService = new EntityService<ObservableCollection<GetKeysForUser_Result>>();
             NameValueCollection parameters = new NameValueCollection();
             CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
             parameters.Add("userId", secureStorage.GetFromSecureStorage(Constants.UserId));
@@ -59,14 +58,12 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         }
 
-        public Keys(User currentUser)
+        public Keys()
         {
             try
             {
-                this.currentUser = currentUser;
-
                 InitializeComponent();
-                keys = new ObservableCollection<Key>();
+                keys = new ObservableCollection<GetKeysForUser_Result>();
                 BindData();
             }
             catch (Exception ex)
@@ -95,7 +92,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         {
             try
             {
-                Navigation.PushModalAsync(new NavigationPage(new AddEntry(this.currentUser)));
+                Navigation.PushModalAsync(new NavigationPage(new AddEntry()));
             }
             catch (Exception ex)
             {
@@ -108,7 +105,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         {
             try
             {
-                Key k = e.SelectedItem as Key;
+                GetKeysForUser_Result k = e.SelectedItem as GetKeysForUser_Result;
 
                 await Navigation.PushModalAsync(new NavigationPage(new KeyDetails(k)), true);
 

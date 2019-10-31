@@ -86,39 +86,19 @@ namespace CryptoGeeks.Portunus.Api
 
         public async Task<bool> DisplayNameExists(string displayName)
         {
-            using (HttpClientHandler ClientHandler = new HttpClientHandler())
-            {
-                ClientHandler.AllowAutoRedirect = true;
-                ClientHandler.UseDefaultCredentials = true;
+
+            NameValueCollection parameters = new NameValueCollection();
+            parameters.Add("displayName", displayName);
 
 
-                using (HttpClient Client = new HttpClient(ClientHandler))
-                {
-
-                    var builder = new UriBuilder(Constants.GetUserByNameURL);
-                    var query = HttpUtility.ParseQueryString(builder.Query);
-                    query["displayname"] = displayName;
-                    builder.Query = query.ToString();
-                    string url = builder.ToString();
-
-
-                    using (HttpResponseMessage ResponseMessage = await Client.GetAsync(url))
-                    {
-                        using (HttpContent Content = ResponseMessage.Content)
-                        {
-                            string result = await Content.ReadAsStringAsync();
-
-
-                            bool exist = JsonConvert.DeserializeObject<bool>(result);
-                            return exist;
-                        }
-                    }
-                }
-            }
+            bool exist = await new EntityService<bool>().Get(Constants.GetUserByNameURL, parameters);
+            return exist;
         }
 
         public async Task<int> AddDisplayName(string displayName)
         {
+
+
             int id = -1;
 
             using (HttpClientHandler ClientHandler = new HttpClientHandler())

@@ -1,9 +1,11 @@
 ﻿using CryptoGeeks.Common;
 using CryptoGeeks.Portunus.Api;
 using CryptoGeeks.Portunus.Helpers;
+using CryptoGeeks.Portunus.Services;
 using CryptoGeeks.Portunus.Views.Dashboard;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,12 +56,16 @@ namespace CryptoGeeks.Portunus.Views.Registration
                     }
                     else
                     {
-                        int id = await cs.AddDisplayName(DisplayName.Text);
+                        NameValueCollection parameters = new NameValueCollection();
+                        parameters.Add("displayName", DisplayName.Text);
+                        
+
+                        int id = await new EntityService<int>().Get(SettingsService.GetNewUser(), parameters);
 
                         secureStorage.StoreInSecureStorage(Constants.DisplayName, DisplayName.Text);
                         secureStorage.StoreInSecureStorage(Constants.UserId, id.ToString());
 
-                        await Navigation.PushModalAsync(new CryptoGeeks.Portunus.Views.Dashboard.Dashboard());
+                        await Navigation.PushModalAsync(new NavigationPage(new CryptoGeeks.Portunus.Views.Dashboard.Dashboard()));
                     }
                 }
             }

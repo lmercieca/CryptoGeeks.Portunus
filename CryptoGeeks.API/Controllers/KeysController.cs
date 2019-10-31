@@ -25,9 +25,10 @@ namespace CryptoGeeks.API.Controllers
 
 
         [Route("api/Keys/GetKeysForUser")]
-        public IQueryable<Key> GetKeysForUser(int userId)
+        public List<GetKeysForUser_Result> GetKeysForUser(int userId)
         {
-            return db.Keys.Where(x => x.User == userId);
+            List<GetKeysForUser_Result> keys = db.GetKeysForUser(userId).ToList();
+            return keys;
         }
 
 
@@ -88,14 +89,20 @@ namespace CryptoGeeks.API.Controllers
         [ResponseType(typeof(Key))]
         public async Task<IHttpActionResult> PostKey(Key key)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                db.Keys.Add(key);
+                await db.SaveChangesAsync();
             }
-
-            db.Keys.Add(key);
-            await db.SaveChangesAsync();
-
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return CreatedAtRoute("DefaultApi", new { id = key.Id }, key);
         }
 

@@ -199,10 +199,22 @@
     <Compile Include="GetContactsForUser_Result.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetDashboard_Result.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetFragmentsForKey_Result.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetFragmentsForUser_Result.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetKeyFragmentRequests_Result.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GetKeyRequests_Result.cs">
+      <DependentUpon>PortunusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetKeysForUser_Result.cs">
       <DependentUpon>PortunusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GetPendingFragmentsForUser_Result.cs">

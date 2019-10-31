@@ -17,6 +17,7 @@ namespace CryptoGeeks.API
         public int Id { get; set; }
         public Nullable<int> KeyID { get; set; }
         public Nullable<System.DateTime> RequestDate { get; set; }
+        public Nullable<bool> Completed { get; set; }
     
         public virtual Key Key { get; set; }
     }

@@ -11,7 +11,9 @@ namespace CryptoGeeks.API
 {
     using System;
     using System.Collections.Generic;
+    using Xamarin.Forms.Internals;
 
+    [Preserve(AllMembers = true)]
     public partial class Key
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

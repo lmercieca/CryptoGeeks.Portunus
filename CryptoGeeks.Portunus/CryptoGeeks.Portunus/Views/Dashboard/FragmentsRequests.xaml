@@ -37,6 +37,7 @@
                         </Grid.ColumnDefinitions>
                     </Grid>
 
+                    <Label   HorizontalOptions="Center"   x:Name="displayName"   Style="{StaticResource NormalText}" Text="To approve a fragment request click on it in the list below." Margin="10" ></Label>
 
                     <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
                     <ListView x:Name="KeysListView"   IsPullToRefreshEnabled="false"  SelectionMode="Single"  

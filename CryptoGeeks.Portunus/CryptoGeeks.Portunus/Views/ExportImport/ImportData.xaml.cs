@@ -53,7 +53,7 @@ namespace CryptoGeeks.Portunus.Views
                 secureStorage.StoreInSecureStorage(Constants.DisplayName, personalData[1]);
 
 
-                await this.Navigation.PushAsync(new Portunus.Views.Dashboard.Dashboard());
+                await this.Navigation.PushModalAsync(new NavigationPage(new Portunus.Views.Dashboard.Dashboard()));
             }
             catch(Exception ex)
             {

@@ -35,7 +35,7 @@
                         <Label Text="Fragments"  Grid.Row="2" Grid.Column="0" TextDecorations="Underline"    Style="{StaticResource SubTitleTextMinor}"></Label>
 
 
-                        <ListView  x:Name="FragmentsListView" Grid.Row="3"  Grid.ColumnSpan="2"   ItemsSource="{Binding Fragments}" IsPullToRefreshEnabled="False"  VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement" >
+                        <ListView  x:Name="FragmentsListView" Grid.Row="3"  Grid.ColumnSpan="2"   ItemsSource="{Binding fragments}" IsPullToRefreshEnabled="False"  VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement" >
                                                         
                             <ListView.ItemTemplate>
                                 <DataTemplate>

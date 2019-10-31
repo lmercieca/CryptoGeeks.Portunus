@@ -11,7 +11,9 @@ namespace CryptoGeeks.API
 {
     using System;
     using System.Collections.Generic;
-    
+    using Xamarin.Forms.Internals;
+
+    [Preserve(AllMembers = true)]
     public partial class Ping
     {
         public int Id { get; set; }

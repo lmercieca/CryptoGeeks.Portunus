@@ -19,7 +19,7 @@
 
              
 
-                    <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Enter the details you want others to see" Style="{StaticResource SubTitleTextMinor}"></Label>
+                    <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Enter the display name you want others to see" Style="{StaticResource SubTitleTextMinor}"></Label>
 
                     <Grid VerticalOptions="Center"  >
                         <Grid.RowDefinitions>
@@ -32,8 +32,8 @@
                         </Grid.ColumnDefinitions>
                     </Grid>
 
-                    <Label Text="Display Name" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>                    
-                    <Entry  x:Name="DisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}" Placeholder="Display Name"></Entry>
+                    <Label Text="Display Name" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
+                    <Entry  x:Name="DisplayName" Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalTextField}" Placeholder="Display Name"></Entry>
 
 
 

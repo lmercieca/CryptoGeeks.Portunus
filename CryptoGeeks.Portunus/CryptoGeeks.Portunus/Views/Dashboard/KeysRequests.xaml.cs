@@ -97,15 +97,16 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
                 GetKeyRequests_Result k = e.SelectedItem as GetKeyRequests_Result;
 
-                EntityService<Key> keyService = new EntityService<Key>();
-
+                EntityService<ObservableCollection<GetKeysForUser_Result>> entityService = new EntityService<ObservableCollection<GetKeysForUser_Result>>();
                 NameValueCollection parameters = new NameValueCollection();
-                parameters.Add("id", k.Id.ToString());
+                CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
+                parameters.Add("userId", secureStorage.GetFromSecureStorage(Constants.UserId));
+
+                ObservableCollection<GetKeysForUser_Result>  results = await entityService.Get(SettingsService.GetKeysForUser(), parameters);
+                GetKeysForUser_Result result = results.Where(x => x.Id == k.Id).FirstOrDefault();
 
 
-               Key key =  await  keyService.Get(SettingsService.GetKeyUrl(), parameters);
-
-                await Navigation.PushModalAsync(new NavigationPage(new KeyDetails(key)), true);
+                await Navigation.PushModalAsync(new NavigationPage(new KeyDetails(result)), true);
 
 
             }

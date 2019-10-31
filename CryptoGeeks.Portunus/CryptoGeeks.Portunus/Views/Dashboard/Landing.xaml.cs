@@ -24,7 +24,6 @@ namespace CryptoGeeks.Portunus
 
             this.Appearing += Landing_Appearing;
             NavigationPage.SetHasNavigationBar(this, false);
-
         }
 
         private async void Landing_Appearing(object sender, EventArgs e)
@@ -40,15 +39,16 @@ namespace CryptoGeeks.Portunus
 
             await Task.Delay(3000);
 
-            
-            string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
 
-            if (!string.IsNullOrEmpty(displayName))
+           string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
+
+           if (!string.IsNullOrEmpty(displayName))
             {
-                await this.Navigation.PushAsync(new Dashboard());
+                
+                await this.Navigation.PushModalAsync(new NavigationPage(new Dashboard()));
             }
             else
-                await this.Navigation.PushAsync(new Register());
+                await this.Navigation.PushModalAsync(new NavigationPage(new Register()));
         }
 
     }

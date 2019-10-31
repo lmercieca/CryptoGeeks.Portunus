@@ -39,12 +39,13 @@
                     
                     <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
                     <ListView x:Name="KeysListView"   IsPullToRefreshEnabled="false"  SelectionMode="None"  
-                             IsRefreshing="{Binding IsRefreshing}"  ItemsSource="{Binding Keys}"   VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
+                             IsRefreshing="{Binding IsRefreshing}"  ItemsSource="{Binding fragments}"   VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <Grid Padding="10,10,10,10">
-                                        <Label Text="{Binding User.DisplayName}"  Style="{StaticResource MinorNormalText}" />
+                                        <Label Text="{Binding Data}"  HorizontalTextAlignment="Center"
+                                               Style="{StaticResource MinorNormalText}" />
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

@@ -17,7 +17,7 @@
 
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical" >
 
-                    <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Export your details so it can be imported on another phone. You will need to provide a unique password for security purposes." Style="{StaticResource SubTitleTextMinor}"></Label>
+                    <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Import your details from an exported file. You will need to provide the unique password you entered while exporting for security purposes." Style="{StaticResource SubTitleTextMinor}"></Label>
 
                     <Grid   HorizontalOptions="FillAndExpand">
                         <Grid.RowDefinitions>

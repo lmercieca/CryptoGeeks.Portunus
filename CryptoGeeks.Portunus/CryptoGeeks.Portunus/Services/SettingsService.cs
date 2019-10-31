@@ -25,6 +25,21 @@ namespace CryptoGeeks.Portunus.Services
             return GetAPIBaseUrl() + "/Users/GetUserByName";
         }
 
+
+        public static string GetNewUser()
+        {
+            return GetAPIBaseUrl() + "/Users/GetNewUser";
+        }
+
+
+        
+
+        public static string GetDashboard()
+        {
+            return GetAPIBaseUrl() + "/Users/GetDashboard";
+        }
+
+
         public static string GetUserDetailsByName()
         {
             return GetAPIBaseUrl() + "/Users/GetUserDetailsByName";
@@ -44,6 +59,9 @@ namespace CryptoGeeks.Portunus.Services
         {
             return GetAPIBaseUrl() + "/Users/DeleteUser";
         }
+
+
+        
 
 
         public static string GetNewDisplayName()
@@ -91,8 +109,14 @@ namespace CryptoGeeks.Portunus.Services
         {
             return GetAPIBaseUrl() + "/Contacts/GetContactsForUser";
         }
-        
 
+        public static string GetContactsCountForUser()
+        {
+            return GetAPIBaseUrl() + "/Contacts/GetContactsCountForUser";
+        }
+
+
+        
         public static string PostContactUrl()
         {
             return GetAPIBaseUrl() + "/Contacts/PostContact";
@@ -130,7 +154,7 @@ namespace CryptoGeeks.Portunus.Services
         #region Fragments
         public static string GetAllFragmentsForKeyUrl()
         {
-            return GetAPIBaseUrl() + "/Fragments/GetContactsForUser";
+            return GetAPIBaseUrl() + "/Fragments/GetFragmentsForKey";
         }
 
         public static string PostFragmentUrl()
@@ -174,6 +198,11 @@ namespace CryptoGeeks.Portunus.Services
         public static string MarkFragmentAsSent()
         {
             return GetAPIBaseUrl() + "/KeyRequests/GetFragmentAsSent";
+        }
+
+        public static string MarkReqyestComplete()
+        {
+            return GetAPIBaseUrl() + "/KeyRequests/GetMarkReqyestComplete";
         }
 
         

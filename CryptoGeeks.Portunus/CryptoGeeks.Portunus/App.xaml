@@ -16,9 +16,9 @@
 
             <Color x:Key="DebugText">White</Color>
             <Color x:Key="DebugBackground">#1e1e24</Color>
+            <Color x:Key="TextFieldBgColor">White</Color>
 
 
-            
 
             <Style x:Key="SubTitleText" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#400" />
@@ -39,6 +39,15 @@
             </Style>
 
 
+            <Style x:Key="NormalTextField" TargetType="Label">
+                <Setter Property="FontFamily" Value="Nimbus Sans#400" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="{StaticResource BlueText}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource TextFieldBgColor }"/>
+            </Style>
+
+
+            
             <Style x:Key="MinorNormalText" TargetType="Label">
                 <Setter Property="FontFamily" Value="Nimbus Sans#400" />
                 <Setter Property="FontSize" Value="18" />

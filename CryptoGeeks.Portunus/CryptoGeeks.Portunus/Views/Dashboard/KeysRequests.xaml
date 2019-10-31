@@ -50,8 +50,8 @@
                                     <Grid Padding="10,10,10,10" x:Name="detailsGrid" BackgroundColor="{Binding color}" >
 
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="8*" />
-                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="6*" />
+                                            <ColumnDefinition Width="4*" />
                                         </Grid.ColumnDefinitions>
                                         
                                         <Label Text="{Binding DisplayName}" Grid.Column="0"  Style="{StaticResource MinorNormalText}" />
