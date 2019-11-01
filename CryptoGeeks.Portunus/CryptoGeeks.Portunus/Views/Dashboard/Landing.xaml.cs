@@ -39,8 +39,11 @@ namespace CryptoGeeks.Portunus
 
             await Task.Delay(3000);
 
+            //secureStorage.StoreInSecureStorage(Constants.DisplayName, "Malcchi");
+            //secureStorage.StoreInSecureStorage(Constants.UserId,"108");
 
-           string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
+
+            string displayName = secureStorage.GetFromSecureStorage(Constants.DisplayName);
 
            if (!string.IsNullOrEmpty(displayName))
             {

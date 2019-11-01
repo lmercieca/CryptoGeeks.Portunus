@@ -79,7 +79,7 @@ private static void TaskSchedulerOnUnobservedTaskException(object sender, Unobse
         // If there is an unhandled exception, the exception information is diplayed 
         // on screen the next time the app is started (only in debug configuration)
         /// </summary>
-       // [Conditional("DEBUG")]
+        [Conditional("DEBUG")]
         private void DisplayCrashReport()
         {
             const string errorFilename = "Fatal.log";

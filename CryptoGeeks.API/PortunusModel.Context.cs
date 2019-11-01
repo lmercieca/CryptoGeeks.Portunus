@@ -147,5 +147,14 @@ namespace CryptoGeeks.API
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFragmentsForKey_Result>("GetFragmentsForKey", keyIdParameter);
         }
+    
+        public virtual ObjectResult<GetKeyRequestsForKey_Result> GetKeyRequestsForKey(Nullable<int> keyId)
+        {
+            var keyIdParameter = keyId.HasValue ?
+                new ObjectParameter("keyId", keyId) :
+                new ObjectParameter("keyId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetKeyRequestsForKey_Result>("GetKeyRequestsForKey", keyIdParameter);
+        }
     }
 }

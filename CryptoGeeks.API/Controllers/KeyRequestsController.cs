@@ -31,9 +31,9 @@ namespace CryptoGeeks.API.Controllers
             return keyRequest;
         }
 
-        public IQueryable<KeyRequest> GetKeyRequestsForKey(int KeyId)
+        public List<GetKeyRequestsForKey_Result> GetKeyRequestsForKey(int KeyId)
         {
-            return db.KeyRequests.Where(x=>x.KeyID == KeyId);
+            return db.GetKeyRequestsForKey(KeyId).ToList();
         }
 
 

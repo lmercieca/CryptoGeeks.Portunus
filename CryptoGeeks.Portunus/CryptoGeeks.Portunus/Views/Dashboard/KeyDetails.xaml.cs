@@ -21,7 +21,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
     {
         GetKeysForUser_Result key;
         ObservableCollection<GetFragmentsForKey_Result> fragments = new ObservableCollection<GetFragmentsForKey_Result>();
-        ObservableCollection<KeyRequest> keyRequests = new ObservableCollection<KeyRequest>();
+        ObservableCollection<GetKeyRequestsForKey_Result> keyRequests = new ObservableCollection<GetKeyRequestsForKey_Result>();
 
         public KeyDetails()
         {
@@ -39,9 +39,9 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         }
 
 
-        private async Task<ObservableCollection<KeyRequest>> LoadKeyRequest()
+        private async Task<ObservableCollection<GetKeyRequestsForKey_Result>> LoadKeyRequest()
         {
-            EntityService<ObservableCollection<KeyRequest>> entityService = new EntityService<ObservableCollection<KeyRequest>>();
+            EntityService<ObservableCollection<GetKeyRequestsForKey_Result>> entityService = new EntityService<ObservableCollection<GetKeyRequestsForKey_Result>>();
             NameValueCollection parameters = new NameValueCollection();
             CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
             parameters.Add("keyId", key.Id.ToString());
@@ -99,7 +99,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
                 EntityService<KeyRequest> krServ = new EntityService<KeyRequest>();
 
-                foreach (KeyRequest kr in this.keyRequests)
+                foreach (GetKeyRequestsForKey_Result kr in this.keyRequests)
                 {
                     NameValueCollection parameters = new NameValueCollection();
                     parameters.Add("KeyId", kr.KeyID.ToString());

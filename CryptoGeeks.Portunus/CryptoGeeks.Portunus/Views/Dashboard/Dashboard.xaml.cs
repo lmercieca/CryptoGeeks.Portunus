@@ -59,7 +59,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             }
             catch (Exception ex)
             {
-                DisplayAlert("Bubu", ex.Message, "Yo, got you");
+                DisplayAlert("Error", ex.Message, "Yo, got you");
             }
 
         }
@@ -76,7 +76,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             btnFragments.Text = FragmentsText + Environment.NewLine + "(" + dashboard.Fragments.ToString() + " fragments stored)";
             btnFragRequests.Text = FragRequestsText + Environment.NewLine + "(" + dashboard.FragmentRequests.ToString() + " fragments return request)";
 
-            uint timeout = 550;
+            uint timeout = 1000;
 
             btnRequests.IsVisible = dashboard.KeyRequests > 0;
             btnFragments.IsVisible = dashboard.Fragments > 0;
@@ -92,10 +92,6 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                 {
                     while (true)
                     {
-                        await btnConatcts.ScaleTo(1.05, timeout, Easing.CubicInOut);
-                        await btnConatcts.ScaleTo(1, timeout, Easing.CubicInOut);
-                        await btnConatcts.ScaleTo(1.05, timeout, Easing.CubicInOut);
-                        await btnConatcts.ScaleTo(1, timeout, Easing.CubicInOut);
                         await btnConatcts.ScaleTo(1.05, timeout, Easing.CubicInOut);
                         await btnConatcts.ScaleTo(1, timeout, Easing.CubicInOut);
                     }
