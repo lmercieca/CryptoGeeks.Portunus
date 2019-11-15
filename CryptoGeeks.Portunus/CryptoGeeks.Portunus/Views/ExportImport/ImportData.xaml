@@ -31,7 +31,7 @@
                     </Grid>
 
                     <Label Text="Raw data" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalText}"></Label>
-                    <Controls:PortunusEntry  x:Name="txtData"   Placeholder="Data" Grid.Column="1" Grid.Row="0" Style="{StaticResource NormalText}" ></Controls:PortunusEntry>
+                    <Button x:Name="btnGetFile"  Grid.Column="1" Grid.Row="0" Style="{StaticResource OrangeButton}" Clicked="BtnGetFile_Clicked" Text="Select File"></Button>
 
                     
                     <Label Text="Enter a password you used to secure your data." Grid.Column="0" Grid.Row="1" Style="{StaticResource NormalText}"></Label>

@@ -59,7 +59,7 @@ namespace CryptoGeeks.API.Controllers
 
         // PUT: api/Contacts/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutContact(int id, Contact contact)       
+        public async Task<IHttpActionResult> PutContact(int id, Contact contact)
         {
             if (!ModelState.IsValid)
             {
@@ -101,8 +101,14 @@ namespace CryptoGeeks.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Contacts.Add(contact);
-            await db.SaveChangesAsync();
+
+            bool exist = db.Contacts.Where(c => c.ContactID == contact.ContactID && c.UserID == contact.UserID).Count() > 0 ;
+
+            if (!exist)
+            {
+                db.Contacts.Add(contact);
+                await db.SaveChangesAsync();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = contact.ID }, contact);
         }

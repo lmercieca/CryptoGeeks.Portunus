@@ -23,17 +23,18 @@ using Xamarin.Forms.Xaml;
 namespace CryptoGeeks.Portunus.Views.AddKey
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddEntry : TabbedPage
+    public partial class AddEntry : ContentPage
     {
         //ItemListViewModel itemListViewModel;
         MultiSelectObservableCollection<GetContactsForUser_Result> contacts;
-      
+
+
         public AddEntry()
         {
             InitializeComponent();
 
             ContactService cs = new ContactService();
-            
+
             //itemListViewModel = new ItemListViewModel();
 
             this.Appearing += AddContact_Appearing;
@@ -42,9 +43,14 @@ namespace CryptoGeeks.Portunus.Views.AddKey
 
         }
 
+
         private async void AddContact_Appearing(object sender, EventArgs e)
         {
             base.OnAppearing();
+
+
+            MainTab.IsVisible = true;
+            ContactsTab.IsVisible = false;
 
             await LoadData();
         }
@@ -101,31 +107,79 @@ namespace CryptoGeeks.Portunus.Views.AddKey
 
         private async void BtnNext_Clicked(object sender, EventArgs e)
         {
-            int contactsCount = await GetContacts();
+            btnNext.IsEnabled = false;
 
-            if (int.Parse(txtRecoverNo.Text) > contactsCount)
-            {               
-                if (await DisplayAlert("Add key", "You only have " + contactsCount + " contacts linked. Would you like to add more contacts?.", "Yes", "No"))
+
+
+            if (IsFormValid())
+            {
+                bool correctFragValue = int.Parse(txtRecoverNo.Text) > 0;
+
+                if (!correctFragValue)
                 {
-                    await Navigation.PushModalAsync(new NavigationPage(new AddContact.AddContact()));
+                    await DisplayAlert("Add key", "You must have at least 1 fragment or more.", "OK");
+
+                    btnNext.IsEnabled = true;
+                    return;
                 }
-                else
+
+                int contactsCount = await GetContacts();
+
+                if (int.Parse(txtRecoverNo.Text) > contactsCount)
                 {
-                    await Navigation.PopModalAsync(true);
+                    if (await DisplayAlert("Add key", "You only have " + contactsCount + " contacts linked. Would you like to add more contacts?.", "Yes", "No"))
+                    {
+                        await Navigation.PushModalAsync(new NavigationPage(new AddContact.AddContact()));
+                    }
+                    else
+                    {
+                        await Navigation.PopModalAsync(true);
+                    }
                 }
+
+
+                this.MainTab.IsVisible = false;
+                this.ContactsTab.IsVisible = true;
+
+                await scrollView.ScrollToAsync(0, 0, true);
+
+            }
+            else
+
+            {
+                await DisplayAlert("Add key", "All fields are required.", "OK");
+
+                btnNext.IsEnabled = true;
+                return;
             }
 
-            this.CurrentPage = this.Children[1];
+            btnNext.IsEnabled = true;
+        }
+
+        private bool IsFormValid()
+        {
+            return (IsFieldValid(txtDisplayName) &&
+                IsFieldValid(txtKey) &&
+                IsFieldValid(txtRecoverNo));
+
+
+        }
+
+        private bool IsFieldValid(Portunus.Controls.PortunusEntry entry)
+        {
+            return !string.IsNullOrEmpty(entry.Text);
         }
 
         private async void BtnDone_Clicked(object sender, EventArgs e)
         {
             try
             {
-                if (contacts.Where(x => x.IsSelected).Count() < int.Parse(txtRecoverNo.Text))
-                {
-                    await DisplayAlert("Add key", "You need to have more contacts than the minimum number of pieces to recover the message.", "OK");
+                btnDone.IsEnabled = false;
 
+                if (contacts.Where(x => x.IsSelected).Count() < int.Parse(txtRecoverNo.Text.Trim()))
+                {
+                    await DisplayAlert("Add key", "You need to select at least " + txtRecoverNo.Text + " contacts or more to proceed.", "OK");
+                    btnDone.IsEnabled = true;
                     return;
                 }
 
@@ -146,28 +200,28 @@ namespace CryptoGeeks.Portunus.Views.AddKey
                     Fragments = new List<Fragment>()
                 };
 
-               
+
                 string[] frags = SecretSplitter.SplitMessage(apiKey.Data, apiKey.RecoverNo.Value, apiKey.Split);
                 int cnt = 0;
 
                 foreach (SelectableItem<GetContactsForUser_Result> selContact in selectedContacts)
                 {
-                    Fragment frag =             new Fragment()
+                    Fragment frag = new Fragment()
                     {
                         FragmentHolder = selContact.Data.DisplayName,
                         Data = frags[cnt],
                         SentToHolder = true,
                         SentToOwner = false,
-                        Owner = selContact.Data.UserId                      
+                        Owner = selContact.Data.UserId
                     };
 
-                    
+
                     apiKey.Fragments.Add(frag);
                     cnt++;
                 }
 
                 EntityService<Key> keyService = new EntityService<Key>();
-                await keyService.Add(SettingsService.PostKeyUrl(),apiKey);
+                await keyService.Add(SettingsService.PostKeyUrl(), apiKey);
 
 
                 await DisplayAlert("Add key", "Key successfully added.", "OK");
@@ -178,6 +232,15 @@ namespace CryptoGeeks.Portunus.Views.AddKey
                 await DisplayAlert("Add key error", ex.Message, "OK");
 
             }
+
+            btnDone.IsEnabled = true;
         }
+
+        private async void BtnCancel_Clicked(object sender, EventArgs e)
+        {
+
+            await Navigation.PopModalAsync(true);
+        }
+
     }
 }

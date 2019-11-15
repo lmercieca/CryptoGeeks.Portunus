@@ -1,10 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Text;
 
 namespace CryptoGeeks.Portunus.Services
 {
+    public static class ExtensionMethod
+    {
+        public static ObservableCollection<T> ToObservableCollection<T>
+      (this IEnumerable<T> en)
+        {
+            return new ObservableCollection<T>(en);
+        }
+    }
+
     public class Helper
     {
         public string GetCompleteUrl(string baseUrl, NameValueCollection parameters)

@@ -43,18 +43,22 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
             CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
             parameters.Add("userId", secureStorage.GetFromSecureStorage(Constants.UserId));
-            ObservableCollection<GetContactsForUser_Result> result =  await entityService.Get(SettingsService.GetAllForUserUrl(), parameters);
+            ObservableCollection<GetContactsForUser_Result> result = await entityService.Get(SettingsService.GetAllForUserUrl(), parameters);
 
             return result;
         }
 
-        public async void BindData()
+        public async Task<string> BindData()
         {
+            BindingContext = null;
+            KeysListView.ItemsSource = null;
+
             contacts = await GetContacts();
             BindingContext = contacts;
             KeysListView.ItemsSource = contacts; ;
 
-      
+            return await Task.FromResult("");
+
         }
         public Contacts()
         {
@@ -62,9 +66,9 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
                 InitializeComponent();
 
-                this.Appearing += Contacts_Appearing;               
+                this.Appearing += Contacts_Appearing;
 
-                
+
             }
             catch (Exception ex)
             {
@@ -72,23 +76,9 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             }
         }
 
-        private void Contacts_Appearing(object sender, EventArgs e)
+        private async void Contacts_Appearing(object sender, EventArgs e)
         {
-            NavigationPage.SetHasNavigationBar(this, false);
-            contacts = new ObservableCollection<GetContactsForUser_Result>();
-
-            BindData();
-
-            KeysListView.RefreshCommand = new Command(async () =>
-            {
-                contacts = await GetContacts();
-
-                KeysListView.ItemsSource = contacts;
-                KeysListView.IsRefreshing = false;
-                KeysListView.EndRefresh();
-            });
-
-            KeysListView.IsRefreshing = false;
+            await BindData();
         }
 
         private void BtnAdd_Clicked(object sender, EventArgs e)
@@ -125,23 +115,21 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
         {
             try
             {
-
+                KeysListView.BeginRefresh();
 
                 if (string.IsNullOrWhiteSpace(e.NewTextValue))
                 {
-                    ObservableCollection<GetContactsForUser_Result> contacts = await GetContacts();
-
-                    KeysListView.ItemsSource = contacts.Where(c=> c.DisplayName.ToLower().Contains(e.NewTextValue.ToLower()));
+                    contacts = await GetContacts();
+                    KeysListView.ItemsSource = contacts;
                 }
                 else
                 {
                     // ContactsListView.ItemsSource = _container.Employees.Where(i => i.Name.Contains(e.NewTextValue));                
-                    var result = contacts.Where(i => i.DisplayName.ToLower().Contains(e.NewTextValue.ToLower()));
+                    ObservableCollection<GetContactsForUser_Result> result = contacts.Where(i => i.DisplayName.ToLower().Contains(e.NewTextValue.ToLower())).ToObservableCollection();
                     KeysListView.ItemsSource = result;
-
-
                 }
 
+                KeysListView.EndRefresh();
 
             }
             catch (Exception ex)
@@ -152,12 +140,22 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
 
         private void ImgBtnRemove_Clicked(object sender, EventArgs e)
         {
+            KeysListView.BeginRefresh();
+
+
             GetContactsForUser_Result cnt = ((ImageButton)sender).BindingContext as GetContactsForUser_Result;
 
             EntityService<GetContactsForUser_Result> service = new EntityService<GetContactsForUser_Result>();
             service.Delete(SettingsService.DeleteContactUrl(), cnt.ID);
 
-            BindData();
+            contacts = KeysListView.ItemsSource as ObservableCollection<GetContactsForUser_Result>;
+            contacts.Remove(cnt);
+         
+
+         
+            KeysListView.ItemsSource = contacts; ;
+           // BindData();
+            KeysListView.EndRefresh();
         }
 
         private void BtnAddContacts_Clicked(object sender, EventArgs e)

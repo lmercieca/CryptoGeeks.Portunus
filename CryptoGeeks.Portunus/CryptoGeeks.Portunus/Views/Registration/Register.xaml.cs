@@ -9,7 +9,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,14 +19,14 @@ namespace CryptoGeeks.Portunus.Views.Registration
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Register : ContentPage
 	{
-        SecureStorage secureStorage = new SecureStorage();
+        Common.SecureStorage secureStorage = new Common.SecureStorage();
         ContactService cs = new ContactService();
 
         public Register ()
 		{
 			InitializeComponent ();
 
-        
+            this.BindingContext = new ViewModel();
 
         }
         private async Task<bool> DisplayNameExists(string displayName)
@@ -35,6 +36,13 @@ namespace CryptoGeeks.Portunus.Views.Registration
             
             return result;
         }
+
+
+        public ICommand ClickCommand => new Command<string>((url) =>
+        {
+            Device.OpenUri(new System.Uri(url));
+        });
+
 
         private async void BtnAgree_Clicked(object sender, EventArgs e)
         {
@@ -72,5 +80,21 @@ namespace CryptoGeeks.Portunus.Views.Registration
 
             btnAgree.IsEnabled = true;
         }
+
+        private void BtnViewContract_Clicked(object sender, EventArgs e)
+        {
+            string url = "https://www.portunus.ai/terms";
+            Browser.OpenAsync(new System.Uri(url), BrowserLaunchMode.SystemPreferred);
+        }
+    }
+
+    public class ViewModel
+    {
+        public ICommand ClickCommand => new Command<string>((url) =>  
+        {
+
+            Browser.OpenAsync(new System.Uri(url), BrowserLaunchMode.SystemPreferred);
+
+        });
     }
 }

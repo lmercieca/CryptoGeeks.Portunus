@@ -14,10 +14,8 @@
         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Vertical" >
             <SearchBar Placeholder="Search..." BackgroundColor="White"  TextColor="{StaticResource BlueText}" TextChanged="SearchBar_OnTextChanged"></SearchBar>
 
-
-           
-            <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
-            <ListView x:Name="ContactsListView" SelectionMode="None"  lv:MultiSelect.Enable="false" IsPullToRefreshEnabled="True" ItemSelected="ContactsListView_ItemSelected"   ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
+                <!--<ListView x:Name="ContactsListView" IsPullToRefreshEnabled="True" Refreshing="EmployeeListView_OnRefreshing" ItemTapped="EmployeeListView_OnItemTapped" ItemsSource="{Binding Contacts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement">-->
+            <ListView x:Name="ContactsListView" SelectionMode="None" IsPullToRefreshEnabled="True" ItemSelected="ContactsListView_ItemSelected"   VerticalOptions="FillAndExpand"  CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -28,7 +26,7 @@
                                 </Grid.ColumnDefinitions>
 
 
-                                <Label Text="{Binding DisplayName}" VerticalTextAlignment="Center"  Grid.Column="0" Style="{StaticResource MinorNormalText}" />
+                                <Label  Text="{Binding DisplayName}" VerticalTextAlignment="Center"  Grid.Column="0" Style="{StaticResource MinorNormalText}" />
                                 <ImageButton Source="add.png" BackgroundColor="Transparent" x:Name="imgBtnAdd" Clicked="ImgBtnAdd_Clicked"  Grid.Column="1"></ImageButton>
                             </Grid>
                         </ViewCell>

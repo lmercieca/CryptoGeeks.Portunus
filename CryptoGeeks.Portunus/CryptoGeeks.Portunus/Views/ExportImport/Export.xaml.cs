@@ -34,7 +34,7 @@ namespace CryptoGeeks.Portunus.Views.ExportImport
         {
             try
             {
-                if (txtPassword.Text.Trim().Length == 0)
+                if (txtPassword.Text == null || txtPassword.Text.Trim().Length == 0)
                 {
                     await DisplayAlert("Export", "Password cannot be left empty", "OK");
                     return;
@@ -54,9 +54,9 @@ namespace CryptoGeeks.Portunus.Views.ExportImport
 
                 await Navigation.PopModalAsync(true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                await DisplayAlert("Export Issue", ex.Message, "OK");
+                await DisplayAlert("There was an issue while exporting the file.", ex.Message, "OK");
 
             }
 
@@ -84,7 +84,7 @@ namespace CryptoGeeks.Portunus.Views.ExportImport
         {
             try
             {
-                var documents = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments,Environment.SpecialFolderOption.Create);
+                var documents = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments, Environment.SpecialFolderOption.Create);
                 var filename = Path.Combine(documents, "keys.ptn");
 
 

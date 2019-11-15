@@ -19,9 +19,14 @@ using Xamarin.Forms.Xaml;
 
 namespace CryptoGeeks.Portunus.Views.AddContact
 {
+
+   
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddContact : ContentPage
     {
+       
+
         ObservableCollection<GetAvailableContactsForUser_Result> contacts;
 
         public AddContact()
@@ -34,7 +39,7 @@ namespace CryptoGeeks.Portunus.Views.AddContact
 
             btnDone.IsVisible = false;
 
-          
+
         }
 
         private async Task<ObservableCollection<GetAvailableContactsForUser_Result>> LoadUsersData()
@@ -74,42 +79,57 @@ namespace CryptoGeeks.Portunus.Views.AddContact
         {
             ContactsListView.BeginRefresh();
 
+
             if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
                 ContactsListView.ItemsSource = contacts;
 
-                if (contacts.Count() == 0)
-                    btnDone.IsVisible = false;
-                else
+                /*                if (contacts.Count() == 0)
+                                    btnDone.IsVisible = false;
+                                else
 
-                    btnDone.IsVisible = true;
+                                    btnDone.IsVisible = true;*/
             }
             else
             {
                 // ContactsListView.ItemsSource = _container.Employees.Where(i => i.Name.Contains(e.NewTextValue));                
-                var result = contacts.Where(i => i.DisplayName.ToLower().Contains(e.NewTextValue.ToLower()));
+                var result = contacts.Where(i => i.DisplayName.ToLower().Contains(e.NewTextValue.ToLower())).ToObservableCollection();
+
                 ContactsListView.ItemsSource = result;
-                
-                if (result.Count() == 0)
-                    btnDone.IsVisible = false;
-                else
-                    btnDone.IsVisible = true;
+                /*     if (result.Count() == 0)
+                     btnDone.IsVisible = false;
+                 else
+                     btnDone.IsVisible = true;*/
             }
 
             ContactsListView.EndRefresh();
+
         }
 
         private async void ImgBtnAdd_Clicked(object sender, EventArgs e)
         {
             try
             {
+                ContactsListView.BeginRefresh();
+
                 GetAvailableContactsForUser_Result cnt = ((ImageButton)sender).BindingContext as GetAvailableContactsForUser_Result;
 
-            await AddNewContact(cnt);
+                ContactsListView.BeginRefresh();
+
+                contacts = ContactsListView.ItemsSource as ObservableCollection<GetAvailableContactsForUser_Result>;
 
                 contacts.Remove(cnt);
+                //  ContactsListView.EndRefresh();
 
-            //await BindData();
+                ContactsListView.ItemsSource = contacts; ;
+
+
+                await AddNewContact(cnt);
+
+
+
+                //await BindData();
+                ContactsListView.EndRefresh();
             }
             catch (Exception ex)
             {
@@ -118,7 +138,7 @@ namespace CryptoGeeks.Portunus.Views.AddContact
         }
 
         private async Task<string> AddNewContact(GetAvailableContactsForUser_Result cnt)
-        {           
+        {
 
             EntityService<Contact> entityService = new EntityService<Contact>();
             SecureStorage secureStorage = new SecureStorage();
@@ -155,11 +175,12 @@ namespace CryptoGeeks.Portunus.Views.AddContact
 
                 await AddNewContact(cnt);
 
+
                 await BindData();
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message,"Ok");
+                await DisplayAlert("Error", ex.Message, "Ok");
             }
         }
     }

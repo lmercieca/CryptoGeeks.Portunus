@@ -17,7 +17,7 @@
 
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Fill" Spacing="20" Padding="20,0,20,20" >
 
-             
+
 
                     <Label HorizontalOptions="Center" VerticalOptions="Center"   Text="Enter the display name you want others to see" Style="{StaticResource SubTitleTextMinor}"></Label>
 
@@ -37,23 +37,28 @@
 
 
 
-                    <StackLayout Orientation="Horizontal"  Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,20">
+                    <StackLayout Orientation="Horizontal"  Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
                         <Switch x:Name="cbAgreement" IsToggled="False" BackgroundColor="Transparent" OnColor="White" />
 
                         <Label Style="{StaticResource NormalTextOrange}" VerticalOptions="Center" >
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Agree to the "  Style="{StaticResource NormalText}"/>
-                                    <Span Text="terms and conditions " FontAttributes="Bold" Style="{StaticResource NormalTextOrange}"/>
-                                    <Span Text="." Style="{StaticResource NormalText}" />
+                                    <Span Text="Agree to the "  Style="{StaticResource NormalText}">
+
+                                    </Span>
+                                    <Span Text="terms and conditions " FontAttributes="Bold" Style="{StaticResource NormalText}">
+
+                                    </Span>
+                                    <Span Text="." Style="{StaticResource NormalText}" >
+                                    </Span>
 
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-
                     </StackLayout>
 
-                    <Button Text="Agree and Continue" x:Name="btnAgree" Style="{StaticResource NormalButton}" Clicked="BtnAgree_Clicked"></Button>
+                    <Button x:Name="btnViewContract"  Grid.Column="1" Grid.Row="2" Text="View terms" Style="{StaticResource NormalButton}" Clicked="BtnViewContract_Clicked"></Button>
+                    <Button Text="Agree and Continue" Grid.Column="0" Grid.Row="3"  Grid.ColumnSpan="2" x:Name="btnAgree" Style="{StaticResource OrangeButton}" Clicked="BtnAgree_Clicked"></Button>
 
                 </StackLayout>
             </StackLayout>

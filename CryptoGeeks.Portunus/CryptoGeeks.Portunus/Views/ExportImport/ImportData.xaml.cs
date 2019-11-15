@@ -1,6 +1,8 @@
 ﻿using CryptoGeeks.Portunus.Helpers;
 //using CryptoGeeks.Portunus.Models;
 using Newtonsoft.Json;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,9 +21,18 @@ namespace CryptoGeeks.Portunus.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ImportData : ContentPage
     {
+        FileData filePath = null;
+
         public ImportData()
         {
             InitializeComponent();
+
+            this.Appearing += ImportData_Appearing;
+        }
+
+        private void ImportData_Appearing(object sender, EventArgs e)
+        {
+            filePath = null;
         }
 
         private async void BtnCancel_Clicked(object sender, EventArgs e)
@@ -34,12 +45,22 @@ namespace CryptoGeeks.Portunus.Views
         {
             try
             {
-                if (txtPassword.Text.Trim().Length == 0)
+                if (txtPassword.Text == null || txtPassword.Text.Trim().Length == 0)
+
                 {
                     await DisplayAlert("Export", "Password cannot be left empty", "OK");
                     return;
                 }
-                string data = txtData.Text;
+
+                if (filePath == null)
+                 {
+                     await DisplayAlert("Export", "Please select the file to import", "OK");
+                     return;
+                 }
+
+
+                string data =  System.Text.Encoding.UTF8.GetString(filePath.DataArray);
+
                 CryptoGeeks.Common.SecureStorage secureStorage = new CryptoGeeks.Common.SecureStorage();
 
                 SecurityHelper securityHelper = new SecurityHelper();
@@ -57,14 +78,27 @@ namespace CryptoGeeks.Portunus.Views
             }
             catch(Exception ex)
             {
-                await DisplayAlert("Export Issue", ex.Message, "OK");
+                await DisplayAlert("There was an error while importing the file. Please ensure the file is correct.", ex.Message, "OK");
 
             }
 
         }
 
+        private async  void BtnGetFile_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] allowedExtensions = new string[] { "ptn" };
+                filePath = await CrossFilePicker.Current.PickFile(allowedExtensions);
+
+                if (filePath != null)
+                    btnGetFile.Text = "Change file";
+            }catch(Exception ex)
+            {
+                await DisplayAlert("There was an error while importing the file. Please ensure the file is correct.", ex.Message, "OK");
 
 
-
+            }
+        }
     }
 }
