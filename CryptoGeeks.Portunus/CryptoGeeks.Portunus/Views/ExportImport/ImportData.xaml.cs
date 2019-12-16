@@ -12,9 +12,6 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using ZXing;
-using ZXing.Net.Mobile.Forms;
-using ZXing.QrCode;
 
 namespace CryptoGeeks.Portunus.Views
 {
@@ -32,7 +29,7 @@ namespace CryptoGeeks.Portunus.Views
 
         private void ImportData_Appearing(object sender, EventArgs e)
         {
-            filePath = null;
+            //filePath = null;
         }
 
         private async void BtnCancel_Clicked(object sender, EventArgs e)

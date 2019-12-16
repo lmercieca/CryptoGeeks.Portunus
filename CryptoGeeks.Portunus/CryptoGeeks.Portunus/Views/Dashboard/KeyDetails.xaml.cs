@@ -59,7 +59,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                 FragmentsListView.ItemsSource = this.fragments;
                 FragmentsListView.HeightRequest = (this.fragments.Count() * 100) / 2;
 
-                bool pendingKeys = this.fragments.Where(x => x.SentToOwner == false).Count() >= key.RecoverNo;
+                bool pendingKeys = this.fragments.Where(x => x.SentToOwner == true ).Count() >= key.RecoverNo;
 
                 if (!pendingKeys)
                     btnRecover.Text = "View";

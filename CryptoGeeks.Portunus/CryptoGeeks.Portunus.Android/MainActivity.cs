@@ -34,14 +34,13 @@ namespace CryptoGeeks.Portunus.Droid
 
             LoadApplication(new App());
 
-            ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            
             BackgroundAggregator.Init(this);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
+            
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);

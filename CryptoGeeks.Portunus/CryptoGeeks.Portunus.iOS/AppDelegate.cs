@@ -25,12 +25,11 @@ namespace CryptoGeeks.Portunus.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
-            ZXing.Net.Mobile.Forms.iOS.Platform.Init();
-               BackgroundAggregator.Init(this);
+            BackgroundAggregator.Init(this);
 
 
             LoadApplication(new App());
-         
+
             return base.FinishedLaunching(app, options);
         }
     }
