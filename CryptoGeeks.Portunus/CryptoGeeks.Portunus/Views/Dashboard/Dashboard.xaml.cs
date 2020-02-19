@@ -88,14 +88,14 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
                 btnConatcts.BackgroundColor = Color.FromHex("#FCA809");
 
-                new Thread(async () =>
+                /*new Thread(async () =>
                 {
                     while (true)
                     {
                         await btnConatcts.ScaleTo(1.05, timeout, Easing.CubicInOut);
                         await btnConatcts.ScaleTo(1, timeout, Easing.CubicInOut);
                     }
-                }).Start();
+                }).Start();*/
             }
 
 
@@ -104,7 +104,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
 
                 btnFragRequests.BackgroundColor = Color.FromHex("#FCA809");
-                new Thread(async () =>
+                /*new Thread(async () =>
                 {
                     while (true)
                     {
@@ -115,7 +115,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                         await btnFragRequests.ScaleTo(1.05, timeout, Easing.CubicInOut);
                         await btnFragRequests.ScaleTo(1, timeout, Easing.CubicInOut);
                     }
-                }).Start();
+                }).Start();*/
             }
 
 
@@ -123,7 +123,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
             {
 
                 btnRequests.BackgroundColor = Color.FromHex("#FCA809");
-                new Thread(async () =>
+                /*new Thread(async () =>
                 {
                     while (true)
                     {
@@ -134,7 +134,7 @@ namespace CryptoGeeks.Portunus.Views.Dashboard
                         await btnRequests.ScaleTo(1.05, timeout, Easing.CubicInOut);
                         await btnRequests.ScaleTo(1, timeout, Easing.CubicInOut);
                     }
-                }).Start();
+                }).Start();*/
             }
 
         }

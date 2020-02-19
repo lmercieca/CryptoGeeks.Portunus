@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CryptoGeeks.Portunus.Views.Dashboard.Contacts"
                BackgroundColor="{StaticResource NormalBackground}"
-    Title="List of all your keys">
+    Title="List of all your contacts">
 
 
 
